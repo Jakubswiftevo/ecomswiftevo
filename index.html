@@ -324,112 +324,40 @@
             margin-top: 0.15rem;
         }
 
-        /* ===== OFFER CATEGORIES ===== */
-        .offer-categories {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        @media(min-width: 900px) {
-            .offer-categories { grid-template-columns: 1fr 1fr 1fr; }
-        }
-
-        .offer-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            padding: 2.5rem 2rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .offer-card:hover {
-            border-color: rgba(59,130,246,0.3);
-            background: rgba(59,130,246,0.03);
-            transform: translateY(-2px);
-        }
-
-        .offer-card-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .offer-card-icon svg {
-            width: 24px;
-            height: 24px;
-            stroke: currentColor;
-            stroke-width: 1.5;
-            fill: none;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .offer-card-icon.green {
-            background: rgba(34,197,94,0.1);
-            border: 1px solid rgba(34,197,94,0.2);
-            color: #22c55e;
-        }
-
-        .offer-card-icon.blue {
-            background: rgba(59,130,246,0.1);
-            border: 1px solid rgba(59,130,246,0.2);
-            color: #3b82f6;
-        }
-
-        .offer-card-icon.amber {
-            background: rgba(245,158,11,0.1);
-            border: 1px solid rgba(245,158,11,0.2);
-            color: #f59e0b;
-        }
-
-        .offer-card h3 {
-            font-size: 1.2rem;
+        /* ===== FEATURE BLOCK ENHANCED ===== */
+        .feature-block .sub-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.3);
+            margin-top: 1.5rem;
             margin-bottom: 0.5rem;
-            letter-spacing: -0.02em;
         }
 
-        .offer-card .offer-subtitle {
-            color: rgba(255,255,255,0.35);
-            font-size: 0.8rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .offer-card .offer-items {
-            list-style: none;
-        }
-
-        .offer-card .offer-items li {
-            color: rgba(255,255,255,0.55);
+        .feature-block .effect-text {
+            color: rgba(255,255,255,0.4);
             font-size: 0.85rem;
-            padding: 0.5rem 0;
-            padding-left: 1.25rem;
-            position: relative;
+            line-height: 1.7;
+        }
+
+        .stat-item {
+            padding: 1.25rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
-        .offer-card .offer-items li:last-child { border-bottom: none; }
+        .stat-item:last-child { border-bottom: none; }
 
-        .offer-card .offer-items li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(59,130,246,0.4);
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #fff;
+            line-height: 1.2;
         }
 
-        .offer-card.green .offer-items li::before { background: rgba(34,197,94,0.4); }
-        .offer-card.amber .offer-items li::before { background: rgba(245,158,11,0.4); }
+        .stat-value.green { color: #22c55e; }
+        .stat-value.blue { color: #3b82f6; }
+        .stat-value.amber { color: #f59e0b; }
 
         /* ===== ICONS ROW (jak to działa) ===== */
         .process-section {
@@ -1012,57 +940,103 @@
         <div class="container">
             <div class="module-header gs">
                 <div class="section-label">Co robimy?</div>
-                <h2>3 problemy e-commerce.<br>15 automatyzacji, które je rozwiązują.</h2>
+                <h2>3 problemy e-commerce. 15 automatyzacji, które je rozwiązują.</h2>
                 <p>Nie sprzedajemy technologii. Rozwiązujemy problemy, które kosztują Cię pieniądze każdego dnia.</p>
             </div>
 
-            <div class="offer-categories gs">
-                <!-- CARD 1 -->
-                <div class="offer-card green">
-                    <div class="offer-card-icon green">
-                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                    </div>
+            <!-- BLOCK 1: Sprzedaż -->
+            <div class="feature-block gs">
+                <div>
+                    <div class="feature-label">Kategoria 1</div>
                     <h3>Odzyskaj utraconą sprzedaż</h3>
-                    <p class="offer-subtitle">Dla sklepów które tracą klientów i przychód — często nawet o tym nie wiedząc.</p>
-                    <ul class="offer-items">
-                        <li>Odzysk porzuconych koszyków</li>
-                        <li>Przypomnienia o powtórnym zakupie</li>
-                        <li>Automatyczne zbieranie opinii</li>
-                        <li>AI opisy produktów i SEO</li>
-                        <li>Alerty bestsellerów i trendów</li>
+                    <p class="desc">Każdy sklep traci 60–80% koszyków. Klienci kupują raz i nie wracają. Opinie nie zbierają się same. Rozwiązujemy to automatycznie.</p>
+                    <ul class="feature-list">
+                        <li>Odzysk porzuconych koszyków — email i SMS sekwencja</li>
+                        <li>Przypomnienia o powtórnym zakupie po 30/60/90 dniach</li>
+                        <li>Automatyczne zbieranie opinii po dostawie</li>
+                        <li>AI generowanie opisów produktów i SEO meta</li>
+                        <li>Alerty bestsellerów i trendów sprzedażowych</li>
                     </ul>
+                    <div class="sub-label">Efekt</div>
+                    <p class="effect-text">Odzyskujesz przychód, który dziś leży na stole. Klienci wracają kupować ponownie. Opinie budują zaufanie i konwersję. Wszystko działa automatycznie, bez Twojego udziału.</p>
                 </div>
-
-                <!-- CARD 2 -->
-                <div class="offer-card">
-                    <div class="offer-card-icon blue">
-                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <div class="stat-value green">60–80%</div>
+                        <div class="stat-desc">koszyków jest porzucanych — odzyskujemy część z nich automatycznie</div>
                     </div>
+                    <div class="stat-item">
+                        <div class="stat-value green">5–15%</div>
+                        <div class="stat-desc">wzrost przychodów z odzyskanych koszyków i powracających klientów</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value green">10–25%</div>
+                        <div class="stat-desc">więcej powracających zamówień dzięki automatycznym przypomnieniom</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCK 2: Support -->
+            <div class="feature-block gs">
+                <div>
+                    <div class="feature-label">Kategoria 2</div>
                     <h3>Zautomatyzuj obsługę klienta</h3>
-                    <p class="offer-subtitle">Dla sklepów gdzie support zjada czas zespołu — te same pytania, każdego dnia.</p>
-                    <ul class="offer-items">
-                        <li>AI klasyfikacja i odpowiedzi na maile</li>
-                        <li>Powiadomienia o statusie zamówienia</li>
-                        <li>Automatyczne alerty opóźnień</li>
-                        <li>Automatyzacja zwrotów i reklamacji</li>
-                        <li>Automatyczne FAQ z pytań klientów</li>
+                    <p class="desc">80% pytań to: „gdzie jest paczka?", „chcę zwrot", „zmiana adresu". Te same tematy, każdego dnia. AI odpowiada w sekundy zamiast w godziny.</p>
+                    <ul class="feature-list">
+                        <li>AI klasyfikacja i odpowiedzi na maile klientów</li>
+                        <li>Automatyczne powiadomienia o statusie zamówienia</li>
+                        <li>Alerty opóźnień i problemów z dostawą</li>
+                        <li>Automatyzacja procesu zwrotów i reklamacji</li>
+                        <li>Automatyczne budowanie FAQ z pytań klientów</li>
                     </ul>
+                    <div class="sub-label">Efekt</div>
+                    <p class="effect-text">Support pracuje sam. Klienci dostają odpowiedzi natychmiast. Twój zespół zajmuje się tylko trudnymi sprawami. Mniej chaosu, szybsza reakcja, zadowoleni klienci.</p>
                 </div>
-
-                <!-- CARD 3 -->
-                <div class="offer-card amber">
-                    <div class="offer-card-icon amber">
-                        <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <div class="stat-value blue">60–80%</div>
+                        <div class="stat-desc">ticketów supportu zautomatyzowanych — bez udziału człowieka</div>
                     </div>
+                    <div class="stat-item">
+                        <div class="stat-value blue">&lt;1 min</div>
+                        <div class="stat-desc">czas odpowiedzi na powtarzalne pytania klientów</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value blue">-70%</div>
+                        <div class="stat-desc">mniej czasu zespołu na obsługę powtarzalnych zapytań</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOCK 3: Kontrola -->
+            <div class="feature-block gs">
+                <div>
+                    <div class="feature-label">Kategoria 3</div>
                     <h3>Kontroluj swój sklep</h3>
-                    <p class="offer-subtitle">Dla sklepów które chcą wiedzieć co się dzieje — zanim będzie za późno.</p>
-                    <ul class="offer-items">
-                        <li>Codzienny raport AI ze sprzedaży</li>
+                    <p class="desc">Nie chcesz dowiadywać się o problemach po fakcie. System codziennie analizuje Twój sklep i mówi Ci co się dzieje — zanim straci Ci to pieniądze.</p>
+                    <ul class="feature-list">
+                        <li>Codzienny raport AI — sprzedaż, trendy, spadki, co promować</li>
                         <li>Alerty niskiego stanu magazynowego</li>
-                        <li>Alerty spadku sprzedaży i błędów</li>
-                        <li>Monitoring marży i rentowności</li>
+                        <li>Alerty spadku sprzedaży i błędów checkoutu</li>
+                        <li>Monitoring marży i rentowności zamówień</li>
                         <li>Automatyczne drafty reklam z bestsellerów</li>
                     </ul>
+                    <div class="sub-label">Efekt</div>
+                    <p class="effect-text">Rano dostajesz raport i wiesz wszystko. System pilnuje stocku, marży i sprzedaży 24/7. Reagujesz na problemy zanim kosztują Cię pieniądze.</p>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <div class="stat-value amber">24/7</div>
+                        <div class="stat-desc">monitoring sklepu — alerty w czasie rzeczywistym na telefon</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value amber">-70%</div>
+                        <div class="stat-desc">mniej braków magazynowych dzięki automatycznym alertom</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value amber">30 sek</div>
+                        <div class="stat-desc">od wykrycia problemu do powiadomienia — zamiast dni</div>
+                    </div>
                 </div>
             </div>
         </div>

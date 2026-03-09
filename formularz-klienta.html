@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz konfiguracyjny | EcomSwiftEvo</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Header */
+        .form-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #fff;
+            padding: 3.5rem 2rem;
+            text-align: left;
+            max-width: 760px;
+            margin: 3rem auto 0;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .form-hero .brand {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .form-hero h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .form-hero p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .form-hero p strong {
+            color: #fff;
+        }
+
+        /* Info banner */
+        .info-banner {
+            max-width: 760px;
+            margin: 0 auto;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 0 0 12px 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-banner p {
+            font-size: 0.85rem;
+            color: #1e40af;
+            line-height: 1.7;
+        }
+
+        .info-banner strong {
+            color: #1e40af;
+        }
+
+        .info-banner a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+
+        /* Form container */
+        .form-container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 0 0 4rem;
+        }
+
+        /* Section cards */
+        .form-section {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem 2.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-section:hover {
+            border-color: #cbd5e1;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .section-header-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .section-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .section-icon.blue { background: #eff6ff; }
+        .section-icon.green { background: #f0fdf4; }
+        .section-icon.purple { background: #faf5ff; }
+        .section-icon.red { background: #fef2f2; }
+        .section-icon.gray { background: #f8fafc; }
+
+        .section-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #0f172a;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            margin-top: 0.2rem;
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
+        .badge.required {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .badge.optional {
+            background: #f8fafc;
+            color: #94a3b8;
+        }
+
+        /* Form fields */
+        .field-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        @media(min-width: 600px) {
+            .field-row.two { grid-template-columns: 1fr 1fr; }
+        }
+
+        .field-row:last-child { margin-bottom: 0; }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.4rem;
+        }
+
+        label .req {
+            color: #dc2626;
+        }
+
+        label .opt {
+            color: #94a3b8;
+            font-weight: 400;
+            font-size: 0.75rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+            background: #fff;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2.25rem;
+        }
+
+        .field-hint {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 0.35rem;
+        }
+
+        /* Radio group */
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.82rem;
+            color: #475569;
+        }
+
+        .radio-option:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .radio-option input[type="radio"] {
+            accent-color: #3b82f6;
+            width: 14px;
+            height: 14px;
+        }
+
+        /* Checkbox modules */
+        .module-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .module-check:last-child { margin-bottom: 0; }
+
+        .module-check:hover {
+            border-color: #3b82f6;
+            background: #f8faff;
+        }
+
+        .module-check input[type="checkbox"] {
+            accent-color: #3b82f6;
+            width: 16px;
+            height: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .module-check-text {
+            flex: 1;
+        }
+
+        .module-check-title {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #0f172a;
+        }
+
+        .module-check-title .emoji {
+            margin-right: 0.35rem;
+        }
+
+        .module-check-desc {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            margin-top: 0.15rem;
+        }
+
+        .module-group-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            margin-top: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .module-group-label:first-child { margin-top: 0; }
+
+        .module-group-label.green { color: #16a34a; }
+        .module-group-label.blue { color: #2563eb; }
+        .module-group-label.amber { color: #d97706; }
+
+        /* RODO checkboxes */
+        .rodo-check {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.85rem 1rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-size: 0.82rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .rodo-check:last-child { margin-bottom: 0; }
+
+        .rodo-check input[type="checkbox"] {
+            accent-color: #3b82f6;
+            width: 16px;
+            height: 16px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        .rodo-check .req {
+            color: #dc2626;
+        }
+
+        /* Submit */
+        .submit-section {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .submit-section h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .submit-section p {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            padding: 0.85rem 2.5rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.01em;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(37,99,235,0.35);
+        }
+
+        .submit-footer {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            margin-top: 1.25rem;
+        }
+
+        .submit-footer a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .submit-footer a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 800px) {
+            .form-hero, .info-banner, .form-container {
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+            .form-hero { padding: 2.5rem 1.5rem; }
+            .form-hero h1 { font-size: 1.4rem; }
+            .form-section { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="form-hero">
+        <div class="brand">EcomSwiftEvo</div>
+        <h1>Formularz konfiguracyjny</h1>
+        <p>Uzupełnij poniższe dane, żebyśmy mogli przygotować i uruchomić Twój system automatyzacji.<br>
+        Zajmuje to około <strong>10 minut</strong>. Potrzebujemy tych informacji raz — po tym wszystko działa automatycznie.</p>
+    </div>
+
+    <!-- INFO BANNER -->
+    <div class="info-banner">
+        <p><strong>Jak to działa:</strong> Po wypełnieniu formularza otrzymasz potwierdzenie na email. Nasz zespół skonfiguruje system w ciągu 48h i skontaktuje się z Tobą z potwierdzeniem uruchomienia.</p>
+        <p style="margin-top: 0.5rem;"><strong>Masz pytania?</strong> Napisz na <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></p>
+    </div>
+
+    <form class="form-container" id="clientForm">
+
+        <!-- 1. DANE SKLEPU -->
+        <div class="form-section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-icon blue">&#128722;</div>
+                    <div>
+                        <div class="section-title">Dane sklepu</div>
+                        <div class="section-subtitle">Podstawowe informacje o Twoim e-commerce</div>
+                    </div>
+                </div>
+                <span class="badge required">Wymagane</span>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Nazwa sklepu / firmy <span class="req">*</span></label>
+                    <input type="text" name="store_name" placeholder="np. ModaOnline.pl" required>
+                </div>
+                <div>
+                    <label>NIP <span class="opt">(opcjonalnie)</span></label>
+                    <input type="text" name="nip" placeholder="np. 5833541389">
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div>
+                    <label>Adres sklepu (URL) <span class="req">*</span></label>
+                    <input type="url" name="store_url" placeholder="https://twojsklep.pl" required>
+                </div>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Platforma e-commerce <span class="req">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="platform" value="shopify" required> Shopify</label>
+                        <label class="radio-option"><input type="radio" name="platform" value="woocommerce"> WooCommerce</label>
+                        <label class="radio-option"><input type="radio" name="platform" value="prestashop"> PrestaShop</label>
+                        <label class="radio-option"><input type="radio" name="platform" value="shoper"> Shoper</label>
+                        <label class="radio-option"><input type="radio" name="platform" value="baselinker"> BaseLinker</label>
+                        <label class="radio-option"><input type="radio" name="platform" value="inna"> Inna</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Liczba zamówień miesięcznie <span class="req">*</span></label>
+                    <select name="orders_monthly" required>
+                        <option value="">Wybierz...</option>
+                        <option value="1-50">1–50</option>
+                        <option value="51-200">51–200</option>
+                        <option value="201-500">201–500</option>
+                        <option value="501-1000">501–1000</option>
+                        <option value="1000+">1000+</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Liczba produktów (SKU) <span class="opt">(opcjonalnie)</span></label>
+                    <select name="products_count">
+                        <option value="">Wybierz...</option>
+                        <option value="1-50">1–50</option>
+                        <option value="51-200">51–200</option>
+                        <option value="201-1000">201–1000</option>
+                        <option value="1000-5000">1000–5000</option>
+                        <option value="5000+">5000+</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Branża <span class="req">*</span></label>
+                    <input type="text" name="industry" placeholder="np. moda, suplementy, elektronika, kosmetyki" required>
+                </div>
+                <div>
+                    <label>Marketplace'y <span class="opt">(opcjonalnie)</span></label>
+                    <input type="text" name="marketplaces" placeholder="np. Allegro, Amazon, Empik">
+                    <div class="field-hint">Jeśli sprzedajesz na marketplace'ach, wymień które.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. KONTAKT -->
+        <div class="form-section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-icon green">&#128100;</div>
+                    <div>
+                        <div class="section-title">Osoba kontaktowa</div>
+                        <div class="section-subtitle">Z kim mamy się kontaktować przy konfiguracji</div>
+                    </div>
+                </div>
+                <span class="badge required">Wymagane</span>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Imię i nazwisko <span class="req">*</span></label>
+                    <input type="text" name="contact_name" placeholder="np. Anna Kowalska" required>
+                </div>
+                <div>
+                    <label>Stanowisko <span class="opt">(opcjonalnie)</span></label>
+                    <input type="text" name="contact_role" placeholder="np. Właściciel / E-commerce Manager">
+                </div>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Telefon <span class="req">*</span></label>
+                    <input type="tel" name="contact_phone" placeholder="+48 123 456 789" required>
+                </div>
+                <div>
+                    <label>Email <span class="req">*</span></label>
+                    <input type="email" name="contact_email" placeholder="anna@twojsklep.pl" required>
+                </div>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Preferowany kanał kontaktu <span class="req">*</span></label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="radio" name="contact_channel" value="email" required> Email</label>
+                        <label class="radio-option"><input type="radio" name="contact_channel" value="telefon"> Telefon</label>
+                        <label class="radio-option"><input type="radio" name="contact_channel" value="whatsapp"> WhatsApp</label>
+                        <label class="radio-option"><input type="radio" name="contact_channel" value="telegram"> Telegram</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. WYBOR AUTOMATYZACJI -->
+        <div class="form-section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-icon purple">&#9889;</div>
+                    <div>
+                        <div class="section-title">Wybór automatyzacji</div>
+                        <div class="section-subtitle">Zaznacz automatyzacje, które Cię interesują — dopasujemy zakres wdrożenia</div>
+                    </div>
+                </div>
+                <span class="badge required">Wymagane</span>
+            </div>
+
+            <!-- Group 1: Sprzedaż -->
+            <div class="module-group-label green">Odzyskaj utraconą sprzedaż</div>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="cart_recovery">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128176;</span> Odzysk porzuconych koszyków</div>
+                    <div class="module-check-desc">Automatyczne email/SMS sekwencje po porzuceniu koszyka — odzyskaj 5–15% sprzedaży</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="reorder_reminders">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128260;</span> Przypomnienia o powtórnym zakupie</div>
+                    <div class="module-check-desc">System przypomina klientom o produkcie po 30/60/90 dniach — idealne dla konsumpcyjnych produktów</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="reviews">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#11088;</span> Automatyczne zbieranie opinii</div>
+                    <div class="module-check-desc">Po dostawie: prośba o opinię, pozytywne → publikacja, negatywne → ticket do supportu</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="ai_descriptions">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#9997;&#65039;</span> AI opisy produktów i SEO</div>
+                    <div class="module-check-desc">AI generuje unikalne opisy, SEO meta tagi, bullet points — setki produktów w godziny</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="bestseller_alerts">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128293;</span> Alerty bestsellerów i trendów</div>
+                    <div class="module-check-desc">System wykrywa produkty z nagłym wzrostem sprzedaży — reaguj szybko na trendy</div>
+                </div>
+            </label>
+
+            <!-- Group 2: Support -->
+            <div class="module-group-label blue">Zautomatyzuj obsługę klienta</div>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="ai_support">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#129302;</span> AI klasyfikacja i odpowiedzi na maile</div>
+                    <div class="module-check-desc">AI rozpoznaje temat wiadomości i generuje odpowiedź — zautomatyzuj 60–80% ticketów</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="order_status">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128230;</span> Powiadomienia o statusie zamówienia</div>
+                    <div class="module-check-desc">Klient dostaje automatyczne info o statusie, wysyłce i dostawie — mniej pytań na support</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="delay_alerts">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#9888;&#65039;</span> Alerty opóźnień i problemów z dostawą</div>
+                    <div class="module-check-desc">Automatyczne powiadomienia gdy przesyłka się opóźnia — zanim klient napisze do supportu</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="returns">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128259;</span> Automatyzacja zwrotów i reklamacji</div>
+                    <div class="module-check-desc">Automatyczne przyjęcie zgłoszenia, statusy, etykiety zwrotne — mniej chaosu w zwrotach</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="auto_faq">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128218;</span> Automatyczne FAQ z pytań klientów</div>
+                    <div class="module-check-desc">System analizuje pytania klientów i buduje bazę odpowiedzi — mniej powtarzalnych zapytań</div>
+                </div>
+            </label>
+
+            <!-- Group 3: Kontrola -->
+            <div class="module-group-label amber">Kontroluj swój sklep</div>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="daily_report">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128202;</span> Codzienny raport AI ze sprzedaży</div>
+                    <div class="module-check-desc">Rano dostajesz analizę: sprzedaż, trendy, spadki, co promować — na Telegram, Slack lub email</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="stock_alerts">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128230;</span> Alerty niskiego stanu magazynowego</div>
+                    <div class="module-check-desc">Powiadomienie gdy produkt spada poniżej minimum — koniec z utratą sprzedaży przez braki</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="sales_alerts">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128200;</span> Alerty spadku sprzedaży i błędów</div>
+                    <div class="module-check-desc">System wykrywa spadki sprzedaży, błędy checkoutu, problemy z płatnościami — reaguj szybko</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="margin_monitoring">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128178;</span> Monitoring marży i rentowności</div>
+                    <div class="module-check-desc">Alerty gdy zamówienie ma podejrzanie niską marżę — pilnuj rentowności każdej transakcji</div>
+                </div>
+            </label>
+
+            <label class="module-check">
+                <input type="checkbox" name="modules" value="ad_drafts">
+                <div class="module-check-text">
+                    <div class="module-check-title"><span class="emoji">&#128226;</span> Automatyczne drafty reklam z bestsellerów</div>
+                    <div class="module-check-desc">AI generuje copy i opisy reklam na podstawie bestsellerów — gotowe do uruchomienia</div>
+                </div>
+            </label>
+        </div>
+
+        <!-- 4. NARZĘDZIA -->
+        <div class="form-section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-icon gray">&#128295;</div>
+                    <div>
+                        <div class="section-title">Narzędzia i integracje</div>
+                        <div class="section-subtitle">Z czego korzystasz — żebyśmy mogli się zintegrować</div>
+                    </div>
+                </div>
+                <span class="badge optional">Opcjonalne</span>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>System email marketingu</label>
+                    <input type="text" name="email_tool" placeholder="np. Mailchimp, GetResponse, brak">
+                </div>
+                <div>
+                    <label>CRM / Arkusze</label>
+                    <input type="text" name="crm_tool" placeholder="np. HubSpot, Pipedrive, Google Sheets">
+                </div>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Komunikator zespołowy</label>
+                    <input type="text" name="team_chat" placeholder="np. Slack, Telegram, Teams">
+                </div>
+                <div>
+                    <label>System kurierski / fulfillment</label>
+                    <input type="text" name="shipping_tool" placeholder="np. InPost, DPD, BaseLinker">
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div>
+                    <label>Inne narzędzia, z którymi chcesz integrację</label>
+                    <input type="text" name="other_tools" placeholder="np. Allegro, Fakturownia, Notion, ClickUp">
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. ZGODY RODO -->
+        <div class="form-section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-icon red">&#128274;</div>
+                    <div>
+                        <div class="section-title">Zgody RODO</div>
+                        <div class="section-subtitle">Wymagane przed uruchomieniem systemu</div>
+                    </div>
+                </div>
+                <span class="badge required">Wymagane</span>
+            </div>
+
+            <label class="rodo-check">
+                <input type="checkbox" name="rodo_processing" required>
+                <span>Wyrażam zgodę na przetwarzanie moich danych osobowych przez EcomSwiftEvo (SwiftEvo) w celu konfiguracji i świadczenia usług automatyzacji. <span class="req">*</span></span>
+            </label>
+
+            <label class="rodo-check">
+                <input type="checkbox" name="rodo_servers" required>
+                <span>Przyjmuję do wiadomości, że dane przetwarzane są na serwerach w UE zgodnie z RODO. <span class="req">*</span></span>
+            </label>
+
+            <label class="rodo-check">
+                <input type="checkbox" name="rodo_contact">
+                <span>Zgadzam się na kontakt w sprawie statusu wdrożenia na podany numer telefonu i email.</span>
+            </label>
+        </div>
+
+        <!-- 6. DODATKOWE -->
+        <div class="form-section">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-icon gray">&#128172;</div>
+                    <div>
+                        <div class="section-title">Dodatkowe informacje</div>
+                        <div class="section-subtitle">Co jeszcze powinniśmy wiedzieć</div>
+                    </div>
+                </div>
+                <span class="badge optional">Opcjonalne</span>
+            </div>
+
+            <div class="field-row">
+                <div>
+                    <label>Jakie są Twoje największe problemy operacyjne w sklepie?</label>
+                    <textarea name="problems" placeholder="np. dużo porzuconych koszyków, support zjada 3h dziennie, nie mamy raportów sprzedaży, klienci pytają ciągle o status..."></textarea>
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div>
+                    <label>Kiedy chciałbyś uruchomić system?</label>
+                    <input type="text" name="timeline" placeholder="np. jak najszybciej / od przyszłego tygodnia / od 1 kwietnia">
+                </div>
+            </div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="submit-section">
+            <h3>Gotowe? Wyślij formularz</h3>
+            <p>Po wysłaniu otrzymasz potwierdzenie na email. Skonfigurujemy system w ciągu 48 godzin roboczych i odezwiemy się z datą uruchomienia.</p>
+            <button type="submit" class="submit-btn">Wyślij formularz &rarr;</button>
+            <div class="submit-footer">
+                Pytania? Napisz na <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        document.getElementById('clientForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                if (data[key]) {
+                    if (Array.isArray(data[key])) data[key].push(value);
+                    else data[key] = [data[key], value];
+                } else {
+                    data[key] = value;
+                }
+            });
+
+            // TODO: Replace with actual webhook URL
+            // fetch('TWOJ_WEBHOOK_URL', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // });
+
+            alert('Formularz wysłany! Skontaktujemy się w ciągu 48h.');
+            console.log('Form data:', data);
+        });
+    </script>
+</body>
+</html>
