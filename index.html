@@ -743,40 +743,16 @@
             font-weight: 500;
         }
 
-        .contact-direct {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .contact-direct .label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: rgba(255,255,255,0.25);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-direct a {
-            color: #3b82f6;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .contact-direct a:hover { color: #60a5fa; }
-
         .contact-form-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
-            padding: 2rem;
+            padding: 2.25rem;
             transition: border-color 0.4s;
         }
 
         .contact-form-card:hover {
-            border-color: rgba(59,130,246,0.2);
+            border-color: rgba(59,130,246,0.3);
         }
 
         .form-group { margin-bottom: 1.25rem; }
@@ -818,8 +794,8 @@
         .cta-submit-btn {
             width: 100%;
             padding: 0.9rem;
-            background: #3b82f6;
-            color: #fff;
+            background: #fff;
+            color: #000;
             border: none;
             font-size: 0.8rem;
             font-weight: 600;
@@ -827,14 +803,28 @@
             letter-spacing: 0.05em;
             cursor: pointer;
             transition: all 0.3s;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .cta-submit-btn:hover {
-            background: #2563eb;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+            opacity: 0.85;
         }
+
+        .contact-form-email {
+            text-align: center;
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .contact-form-email a {
+            color: rgba(255,255,255,0.35);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .contact-form-email a:hover { color: #3b82f6; }
 
         .form-success {
             display: none;
@@ -1273,10 +1263,6 @@
                     <h2>Chcesz<br><span class="gradient-word">pogadać?</span></h2>
                     <p>Napisz co Cię interesuje. Zobaczymy co ma sens w Twoim sklepie.</p>
                     <p class="small-note">Bez zobowiązań. Bez presji. Tylko konkretna rozmowa.</p>
-                    <div class="contact-direct">
-                        <div class="label">Albo bezpośrednio</div>
-                        <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a>
-                    </div>
                 </div>
                 <div class="contact-form-card">
                     <form id="cForm">
@@ -1311,11 +1297,14 @@
                             <label>Opisz swój problem / sytuację</label>
                             <textarea name="msg" id="fmsg" class="form-input" placeholder="np. tracimy dużo koszyków, support zjada 3h dziennie, nie mamy raportów sprzedaży..."></textarea>
                         </div>
-                        <button type="submit" class="cta-submit-btn" id="sbtn">WYŚLIJ &rarr;</button>
+                        <button type="submit" class="cta-submit-btn" id="sbtn">WYŚLIJ</button>
                     </form>
                     <div class="form-success" id="fSuccess">
                         <h3>Dzięki!</h3>
                         <p>Odezwiemy się w ciągu 24 godzin.</p>
+                    </div>
+                    <div class="contact-form-email">
+                        <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a>
                     </div>
                 </div>
             </div>
