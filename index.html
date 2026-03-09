@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcomSwiftEvo | Automatyzacja AI dla E-commerce</title>
-    <meta name="description" content="Automatyzujemy e-commerce: sync zamówień, alerty magazynowe, AI opisy produktów, auto-posty social media.">
+    <meta name="description" content="Automatyzacja AI dla e-commerce: odzysk koszyków, AI support klienta, raporty sprzedaży, alerty magazynowe. 15 automatyzacji dla Twojego sklepu.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ecomswiftevo.pl/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ecomswiftevo.pl/">
     <meta property="og:title" content="EcomSwiftEvo — Automatyzacja AI dla E-commerce">
-    <meta property="og:description" content="Więcej sprzedaży. Mniej ręcznej roboty. AI + Automatyzacja dla sklepów online.">
+    <meta property="og:description" content="15 automatyzacji AI dla e-commerce. Odzyskaj sprzedaż, zautomatyzuj support, kontroluj swój sklep.">
     <meta property="og:locale" content="pl_PL">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>">
 
@@ -323,6 +323,113 @@
             color: rgba(255,255,255,0.35);
             margin-top: 0.15rem;
         }
+
+        /* ===== OFFER CATEGORIES ===== */
+        .offer-categories {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        @media(min-width: 900px) {
+            .offer-categories { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .offer-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .offer-card:hover {
+            border-color: rgba(59,130,246,0.3);
+            background: rgba(59,130,246,0.03);
+            transform: translateY(-2px);
+        }
+
+        .offer-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .offer-card-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .offer-card-icon.green {
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.2);
+            color: #22c55e;
+        }
+
+        .offer-card-icon.blue {
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.2);
+            color: #3b82f6;
+        }
+
+        .offer-card-icon.amber {
+            background: rgba(245,158,11,0.1);
+            border: 1px solid rgba(245,158,11,0.2);
+            color: #f59e0b;
+        }
+
+        .offer-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .offer-card .offer-subtitle {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .offer-card .offer-items {
+            list-style: none;
+        }
+
+        .offer-card .offer-items li {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.85rem;
+            padding: 0.5rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .offer-card .offer-items li:last-child { border-bottom: none; }
+
+        .offer-card .offer-items li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(59,130,246,0.4);
+        }
+
+        .offer-card.green .offer-items li::before { background: rgba(34,197,94,0.4); }
+        .offer-card.amber .offer-items li::before { background: rgba(245,158,11,0.4); }
 
         /* ===== ICONS ROW (jak to działa) ===== */
         .process-section {
@@ -887,9 +994,9 @@
     <section class="hero">
         <div class="container">
             <div class="hero-inner">
-                <div class="section-label" style="text-align:center;">System automatyzacji e-commerce</div>
-                <h1>Nowoczesny system automatyzacji dla sklepów online.</h1>
-                <p>8 konkretnych automatyzacji, które zabezpieczają i skalują Twój e-commerce. Bez ręcznej roboty.</p>
+                <div class="section-label" style="text-align:center;">Automatyzacja AI dla e-commerce</div>
+                <h1>Więcej sprzedaży. Mniej ręcznej roboty.</h1>
+                <p>15 automatyzacji AI, które odzyskują sprzedaż, odciążają support i dają Ci pełną kontrolę nad sklepem.</p>
                 <a href="#kontakt" class="hero-cta">Porozmawiajmy o Twoim sklepie</a>
                 <div class="hero-sub">
                     <span>Wdrożenie od 48h</span>
@@ -900,106 +1007,62 @@
         </div>
     </section>
 
-    <!-- MAIN FEATURES -->
+    <!-- OFFER -->
     <section class="module-section" id="co-robimy">
         <div class="container">
             <div class="module-header gs">
-                <div class="section-label">Co automatyzujemy?</div>
-                <h2>8 systemów, które skalują Twój e-commerce</h2>
-                <p>Każdy działa osobno. Razem tworzą kompletny system wzrostu.</p>
+                <div class="section-label">Co robimy?</div>
+                <h2>3 problemy e-commerce.<br>15 automatyzacji, które je rozwiązują.</h2>
+                <p>Nie sprzedajemy technologii. Rozwiązujemy problemy, które kosztują Cię pieniądze każdego dnia.</p>
             </div>
 
-            <div class="feature-block gs">
-                <div>
-                    <div class="feature-label">Moduł 1</div>
-                    <h3>Sync zamówień</h3>
-                    <p class="desc">Automatyczny przesył zamówień do CRM, arkuszy i systemów ERP. Zero kopiowania, zero błędów ludzkich.</p>
-                    <ul class="feature-list">
-                        <li>Połączenie ze sklepem, kurierem i księgowością</li>
-                        <li>Automatyczna synchronizacja w czasie rzeczywistym</li>
-                        <li>Działa 24/7 bez Twojego udziału</li>
+            <div class="offer-categories gs">
+                <!-- CARD 1 -->
+                <div class="offer-card green">
+                    <div class="offer-card-icon green">
+                        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <h3>Odzyskaj utraconą sprzedaż</h3>
+                    <p class="offer-subtitle">Dla sklepów które tracą klientów i przychód — często nawet o tym nie wiedząc.</p>
+                    <ul class="offer-items">
+                        <li>Odzysk porzuconych koszyków</li>
+                        <li>Przypomnienia o powtórnym zakupie</li>
+                        <li>Automatyczne zbieranie opinii</li>
+                        <li>AI opisy produktów i SEO</li>
+                        <li>Alerty bestsellerów i trendów</li>
                     </ul>
                 </div>
-                <div class="stat-block">
-                    <div class="stat-item">
-                        <div class="stat-value">95%</div>
-                        <div class="stat-desc">mniej czasu na obsługę zamówień</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">0</div>
-                        <div class="stat-desc">błędów przy kopiowaniu danych</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="feature-block gs">
-                <div>
-                    <div class="feature-label">Moduł 2</div>
-                    <h3>Alerty magazynowe</h3>
-                    <p class="desc">Powiadomienia SMS i Slack gdy stan produktu spada poniżej minimum. Koniec z utratą sprzedaży przez braki.</p>
-                    <ul class="feature-list">
-                        <li>Konfigurowalne progi alertów per produkt</li>
-                        <li>Natychmiastowe powiadomienia multi-kanałowe</li>
-                        <li>Raporty stanów magazynowych</li>
+                <!-- CARD 2 -->
+                <div class="offer-card">
+                    <div class="offer-card-icon blue">
+                        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h3>Zautomatyzuj obsługę klienta</h3>
+                    <p class="offer-subtitle">Dla sklepów gdzie support zjada czas zespołu — te same pytania, każdego dnia.</p>
+                    <ul class="offer-items">
+                        <li>AI klasyfikacja i odpowiedzi na maile</li>
+                        <li>Powiadomienia o statusie zamówienia</li>
+                        <li>Automatyczne alerty opóźnień</li>
+                        <li>Automatyzacja zwrotów i reklamacji</li>
+                        <li>Automatyczne FAQ z pytań klientów</li>
                     </ul>
                 </div>
-                <div class="stat-block">
-                    <div class="stat-item">
-                        <div class="stat-value">-70%</div>
-                        <div class="stat-desc">mniej braków magazynowych</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">30 sek</div>
-                        <div class="stat-desc">czas reakcji na niski stan</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="feature-block gs">
-                <div>
-                    <div class="feature-label">Moduł 3</div>
-                    <h3>AI opisy produktów</h3>
-                    <p class="desc">Generowanie angażujących opisów SEO za pomocą AI. Setki produktów w godziny zamiast tygodni.</p>
-                    <ul class="feature-list">
-                        <li>Opisy zoptymalizowane pod SEO</li>
-                        <li>Unikalna treść dla każdego produktu</li>
-                        <li>Spójny ton komunikacji marki</li>
+                <!-- CARD 3 -->
+                <div class="offer-card amber">
+                    <div class="offer-card-icon amber">
+                        <svg viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                    </div>
+                    <h3>Kontroluj swój sklep</h3>
+                    <p class="offer-subtitle">Dla sklepów które chcą wiedzieć co się dzieje — zanim będzie za późno.</p>
+                    <ul class="offer-items">
+                        <li>Codzienny raport AI ze sprzedaży</li>
+                        <li>Alerty niskiego stanu magazynowego</li>
+                        <li>Alerty spadku sprzedaży i błędów</li>
+                        <li>Monitoring marży i rentowności</li>
+                        <li>Automatyczne drafty reklam z bestsellerów</li>
                     </ul>
-                </div>
-                <div class="stat-block">
-                    <div class="stat-item">
-                        <div class="stat-value">100x</div>
-                        <div class="stat-desc">szybciej niż ręczne pisanie</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">400-1500 zł</div>
-                        <div class="stat-desc">oszczędności na copywriterze / miesiąc</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="feature-block gs">
-                <div>
-                    <div class="feature-label">Moduł 4-8</div>
-                    <h3>Auto follow-up, monitoring opinii, social media, raporty, sync cen</h3>
-                    <p class="desc">Kompletny zestaw automatyzacji pokrywający cały cykl życia klienta — od zakupu po retencję i marketing.</p>
-                    <ul class="feature-list">
-                        <li>Automatyczne maile/SMS po zakupie</li>
-                        <li>Alerty o negatywnych recenzjach</li>
-                        <li>Auto-posty na IG/FB przy nowym produkcie</li>
-                        <li>Dzienny raport sprzedaży na telefon</li>
-                        <li>Sync cen na Allegro, Amazon, marketplace'ach</li>
-                    </ul>
-                </div>
-                <div class="stat-block">
-                    <div class="stat-item">
-                        <div class="stat-value">120h</div>
-                        <div class="stat-desc">zaoszczędzonych miesięcznie</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">99.9%</div>
-                        <div class="stat-desc">uptime systemów</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1010,32 +1073,27 @@
         <div class="container">
             <div class="gs">
                 <div class="section-label" style="text-align:center;">Jak to działa?</div>
-                <h2>System wzrostu Twojego sklepu</h2>
-                <p>Każdy moduł można wdrożyć osobno. Ale razem tworzą zamknięty system.</p>
+                <h2>Od rozmowy do działających automatyzacji w 48h</h2>
+                <p>Bez zmiany oprogramowania. Bez wiedzy technicznej. Bez ryzyka.</p>
             </div>
             <div class="process-grid gs">
                 <div class="process-item">
-                    <div class="process-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
-                    <h4>Formularz</h4>
-                    <p>Mówisz nam co boli</p>
+                    <div class="process-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+                    <h4>Konsultacja</h4>
+                    <p>Rozmawiamy o Twoim sklepie i znajdujemy co Cię kosztuje najwięcej</p>
                 </div>
                 <div class="process-item">
                     <div class="process-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
-                    <h4>Konfiguracja</h4>
-                    <p>Budujemy automatyzacje</p>
+                    <h4>Wdrożenie</h4>
+                    <p>Budujemy i uruchamiamy automatyzacje w ciągu 48h</p>
                 </div>
                 <div class="process-item">
-                    <div class="process-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
-                    <h4>Integracja</h4>
-                    <p>Łączymy z Twoimi systemami</p>
-                </div>
-                <div class="process-item">
-                    <div class="process-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
-                    <h4>Monitoring</h4>
-                    <p>Pilnujemy 24/7</p>
+                    <div class="process-icon"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+                    <h4>Wyniki</h4>
+                    <p>Automatyzacje pracują 24/7, Ty widzisz efekty od pierwszego dnia</p>
                 </div>
             </div>
-            <p class="process-note gs">Nie wymagamy zmian oprogramowania. Nie ingerujemy w grafik. Nie zabieramy pracy nikomu. Tylko automatyzujemy to, co powtarzalne.</p>
+            <p class="process-note gs">Nie wymagamy zmian oprogramowania. Nie zabieramy pracy nikomu. Automatyzujemy to, co powtarzalne — żebyś mógł skupić się na rozwoju.</p>
         </div>
     </section>
 

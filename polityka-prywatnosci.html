@@ -4,108 +4,293 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polityka Prywatności | EcomSwiftEvo</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        :root {
-            --bg-dark: #05050f;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --neon-blue: #00D4FF;
-            --neon-purple: #7C3AED;
-            --gradient-primary: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
-            --border-light: rgba(255, 255, 255, 0.08);
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); line-height: 1.8; }
+        /* Noise overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+        }
 
-        .container { max-width: 800px; margin: 0 auto; padding: 4rem 1.5rem; }
+        .page { position: relative; z-index: 1; }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+
+        .logo span { color: #3b82f6; }
 
         .back-link {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--neon-blue);
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
-            margin-bottom: 2rem;
-            font-size: 0.9rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover { color: #fff; }
+
+        /* Content */
+        .content {
+            padding: 5rem 0 6rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
+            margin-bottom: 1.5rem;
         }
 
         h1 {
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
         }
 
-        .last-updated { color: var(--text-muted); margin-bottom: 3rem; font-size: 0.9rem; }
+        .last-updated {
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 3.5rem;
+            font-size: 0.85rem;
+        }
 
-        h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: var(--neon-blue); }
-        p, li { color: var(--text-muted); margin-bottom: 1rem; }
-        ul { padding-left: 1.5rem; }
-        a { color: var(--neon-blue); }
+        .policy-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .policy-card:hover {
+            border-color: rgba(59,130,246,0.2);
+        }
+
+        .policy-card h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .policy-card h2 .num {
+            font-size: 0.65rem;
+            color: #3b82f6;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.2);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .policy-card p,
+        .policy-card li {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        .policy-card ul {
+            padding-left: 1.25rem;
+            margin-top: 0.5rem;
+        }
+
+        .policy-card li {
+            margin-bottom: 0.4rem;
+        }
+
+        .policy-card li::marker {
+            color: rgba(59,130,246,0.4);
+        }
+
+        .policy-card a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .policy-card a:hover {
+            color: #60a5fa;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            text-align: center;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.25);
+            font-size: 0.75rem;
+        }
+
+        footer a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover { color: #3b82f6; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            .content { padding: 3rem 0 4rem; }
+            .policy-card { padding: 1.75rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back-link"><i class="ph ph-arrow-left"></i> Powrót do strony głównej</a>
+    <div class="page">
+        <header>
+            <div class="header-inner">
+                <a href="/" class="logo">Ecom<span>Swift</span>Evo</a>
+                <a href="/" class="back-link">&larr; Powrot do strony</a>
+            </div>
+        </header>
 
-        <h1>Polityka Prywatności</h1>
-        <p class="last-updated">Ostatnia aktualizacja: 9 marca 2026</p>
+        <section class="content">
+            <div class="container">
+                <p class="section-label">Dokument prawny</p>
+                <h1>Polityka Prywatności</h1>
+                <p class="last-updated">Ostatnia aktualizacja: 9 marca 2026</p>
 
-        <h2>1. Administrator danych</h2>
-        <p>Administratorem Twoich danych osobowych jest EcomSwiftEvo (SwiftEvo), właściciel strony ecomswiftevo.pl. Kontakt: kontakt@swiftevo.eu</p>
+                <div class="policy-card">
+                    <h2><span class="num">01</span> Administrator danych</h2>
+                    <p>Administratorem Twoich danych osobowych jest EcomSwiftEvo (SwiftEvo), właściciel strony ecomswiftevo.pl. Kontakt: <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></p>
+                </div>
 
-        <h2>2. Jakie dane zbieramy</h2>
-        <p>Zbieramy wyłącznie dane podane dobrowolnie przez formularz kontaktowy:</p>
-        <ul>
-            <li>Imię i nazwisko</li>
-            <li>Adres e-mail</li>
-            <li>Numer telefonu (opcjonalnie)</li>
-            <li>Nazwa platformy e-commerce</li>
-            <li>Opis problemu operacyjnego</li>
-        </ul>
+                <div class="policy-card">
+                    <h2><span class="num">02</span> Jakie dane zbieramy</h2>
+                    <p>Zbieramy wyłącznie dane podane dobrowolnie przez formularz kontaktowy:</p>
+                    <ul>
+                        <li>Imię i nazwisko</li>
+                        <li>Adres e-mail</li>
+                        <li>Numer telefonu (opcjonalnie)</li>
+                        <li>Nazwa platformy e-commerce</li>
+                        <li>Opis problemu operacyjnego</li>
+                    </ul>
+                </div>
 
-        <h2>3. Cel przetwarzania</h2>
-        <p>Dane przetwarzamy w celu:</p>
-        <ul>
-            <li>Odpowiedzi na Twoje zapytanie i umówienia konsultacji</li>
-            <li>Przygotowania oferty dopasowanej do Twoich potrzeb</li>
-            <li>Realizacji ewentualnej umowy o świadczenie usług</li>
-        </ul>
+                <div class="policy-card">
+                    <h2><span class="num">03</span> Cel przetwarzania</h2>
+                    <p>Dane przetwarzamy w celu:</p>
+                    <ul>
+                        <li>Odpowiedzi na Twoje zapytanie i umówienia konsultacji</li>
+                        <li>Przygotowania oferty dopasowanej do Twoich potrzeb</li>
+                        <li>Realizacji ewentualnej umowy o świadczenie usług</li>
+                    </ul>
+                </div>
 
-        <h2>4. Podstawa prawna</h2>
-        <p>Przetwarzanie odbywa się na podstawie art. 6 ust. 1 lit. a) RODO (zgoda), lit. b) (wykonanie umowy) oraz lit. f) (uzasadniony interes administratora — obsługa zapytań).</p>
+                <div class="policy-card">
+                    <h2><span class="num">04</span> Podstawa prawna</h2>
+                    <p>Przetwarzanie odbywa się na podstawie art. 6 ust. 1 lit. a) RODO (zgoda), lit. b) (wykonanie umowy) oraz lit. f) (uzasadniony interes administratora — obsługa zapytań).</p>
+                </div>
 
-        <h2>5. Okres przechowywania</h2>
-        <p>Dane przechowujemy przez czas niezbędny do realizacji celu, dla którego zostały zebrane, nie dłużej niż 2 lata od ostatniego kontaktu, chyba że dłuższy okres wynika z obowiązków prawnych.</p>
+                <div class="policy-card">
+                    <h2><span class="num">05</span> Okres przechowywania</h2>
+                    <p>Dane przechowujemy przez czas niezbędny do realizacji celu, dla którego zostały zebrane, nie dłużej niż 2 lata od ostatniego kontaktu, chyba że dłuższy okres wynika z obowiązków prawnych.</p>
+                </div>
 
-        <h2>6. Twoje prawa</h2>
-        <p>Masz prawo do:</p>
-        <ul>
-            <li>Dostępu do swoich danych</li>
-            <li>Sprostowania danych</li>
-            <li>Usunięcia danych ("prawo do bycia zapomnianym")</li>
-            <li>Ograniczenia przetwarzania</li>
-            <li>Przenoszenia danych</li>
-            <li>Cofnięcia zgody w dowolnym momencie</li>
-            <li>Wniesienia skargi do Prezesa UODO</li>
-        </ul>
+                <div class="policy-card">
+                    <h2><span class="num">06</span> Twoje prawa</h2>
+                    <p>Masz prawo do:</p>
+                    <ul>
+                        <li>Dostępu do swoich danych</li>
+                        <li>Sprostowania danych</li>
+                        <li>Usunięcia danych ("prawo do bycia zapomnianym")</li>
+                        <li>Ograniczenia przetwarzania</li>
+                        <li>Przenoszenia danych</li>
+                        <li>Cofnięcia zgody w dowolnym momencie</li>
+                        <li>Wniesienia skargi do Prezesa UODO</li>
+                    </ul>
+                </div>
 
-        <h2>7. Pliki cookies</h2>
-        <p>Strona korzysta z plików cookies wyłącznie w celu zapamiętania Twojej zgody na cookies (localStorage). Nie stosujemy cookies analitycznych ani reklamowych bez Twojej zgody.</p>
+                <div class="policy-card">
+                    <h2><span class="num">07</span> Pliki cookies</h2>
+                    <p>Strona korzysta z plików cookies wyłącznie w celu zapamiętania Twojej zgody na cookies (localStorage). Nie stosujemy cookies analitycznych ani reklamowych bez Twojej zgody.</p>
+                </div>
 
-        <h2>8. Przekazywanie danych</h2>
-        <p>Dane z formularza mogą być przekazywane do narzędzi automatyzacji (n8n) hostowanych na serwerach w UE. Nie przekazujemy danych poza Europejski Obszar Gospodarczy.</p>
+                <div class="policy-card">
+                    <h2><span class="num">08</span> Przekazywanie danych</h2>
+                    <p>Dane z formularza mogą być przekazywane do narzędzi automatyzacji (n8n) hostowanych na serwerach w UE. Nie przekazujemy danych poza Europejski Obszar Gospodarczy.</p>
+                </div>
 
-        <h2>9. Kontakt</h2>
-        <p>W sprawach dotyczących ochrony danych osobowych prosimy o kontakt: <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></p>
+                <div class="policy-card">
+                    <h2><span class="num">09</span> Kontakt</h2>
+                    <p>W sprawach dotyczących ochrony danych osobowych prosimy o kontakt: <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 EcomSwiftEvo. <a href="/">Strona główna</a></p>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
