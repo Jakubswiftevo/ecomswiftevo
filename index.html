@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcomSwiftEvo | Automatyzacja AI dla E-commerce</title>
+    <meta name="description" content="Automatyzujemy e-commerce: sync zamówień, alerty magazynowe, AI opisy produktów, auto-posty social media. Więcej sprzedaży, mniej ręcznej roboty.">
+    <meta name="keywords" content="automatyzacja e-commerce, AI dla sklepów, n8n, automatyzacja zamówień, integracja e-commerce">
+    <meta name="author" content="EcomSwiftEvo">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ecomswiftevo.pl/">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ecomswiftevo.pl/">
+    <meta property="og:title" content="EcomSwiftEvo — Automatyzacja AI dla E-commerce">
+    <meta property="og:description" content="Więcej sprzedaży. Mniej ręcznej roboty. AI + Automatyzacja dla nowoczesnych sklepów online.">
+    <meta property="og:image" content="https://ecomswiftevo.pl/og-image.png">
+    <meta property="og:locale" content="pl_PL">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            --bg-dark: #05050f;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --border-light: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --neon-blue: #00D4FF;
+            --neon-purple: #7C3AED;
+            --neon-cyan: #22d3ee;
+            --gradient-primary: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            --glow-blue: rgba(0, 212, 255, 0.4);
+            --glow-purple: rgba(124, 58, 237, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background:
+                radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 212, 255, 0.08), transparent 25%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            background-size: 50px 50px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            z-index: -2;
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* Particles canvas */
+        #particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        h1, h2, h3, h4 {
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            font-size: 1.125rem;
+        }
+
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.875rem 1.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 0 20px var(--glow-purple);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px var(--glow-blue);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--neon-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        /* Header / Nav */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 1rem 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(5, 5, 15, 0.9);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--neon-blue);
+        }
+
+        /* Desktop nav */
+        .nav-links {
+            display: none;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-blue);
+        }
+
+        @media(min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        /* Mobile hamburger */
+        .mobile-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        @media(min-width: 768px) {
+            .mobile-toggle {
+                display: none;
+            }
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 15, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Badge pod hero */
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .trust-badge i {
+            color: #22c55e;
+        }
+
+        /* Problem */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .problem-card i {
+            font-size: 2.5rem;
+            color: #ef4444;
+            margin-bottom: 1rem;
+        }
+
+        /* Solutions */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .solutions-grid .card i {
+            font-size: 2.5rem;
+            color: var(--neon-blue);
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(0, 212, 255, 0.2));
+            padding: 1rem;
+            border-radius: 12px;
+        }
+
+        /* Steps */
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
+
+        @media(min-width: 768px) {
+            .steps-container {
+                flex-direction: row;
+            }
+            .steps-container::before {
+                content: '';
+                position: absolute;
+                top: 50px; left: 10%; width: 80%; height: 2px;
+                background: var(--border-light);
+                z-index: -1;
+            }
+        }
+
+        .step-card {
+            flex: 1;
+            text-align: center;
+            background: var(--bg-dark);
+            padding: 1rem;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 0 20px var(--glow-purple);
+        }
+
+        /* Pricing */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .pricing-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .pricing-card.popular {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 30px rgba(124, 58, 237, 0.15);
+            transform: scale(1.05);
+        }
+
+        @media(max-width: 768px) {
+            .pricing-card.popular { transform: scale(1); }
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin: 1rem 0;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+        }
+
+        .features-list i {
+            color: var(--neon-blue);
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            color: var(--text-muted);
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active {
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 200px;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        /* Contact form */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 24px;
+            padding: 3rem;
+        }
+
+        @media(min-width: 768px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border-light);
+            padding: 1rem;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        select.form-control option {
+            background: var(--bg-dark);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Form success state */
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .form-success i {
+            font-size: 4rem;
+            color: #22c55e;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-light);
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--neon-blue);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--neon-blue);
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cookie banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(5, 5, 15, 0.95);
+            border-top: 1px solid var(--border-light);
+            padding: 1rem 1.5rem;
+            z-index: 9999;
+            display: none;
+            backdrop-filter: blur(12px);
+        }
+
+        .cookie-banner.show {
+            display: block;
+        }
+
+        .cookie-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .cookie-inner p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cookie-inner a {
+            color: var(--neon-blue);
+            text-decoration: none;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .cookie-btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: none;
+            font-weight: 600;
+        }
+
+        .cookie-accept {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .cookie-reject {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid var(--border-light);
+        }
+
+        /* Scroll to top */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 20px var(--glow-purple);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- Mobile menu overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileClose">&times;</button>
+        <a href="#oferta" onclick="closeMobile()">Oferta</a>
+        <a href="#cennik" onclick="closeMobile()">Cennik</a>
+        <a href="#faq" onclick="closeMobile()">FAQ</a>
+        <a href="#kontakt" onclick="closeMobile()">Kontakt</a>
+    </div>
+
+    <header id="header">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="ph-fill ph-lightning"></i>
+                EcomSwiftEvo
+            </a>
+
+            <ul class="nav-links">
+                <li><a href="#oferta">Oferta</a></li>
+                <li><a href="#cennik">Cennik</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#kontakt" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.9rem;">Darmowa Konsultacja</a></li>
+            </ul>
+
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="container reveal">
+            <h1>Automatyzujemy Twój <br><span class="gradient-text">E-commerce</span></h1>
+            <p>Więcej sprzedaży. Mniej ręcznej roboty. AI + Automatyzacja dla nowoczesnych sklepów online.</p>
+            <div class="hero-buttons">
+                <a href="#kontakt" class="btn btn-primary">Umów bezpłatną konsultację</a>
+                <a href="#oferta" class="btn btn-secondary">Zobacz ofertę</a>
+            </div>
+            <div class="trust-badge">
+                <i class="ph-fill ph-shield-check"></i>
+                <span>Bezpłatny audyt procesów &bull; Wdrożenie od 48h &bull; Monitoring 24/7</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="problem">
+        <div class="container reveal">
+            <h2>Czy to brzmi <span class="gradient-text">znajomo?</span></h2>
+            <p class="subtitle">Przeszkody, które blokują skalowanie Twojego sklepu.</p>
+
+            <div class="problem-grid">
+                <div class="card problem-card">
+                    <i class="ph ph-copy"></i>
+                    <h3>Ręczne kopiowanie</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Przenoszenie zamówień między sklepem, kurierem a systemem księgowym pożera Twój czas.</p>
+                </div>
+                <div class="card problem-card">
+                    <i class="ph ph-clock-countdown"></i>
+                    <h3>Brak czasu na marketing</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Gasisz pożary w operacjach zamiast skupić się na promocji w social mediach i rozwoju.</p>
+                </div>
+                <div class="card problem-card">
+                    <i class="ph ph-package"></i>
+                    <h3>Braki magazynowe</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Klienci kupują produkty, których już nie masz, przez brak natychmiastowych alertów.</p>
+                </div>
+                <div class="card problem-card">
+                    <i class="ph ph-text-align-left"></i>
+                    <h3>Puste opisy</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Setki produktów czekają na dodanie, bo nie masz czasu pisać unikalnych opisów pod SEO.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="oferta">
+        <div class="container reveal">
+            <h2>Nasze <span class="gradient-text">automatyzacje</span></h2>
+            <p class="subtitle">Gotowe procesy, które pracują dla Ciebie 24/7.</p>
+
+            <div class="solutions-grid">
+                <div class="card">
+                    <i class="ph ph-arrows-left-right"></i>
+                    <h3>Sync zamówień</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Automatyczny przesył danych do CRM, arkuszy i systemów ERP bez błędu ludzkiego.</p>
+                </div>
+                <div class="card">
+                    <i class="ph ph-bell-ringing"></i>
+                    <h3>Alerty magazynowe</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Powiadomienia na Slack/SMS, gdy poziom produktu spada poniżej minimum.</p>
+                </div>
+                <div class="card">
+                    <i class="ph ph-envelope-simple"></i>
+                    <h3>Auto follow-up</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Zautomatyzowane maile/SMS z podziękowaniem i prośbą o opinię po zakupie.</p>
+                </div>
+                <div class="card">
+                    <i class="ph ph-star"></i>
+                    <h3>Monitoring opinii</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Natychmiastowy alert o negatywnej recenzji, byś mógł szybko zareagować.</p>
+                </div>
+                <div class="card">
+                    <i class="ph ph-robot"></i>
+                    <h3>AI opisy produktów</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Generowanie angażujących i zgodnych z SEO opisów za pomocą sztucznej inteligencji.</p>
+                </div>
+                <div class="card">
+                    <i class="ph ph-share-network"></i>
+                    <h3>Auto-posty Social</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Dodajesz nowy produkt w sklepie? System sam tworzy i publikuje post na IG/FB.</p>
+                </div>
+                <div class="card">
+                    <i class="ph ph-chart-line-up"></i>
+                    <h3>Dzienny raport</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Podsumowanie sprzedaży, marży i kluczowych wskaźników prosto na Twój telefon.</p>
+                </div>
+                <div class="card">
+                    <i class="ph ph-tag"></i>
+                    <h3>Sync cen</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Automatyczna aktualizacja cen na Allegro, Amazon i innych marketplace'ach.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proces">
+        <div class="container reveal">
+            <h2>Jak to <span class="gradient-text">działa</span></h2>
+            <p class="subtitle">Trzy proste kroki do pełnej automatyzacji.</p>
+
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Wypełniasz formularz</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Zostawiasz kontakt i mówisz nam, na jakiej platformie działasz i co boli Cię najbardziej.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Konfigurujemy system</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">Nasz zespół łączy odpowiednie aplikacje i tworzy scenariusze no-code/AI pod Twój biznes.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Działa 24/7</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.5rem;">System przejmuje powtarzalne zadania. Ty obserwujesz raporty i liczysz zyski.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cennik">
+        <div class="container reveal">
+            <h2>Prosty <span class="gradient-text">Cennik</span></h2>
+            <p class="subtitle">Wybierz plan dopasowany do skali Twojego e-commerce.</p>
+
+            <div class="pricing-grid">
+                <div class="card pricing-card">
+                    <div class="pricing-header">
+                        <h3>STARTER</h3>
+                        <div class="price">497 zł<span> / mies.</span></div>
+                        <p style="color: var(--text-muted);">Idealny na start</p>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="ph-fill ph-check-circle"></i> 1 wybrana automatyzacja</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Monitoring działania 24/7</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Support email</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Konsultacja wstępna</li>
+                    </ul>
+                    <a href="#kontakt" class="btn btn-secondary" style="width: 100%;">Wybieram Starter</a>
+                </div>
+
+                <div class="card pricing-card popular">
+                    <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); background: var(--gradient-primary); padding: 0.2rem 1rem; border-radius: 0 0 10px 10px; font-size: 0.8rem; font-weight: bold;">NAJPOPULARNIEJSZY</div>
+                    <div class="pricing-header">
+                        <h3 style="color: var(--neon-blue);">GROWTH</h3>
+                        <div class="price">997 zł<span> / mies.</span></div>
+                        <p style="color: var(--text-muted);">Dla rosnących sklepów</p>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="ph-fill ph-check-circle"></i> Do 3 automatyzacji</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Dostęp do Dashboardu</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Support priorytetowy</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Integracja AI (np. opisy)</li>
+                    </ul>
+                    <a href="#kontakt" class="btn btn-primary" style="width: 100%;">Wybieram Growth</a>
+                </div>
+
+                <div class="card pricing-card">
+                    <div class="pricing-header">
+                        <h3>SCALE</h3>
+                        <div class="price">1997 zł<span> / mies.</span></div>
+                        <p style="color: var(--text-muted);">Dla liderów rynku</p>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="ph-fill ph-check-circle"></i> Bez limitu automatyzacji</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Dedykowany opiekun</li>
+                        <li><i class="ph-fill ph-check-circle"></i> SLA 4h</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Tworzenie custom API</li>
+                    </ul>
+                    <a href="#kontakt" class="btn btn-secondary" style="width: 100%;">Wybieram Scale</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: rgba(255,255,255,0.02); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+        <div class="container reveal">
+            <h2 style="font-size: 1.5rem; color: var(--text-muted); margin-bottom: 3rem;">Zaufali nam w liczbach</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 class="gradient-text" data-count="50" data-suffix="+">0</h3>
+                    <p>Udanych wdrożeń</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="gradient-text" data-count="99.9" data-suffix="%" data-decimals="1">0</h3>
+                    <p>Uptime systemów</p>
+                </div>
+                <div class="stat-item">
+                    <h3 class="gradient-text" data-count="120" data-suffix="h">0</h3>
+                    <p>Zaoszczędzonych miesięcznie / klient</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq">
+        <div class="container reveal">
+            <h2>Często zadawane <span class="gradient-text">pytania</span></h2>
+            <p class="subtitle">Rozwiewamy wątpliwości techniczne.</p>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Jakie platformy obsługujecie?
+                        <i class="ph ph-caret-down" style="transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Integrujemy wszystkie najpopularniejsze rozwiązania: Shopify, WooCommerce, PrestaShop, Shoper, a także Baselinker, systemy ERP, CRM (HubSpot, Pipedrive) oraz aplikacje księgowe.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Ile trwa wdrożenie?
+                        <i class="ph ph-caret-down" style="transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Podstawowe automatyzacje (plan Starter) wdrażamy w 48-72 godziny. Bardziej zaawansowane przepływy pracy dla planów Growth i Scale mogą zająć od 1 do 2 tygodni, z pełnymi testami.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Czy mogę dodać więcej automatyzacji w trakcie?
+                        <i class="ph ph-caret-down" style="transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Oczywiście. Twoje potrzeby rosną wraz z biznesem. Zawsze możesz łatwo zaktualizować swój plan lub dokupić pojedynczy proces poza głównym abonamentem.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Co jeśli coś się zepsuje?
+                        <i class="ph ph-caret-down" style="transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Nasze systemy monitorują działanie automatyzacji 24/7. Jeśli API jakiejś usługi przestanie odpowiadać, natychmiast dostajemy alert i naprawiamy to — często zanim w ogóle zauważysz błąd.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Czy potrzebuję wiedzy technicznej?
+                        <i class="ph ph-caret-down" style="transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Kompletnie nie. Działamy w modelu "Done-For-You". Omawiamy proces na spotkaniu, a my zajmujemy się kodem, web-hookami i logiką na zapleczu.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Jakie dane są potrzebne do startu?
+                        <i class="ph ph-caret-down" style="transition: transform 0.3s;"></i>
+                    </div>
+                    <div class="faq-answer">
+                        Wystarczy dostęp do panelu Twojego sklepu i informacja, które procesy chcesz zautomatyzować. Resztą zajmujemy się my — od analizy po wdrożenie i testy.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt">
+        <div class="container reveal">
+            <div class="contact-wrapper">
+                <div>
+                    <h2 style="text-align: left;">Zróbmy pierwszy <span class="gradient-text">krok</span></h2>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1.1rem;">
+                        Wypełnij formularz obok, a skontaktujemy się z Tobą w ciągu 24 godzin, by umówić darmowy audyt Twoich procesów e-commerce.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <i class="ph-fill ph-envelope" style="color: var(--neon-blue); font-size: 1.5rem;"></i>
+                            <span>kontakt@ecomswiftevo.pl</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Imię i nazwisko</label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Jan Kowalski" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Adres e-mail</label>
+                            <input type="email" id="email" name="email" class="form-control" placeholder="jan@twojsklep.pl" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Numer telefonu</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" placeholder="+48 ...">
+                        </div>
+                        <div class="form-group">
+                            <label for="platform">Platforma E-commerce</label>
+                            <select id="platform" name="platform" class="form-control" required>
+                                <option value="" disabled selected>Wybierz platformę...</option>
+                                <option value="shopify">Shopify</option>
+                                <option value="woocommerce">WooCommerce</option>
+                                <option value="prestashop">PrestaShop</option>
+                                <option value="shoper">Shoper</option>
+                                <option value="baselinker">BaseLinker</option>
+                                <option value="allegro">Allegro</option>
+                                <option value="inne">Inna / Własny system</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="problem">Największy problem operacyjny</label>
+                            <textarea id="problem" name="problem" class="form-control" placeholder="Co zajmuje Ci najwięcej czasu każdego dnia?" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;" id="submitBtn">Wyślij zapytanie</button>
+                    </form>
+
+                    <div class="form-success" id="formSuccess">
+                        <i class="ph-fill ph-check-circle"></i>
+                        <h3>Dziękujemy!</h3>
+                        <p style="color: var(--text-muted); margin-top: 1rem;">Twoje zgłoszenie zostało wysłane. Odezwiemy się w ciągu 24 godzin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <a href="#" class="logo" style="justify-content: center; margin-bottom: 1rem;">
+                <i class="ph-fill ph-lightning"></i>
+                EcomSwiftEvo
+            </a>
+            <p>Agencja Automatyzacji AI dla E-commerce.</p>
+
+            <div class="footer-links">
+                <a href="polityka-prywatnosci.html">Polityka prywatności</a>
+                <a href="#oferta">Oferta</a>
+                <a href="#cennik">Cennik</a>
+                <a href="#kontakt">Kontakt</a>
+            </div>
+
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+                <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                <a href="#" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
+            </div>
+
+            <div style="font-size: 0.9rem; margin-top: 2rem;">
+                &copy; 2026 EcomSwiftEvo. Wszelkie prawa zastrzeżone.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cookie banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-inner">
+            <p>Ta strona korzysta z plików cookies w celu realizacji usług. <a href="polityka-prywatnosci.html">Dowiedz się więcej</a>.</p>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-reject" onclick="acceptCookies(false)">Odrzuć</button>
+                <button class="cookie-btn cookie-accept" onclick="acceptCookies(true)">Akceptuję</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll to top -->
+    <button class="scroll-top" id="scrollTop" aria-label="Przewiń do góry">
+        <i class="ph ph-caret-up"></i>
+    </button>
+
+    <script>
+        // ===== Particles animation =====
+        (function() {
+            const canvas = document.getElementById('particles');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            function resize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            function createParticles() {
+                particles = [];
+                const count = Math.floor((canvas.width * canvas.height) / 25000);
+                for (let i = 0; i < count; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        vx: (Math.random() - 0.5) * 0.3,
+                        vy: (Math.random() - 0.5) * 0.3,
+                        r: Math.random() * 1.5 + 0.5,
+                        alpha: Math.random() * 0.3 + 0.1
+                    });
+                }
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    if (p.x < 0) p.x = canvas.width;
+                    if (p.x > canvas.width) p.x = 0;
+                    if (p.y < 0) p.y = canvas.height;
+                    if (p.y > canvas.height) p.y = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 212, 255, ' + p.alpha + ')';
+                    ctx.fill();
+                });
+
+                // Draw connections
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = 'rgba(124, 58, 237, ' + (0.08 * (1 - dist / 120)) + ')';
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            resize();
+            createParticles();
+            draw();
+            window.addEventListener('resize', () => { resize(); createParticles(); });
+        })();
+
+        // ===== Header scroll effect =====
+        window.addEventListener('scroll', () => {
+            document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ===== Mobile menu =====
+        document.getElementById('mobileToggle').addEventListener('click', () => {
+            document.getElementById('mobileMenu').classList.add('open');
+        });
+        document.getElementById('mobileClose').addEventListener('click', closeMobile);
+        function closeMobile() {
+            document.getElementById('mobileMenu').classList.remove('open');
+        }
+
+        // ===== Scroll reveal =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ===== Animated counters =====
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseFloat(el.dataset.count);
+                    const suffix = el.dataset.suffix || '';
+                    const decimals = parseInt(el.dataset.decimals) || 0;
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function animate(now) {
+                        const progress = Math.min((now - start) / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = (target * eased).toFixed(decimals);
+                        el.textContent = current + suffix;
+                        if (progress < 1) requestAnimationFrame(animate);
+                    }
+
+                    requestAnimationFrame(animate);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+        // ===== FAQ Accordion =====
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    if (other !== item) other.classList.remove('active');
+                });
+                item.classList.toggle('active');
+            });
+        });
+
+        // ===== Contact form =====
+        // TODO: Replace this URL with your n8n webhook URL
+        const WEBHOOK_URL = 'TWOJ_WEBHOOK_URL';
+
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.textContent = 'Wysyłanie...';
+            btn.disabled = true;
+
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                platform: document.getElementById('platform').value,
+                problem: document.getElementById('problem').value,
+                source: 'ecomswiftevo.pl',
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                if (WEBHOOK_URL !== 'TWOJ_WEBHOOK_URL') {
+                    await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data),
+                        mode: 'no-cors'
+                    });
+                }
+                // Show success
+                this.style.display = 'none';
+                document.getElementById('formSuccess').classList.add('show');
+            } catch (err) {
+                btn.textContent = 'Wyślij zapytanie';
+                btn.disabled = false;
+                alert('Wystąpił błąd. Spróbuj ponownie lub napisz na kontakt@ecomswiftevo.pl');
+            }
+        });
+
+        // ===== Cookies =====
+        if (!localStorage.getItem('cookies_consent')) {
+            document.getElementById('cookieBanner').classList.add('show');
+        }
+
+        function acceptCookies(accepted) {
+            localStorage.setItem('cookies_consent', accepted ? 'accepted' : 'rejected');
+            document.getElementById('cookieBanner').classList.remove('show');
+        }
+
+        // ===== Scroll to top =====
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
