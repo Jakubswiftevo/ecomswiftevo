@@ -23,27 +23,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
+        :root {
+            --bg-color: #020204;
+            --text-color: #ffffff;
+            --accent-blue: #3b82f6;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html { scroll-behavior: smooth; }
 
+        ::selection {
+            background: rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: #000;
-            color: #fff;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Noise overlay */
+        /* Grain overlay */
         body::after {
             content: '';
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+            inset: 0;
             pointer-events: none;
-            z-index: 0;
+            z-index: 5;
+            opacity: 0.05;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
         #particles-canvas {
@@ -92,10 +106,10 @@
         }
 
         header.scrolled {
-            background: rgba(0,0,0,0.85);
+            background: rgba(2,2,4,0.9);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid var(--glass-border);
         }
 
         .nav {
@@ -231,7 +245,7 @@
 
         /* ===== MODULE / FEATURE SECTION ===== */
         .module-section {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
         }
 
         .module-header {
@@ -248,26 +262,37 @@
             font-size: 0.95rem;
         }
 
-        /* Feature block: text left, stats right */
+        /* Feature block: glass-panel style */
         .feature-block {
             display: grid;
             grid-template-columns: 1fr;
             gap: 3rem;
-            padding: 3rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+
+        .feature-block:hover {
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-5px);
         }
 
         @media(min-width: 768px) {
             .feature-block { grid-template-columns: 1fr 1fr; gap: 4rem; }
         }
 
-        .feature-block:last-child { border-bottom: none; }
+        .feature-block:last-child { margin-bottom: 0; }
 
         .feature-label {
             font-size: 0.65rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: #3b82f6;
+            color: var(--accent-blue);
             margin-bottom: 1rem;
         }
 
@@ -326,42 +351,33 @@
         }
 
         .stat-item {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 10px;
-            padding: 1.25rem 1.5rem;
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
-        .stat-item:hover {
-            transform: translateY(-3px);
-            border-color: rgba(59,130,246,0.25);
-            background: rgba(59,130,246,0.04);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-        }
+        .stat-item:last-child { border-bottom: none; }
 
         .stat-value {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            color: #fff;
             line-height: 1.2;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .stat-desc {
             font-size: 0.8rem;
-            color: rgba(255,255,255,0.35);
+            color: rgba(255,255,255,0.4);
             margin-top: 0.25rem;
             line-height: 1.5;
         }
 
-        .stat-value.green { color: #22c55e; }
-        .stat-value.blue { color: #3b82f6; }
-        .stat-value.amber { color: #f59e0b; }
-
         /* ===== ICONS ROW (jak to działa) ===== */
         .process-section {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
             text-align: center;
         }
 
@@ -385,22 +401,26 @@
 
         .process-item {
             text-align: center;
-            padding: 2rem 1rem;
-            border: 1px solid rgba(255,255,255,0.06);
+            padding: 2rem 1.25rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
             border-radius: 12px;
-            transition: border-color 0.3s;
+            transition: all 0.4s ease;
         }
 
         .process-item:hover {
-            border-color: rgba(59,130,246,0.15);
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.05);
+            transform: translateY(-5px);
         }
 
         .process-item:hover .process-icon {
-            color: rgba(59,130,246,0.6);
+            color: var(--accent-blue);
         }
 
         .process-item:hover h4 {
-            color: rgba(255,255,255,0.95);
+            color: #fff;
         }
 
         .process-icon {
@@ -443,7 +463,7 @@
 
         /* ===== INTEGRATIONS ===== */
         .integrations {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
         }
 
         .integrations h2 {
@@ -466,16 +486,19 @@
 
         .tag {
             padding: 0.5rem 1.2rem;
-            border: 1px solid rgba(255,255,255,0.08);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             border-radius: 6px;
             font-size: 0.8rem;
             color: rgba(255,255,255,0.5);
-            transition: all 0.3s;
+            transition: all 0.4s ease;
         }
 
         .tag:hover {
-            border-color: rgba(255,255,255,0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.05);
             color: #fff;
+            transform: translateY(-2px);
         }
 
         .two-col {
@@ -512,7 +535,7 @@
 
         /* ===== ABOUT / FOUNDER ===== */
         .about-section {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
         }
 
         .about-grid {
@@ -616,7 +639,7 @@
 
         /* ===== FAQ ===== */
         .faq-section {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
         }
 
         .faq-section h2 {
@@ -669,11 +692,11 @@
 
         /* ===== CONTACT ===== */
         .contact-section {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
             background-image:
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 60px 60px;
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
         .contact-grid {
@@ -694,7 +717,7 @@
         }
 
         .contact-left h2 .gradient-word {
-            background: linear-gradient(135deg, #3b82f6, #22c55e);
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -744,15 +767,17 @@
         }
 
         .contact-form-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
             border-radius: 12px;
             padding: 2.25rem;
-            transition: border-color 0.4s;
+            transition: all 0.4s ease;
         }
 
         .contact-form-card:hover {
-            border-color: rgba(59,130,246,0.3);
+            border-color: rgba(59, 130, 246, 0.3);
+            background: rgba(59, 130, 246, 0.05);
         }
 
         .form-group { margin-bottom: 1.25rem; }
@@ -768,9 +793,9 @@
 
         .form-input {
             width: 100%;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 8px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
             padding: 0.85rem 1rem;
             color: #fff;
             font-size: 0.9rem;
@@ -780,14 +805,12 @@
 
         .form-input:focus {
             outline: none;
-            border-color: rgba(59,130,246,0.4);
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.08);
-            background: rgba(59,130,246,0.03);
+            border-color: rgba(59, 130, 246, 0.4);
         }
 
         .form-input::placeholder { color: rgba(255,255,255,0.15); }
 
-        select.form-input option { background: #0a0a0a; }
+        select.form-input option { background: var(--bg-color); }
 
         textarea.form-input { min-height: 90px; resize: vertical; }
 
@@ -814,7 +837,7 @@
             text-align: center;
             margin-top: 1.25rem;
             padding-top: 1.25rem;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
         }
 
         .contact-form-email a {
@@ -837,7 +860,7 @@
 
         /* Footer */
         footer {
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
             padding: 3rem 0;
             text-align: center;
         }
@@ -881,7 +904,7 @@
         .cookie-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: rgba(0,0,0,0.95);
-            border-top: 1px solid rgba(255,255,255,0.06);
+            border-top: 1px solid var(--glass-border);
             padding: 1rem 2rem;
             z-index: 9999;
             display: none;
@@ -1036,15 +1059,15 @@
                 </div>
                 <div class="stat-block">
                     <div class="stat-item">
-                        <div class="stat-value green">60–80%</div>
+                        <div class="stat-value">60–80%</div>
                         <div class="stat-desc">koszyków jest porzucanych — odzyskujemy część z nich automatycznie</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value green">5–15%</div>
+                        <div class="stat-value">5–15%</div>
                         <div class="stat-desc">wzrost przychodów z odzyskanych koszyków i powracających klientów</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value green">10–25%</div>
+                        <div class="stat-value">10–25%</div>
                         <div class="stat-desc">więcej powracających zamówień dzięki automatycznym przypomnieniom</div>
                     </div>
                 </div>
@@ -1068,15 +1091,15 @@
                 </div>
                 <div class="stat-block">
                     <div class="stat-item">
-                        <div class="stat-value blue">60–80%</div>
+                        <div class="stat-value">60–80%</div>
                         <div class="stat-desc">ticketów supportu zautomatyzowanych — bez udziału człowieka</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value blue">&lt;1 min</div>
+                        <div class="stat-value">&lt;1 min</div>
                         <div class="stat-desc">czas odpowiedzi na powtarzalne pytania klientów</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value blue">-70%</div>
+                        <div class="stat-value">-70%</div>
                         <div class="stat-desc">mniej czasu zespołu na obsługę powtarzalnych zapytań</div>
                     </div>
                 </div>
@@ -1100,15 +1123,15 @@
                 </div>
                 <div class="stat-block">
                     <div class="stat-item">
-                        <div class="stat-value amber">24/7</div>
+                        <div class="stat-value">24/7</div>
                         <div class="stat-desc">monitoring sklepu — alerty w czasie rzeczywistym na telefon</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value amber">-70%</div>
+                        <div class="stat-value">-70%</div>
                         <div class="stat-desc">mniej braków magazynowych dzięki automatycznym alertom</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value amber">30 sek</div>
+                        <div class="stat-value">30 sek</div>
                         <div class="stat-desc">od wykrycia problemu do powiadomienia — zamiast dni</div>
                     </div>
                 </div>
