@@ -4,255 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcomSwiftEvo | Automatyzacja AI dla E-commerce</title>
-    <meta name="description" content="Automatyzujemy e-commerce: sync zamówień, alerty magazynowe, AI opisy produktów, auto-posty social media. Więcej sprzedaży, mniej ręcznej roboty.">
-    <meta name="keywords" content="automatyzacja e-commerce, AI dla sklepów, n8n, automatyzacja zamówień, integracja e-commerce">
-    <meta name="author" content="EcomSwiftEvo">
+    <meta name="description" content="Automatyzujemy e-commerce: sync zamówień, alerty magazynowe, AI opisy produktów, auto-posty social media.">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://ecomswiftevo.pl/">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://ecomswiftevo.pl/">
     <meta property="og:title" content="EcomSwiftEvo — Automatyzacja AI dla E-commerce">
-    <meta property="og:description" content="Więcej sprzedaży. Mniej ręcznej roboty. AI + Automatyzacja dla nowoczesnych sklepów online.">
+    <meta property="og:description" content="Więcej sprzedaży. Mniej ręcznej roboty. AI + Automatyzacja dla sklepów online.">
     <meta property="og:locale" content="pl_PL">
-    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- GSAP for pro animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-
-    <!-- Three.js for particles -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <!-- Phosphor icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
     <style>
-        :root {
-            --bg-dark: #020204;
-            --bg-card: rgba(255, 255, 255, 0.02);
-            --border-light: rgba(255, 255, 255, 0.06);
-            --text-main: #f0f0f5;
-            --text-muted: #8a8a9a;
-            --accent-blue: #3b82f6;
-            --accent-blue-light: #60a5fa;
-            --accent-purple: #7C3AED;
-            --gradient-primary: linear-gradient(135deg, #3b82f6, #60a5fa);
-            --gradient-accent: linear-gradient(135deg, #7C3AED, #3b82f6);
-            --glow-blue: rgba(59, 130, 246, 0.3);
-            --glow-purple: rgba(124, 58, 237, 0.3);
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
+            background: #000;
+            color: #fff;
             overflow-x: hidden;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Noise texture overlay */
+        /* Noise overlay */
         body::after {
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
             pointer-events: none;
             z-index: 0;
         }
 
-        /* Three.js canvas */
         #particles-canvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: 0;
             opacity: 0;
-            transition: opacity 2s ease;
+            transition: opacity 3s ease;
         }
+        #particles-canvas.visible { opacity: 1; }
 
-        #particles-canvas.visible {
-            opacity: 1;
-        }
-
-        /* All content above particles */
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4 {
-            line-height: 1.15;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        h2 {
-            font-size: clamp(2rem, 4vw, 3rem);
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 4rem;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .gradient-text {
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        .page { position: relative; z-index: 1; }
 
         /* Layout */
         .container {
-            width: 100%;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 0 2rem;
         }
 
-        section {
-            padding: 7rem 0;
-            position: relative;
+        section { padding: 8rem 0; }
+
+        /* Label above sections */
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
+            margin-bottom: 1.5rem;
         }
 
-        /* Glass card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            padding: 2rem;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        /* Typography */
+        h1, h2, h3 {
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
         }
 
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .glass-card:hover {
-            border-color: rgba(59, 130, 246, 0.15);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.08), 0 20px 40px rgba(0, 0, 0, 0.4);
-            transform: translateY(-4px);
-        }
-
-        .glass-card:hover::before {
-            opacity: 1;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.9rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-size: 0.95rem;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background: var(--gradient-primary);
-            color: white;
-            box-shadow: 0 0 20px var(--glow-blue);
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 40px var(--glow-blue);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-secondary:hover {
-            border-color: rgba(59, 130, 246, 0.4);
-            background: rgba(59, 130, 246, 0.05);
-            transform: translateY(-2px);
-        }
-
-        /* Header */
+        /* Nav */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            padding: 1rem 0;
             z-index: 1000;
-            transition: all 0.3s ease;
+            padding: 1.25rem 0;
+            transition: all 0.4s;
         }
 
         header.scrolled {
+            background: rgba(0,0,0,0.85);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            background: rgba(2, 2, 4, 0.8);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
 
-        .nav-container {
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: white;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
             text-decoration: none;
+            letter-spacing: -0.01em;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            letter-spacing: -0.02em;
+            gap: 0.4rem;
         }
 
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--gradient-primary);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-        }
+        .logo span { color: #3b82f6; }
 
         .nav-links {
             display: none;
@@ -262,1231 +125,1111 @@
         }
 
         .nav-links a {
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.5);
             text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.3s;
-            letter-spacing: 0.02em;
+            font-size: 0.75rem;
             text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: color 0.3s;
         }
 
-        .nav-links a:hover {
-            color: white;
+        .nav-links a:hover { color: #fff; }
+
+        .nav-cta {
+            color: #fff !important;
+            background: rgba(255,255,255,0.08);
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s !important;
         }
 
-        @media(min-width: 768px) {
-            .nav-links { display: flex; }
+        .nav-cta:hover {
+            background: rgba(255,255,255,0.12) !important;
         }
 
-        /* Mobile menu */
+        @media(min-width: 768px) { .nav-links { display: flex; } }
+
         .mobile-toggle {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 5px;
+            display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 5px;
         }
-
-        .mobile-toggle span {
-            width: 22px;
-            height: 1.5px;
-            background: white;
-            transition: all 0.3s;
-        }
-
-        @media(min-width: 768px) {
-            .mobile-toggle { display: none; }
-        }
+        .mobile-toggle span { width: 20px; height: 1.5px; background: #fff; }
+        @media(min-width: 768px) { .mobile-toggle { display: none; } }
 
         .mobile-menu {
-            display: none;
-            position: fixed;
+            display: none; position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 2, 4, 0.98);
-            z-index: 999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 2.5rem;
+            background: rgba(0,0,0,0.98); z-index: 999;
+            flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
         }
-
         .mobile-menu.open { display: flex; }
+        .mobile-menu a { color: #fff; text-decoration: none; font-size: 1.2rem; font-weight: 500; }
+        .mobile-close { position: absolute; top: 1.5rem; right: 1.5rem; color: #fff; font-size: 1.5rem; cursor: pointer; background: none; border: none; }
 
-        .mobile-menu a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.3rem;
-            font-weight: 600;
-            letter-spacing: -0.01em;
-        }
-
-        .mobile-menu-close {
-            position: absolute;
-            top: 1.5rem; right: 1.5rem;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-        }
-
-        /* Hero */
+        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            padding-top: 6rem;
+            padding-top: 5rem;
         }
 
-        .hero-content {
-            opacity: 0;
-        }
+        .hero-inner { opacity: 0; max-width: 750px; }
 
         .hero h1 {
-            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+            font-weight: 700;
             margin-bottom: 1.5rem;
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            line-height: 1.05;
+            line-height: 1.08;
         }
 
         .hero p {
-            font-size: clamp(1rem, 2vw, 1.15rem);
-            color: var(--text-muted);
-            max-width: 550px;
+            color: rgba(255,255,255,0.45);
+            font-size: 1rem;
+            max-width: 500px;
             margin: 0 auto 2.5rem;
             line-height: 1.7;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            background: rgba(59, 130, 246, 0.05);
+        .hero-cta {
+            display: inline-block;
+            padding: 0.9rem 2.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            text-decoration: none;
             font-size: 0.8rem;
-            color: var(--accent-blue-light);
-            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            transition: all 0.3s;
         }
 
-        .hero-stats {
+        .hero-cta:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .hero-sub {
+            margin-top: 3rem;
             display: flex;
             justify-content: center;
             gap: 3rem;
-            margin-top: 4rem;
             flex-wrap: wrap;
         }
 
-        .hero-stat {
-            text-align: center;
+        .hero-sub span {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+            letter-spacing: 0.02em;
         }
 
-        .hero-stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* ===== MODULE / FEATURE SECTION ===== */
+        .module-section {
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
 
-        .hero-stat-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
+        .module-header {
+            margin-bottom: 4rem;
+        }
+
+        .module-header h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+        }
+
+        .module-header p {
+            color: rgba(255,255,255,0.4);
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        /* Feature block: text left, stats right */
+        .feature-block {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            padding: 3rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        @media(min-width: 768px) {
+            .feature-block { grid-template-columns: 1fr 1fr; gap: 4rem; }
+        }
+
+        .feature-block:last-child { border-bottom: none; }
+
+        .feature-label {
+            font-size: 0.65rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Section divider */
-        .section-line {
-            width: 60px;
-            height: 2px;
-            background: var(--gradient-primary);
-            margin: 0 auto 2rem;
-            border-radius: 2px;
-        }
-
-        /* Problem section */
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .problem-card {
-            text-align: center;
-            padding: 2.5rem 1.5rem;
-        }
-
-        .problem-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 1.3rem;
-            color: #ef4444;
-        }
-
-        .problem-card h3 {
-            font-size: 1.05rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .problem-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* Solutions */
-        .solutions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .solution-card {
-            padding: 2rem;
-        }
-
-        .solution-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.25rem;
-            font-size: 1.2rem;
-            color: var(--accent-blue-light);
-        }
-
-        .solution-card h3 {
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .solution-card p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        /* Steps */
-        .steps-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .step-card {
-            text-align: center;
-            padding: 2.5rem 2rem;
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 0 25px var(--glow-blue);
-        }
-
-        .step-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        /* Pricing */
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            align-items: stretch;
-        }
-
-        .pricing-card {
-            display: flex;
-            flex-direction: column;
-            padding: 2.5rem 2rem;
-        }
-
-        .pricing-card.popular {
-            border-color: rgba(59, 130, 246, 0.25);
-            box-shadow: 0 0 40px rgba(59, 130, 246, 0.08);
-        }
-
-        .popular-badge {
-            display: inline-block;
-            background: var(--gradient-primary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.15em;
+            color: #3b82f6;
             margin-bottom: 1rem;
         }
 
-        .pricing-header {
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-light);
+        .feature-block h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
         }
 
-        .pricing-header h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-        }
-
-        .price {
-            font-size: 2.5rem;
-            font-weight: 900;
-            letter-spacing: -0.03em;
-        }
-
-        .price span {
+        .feature-block .desc {
+            color: rgba(255,255,255,0.4);
             font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 400;
+            line-height: 1.7;
         }
 
-        .pricing-desc {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-        }
-
-        .features-list {
+        .feature-list {
             list-style: none;
-            margin-bottom: 2rem;
-            flex-grow: 1;
+            margin-top: 1rem;
         }
 
-        .features-list li {
+        .feature-list li {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.2);
+        }
+
+        .stat-block {
             display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.85rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
         }
 
-        .features-list i {
-            color: var(--accent-blue-light);
-            font-size: 1rem;
+        .stat-item {}
+
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #fff;
         }
 
-        /* Stats */
-        .stats-section {
-            border-top: 1px solid var(--border-light);
-            border-bottom: 1px solid var(--border-light);
-            background: rgba(255, 255, 255, 0.01);
+        .stat-desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.15rem;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+        /* ===== ICONS ROW (jak to działa) ===== */
+        .process-section {
+            border-top: 1px solid rgba(255,255,255,0.06);
             text-align: center;
         }
 
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 900;
+        .process-section h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .process-section > .container > p {
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 4rem;
+            font-size: 0.95rem;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .process-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            transition: border-color 0.3s;
+        }
+
+        .process-item:hover { border-color: rgba(255,255,255,0.12); }
+
+        .process-icon {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 1rem;
+        }
+
+        .process-item h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+
+        .process-item p {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .process-note {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.85rem;
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== INTEGRATIONS ===== */
+        .integrations {
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .integrations h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .integrations > .container > p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+
+        .integration-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 4rem;
+        }
+
+        .tag {
+            padding: 0.5rem 1.2rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            border-color: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media(min-width: 768px) {
+            .two-col { grid-template-columns: 1fr 1fr; }
+        }
+
+        .two-col h4 {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .two-col li {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            padding: 0.35rem 0;
+            list-style: none;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .two-col li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* ===== PRICING ===== */
+        .pricing {
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .pricing h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .pricing-card {
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.3s;
+        }
+
+        .pricing-card:hover { border-color: rgba(255,255,255,0.12); }
+
+        .pricing-card.featured {
+            border-color: rgba(59,130,246,0.3);
+        }
+
+        .pricing-card .plan-name {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.75rem;
+        }
+
+        .pricing-card.featured .plan-name { color: #3b82f6; }
+
+        .pricing-card .price {
+            font-size: 2.2rem;
+            font-weight: 800;
             letter-spacing: -0.03em;
             margin-bottom: 0.25rem;
         }
 
-        .stat-label {
-            color: var(--text-muted);
+        .pricing-card .price span {
             font-size: 0.85rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.3);
         }
 
-        /* FAQ */
-        .faq-container {
+        .pricing-card .plan-desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .pricing-card ul {
+            list-style: none;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-card li {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+            padding: 0.4rem 0;
+        }
+
+        .pricing-card li::before {
+            content: '✓ ';
+            color: rgba(255,255,255,0.25);
+        }
+
+        .pricing-card.featured li::before { color: #3b82f6; }
+
+        .plan-btn {
+            display: block;
+            text-align: center;
+            padding: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            border-radius: 6px;
+        }
+
+        .plan-btn:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.25);
+        }
+
+        .pricing-card.featured .plan-btn {
+            background: #3b82f6;
+            border-color: #3b82f6;
+        }
+
+        .pricing-card.featured .plan-btn:hover {
+            background: #2563eb;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section {
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .faq-section h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            margin-bottom: 3rem;
+        }
+
+        .faq-list {
             max-width: 700px;
-            margin: 0 auto;
         }
 
         .faq-item {
-            border-bottom: 1px solid var(--border-light);
-            overflow: hidden;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
         }
 
-        .faq-question {
-            padding: 1.5rem 0;
+        .faq-q {
+            padding: 1.25rem 0;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            cursor: pointer;
-            font-weight: 600;
             font-size: 0.95rem;
+            font-weight: 500;
             transition: color 0.3s;
         }
 
-        .faq-question:hover {
-            color: var(--accent-blue-light);
-        }
+        .faq-q:hover { color: rgba(255,255,255,0.7); }
 
-        .faq-question i {
+        .faq-q .arrow {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
             transition: transform 0.3s;
-            color: var(--text-muted);
-            font-size: 0.9rem;
         }
 
-        .faq-answer {
+        .faq-a {
             max-height: 0;
             overflow: hidden;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.88rem;
             line-height: 1.7;
             transition: max-height 0.4s ease, padding 0.4s ease;
         }
 
-        .faq-item.active .faq-answer {
-            padding-bottom: 1.5rem;
+        .faq-item.active .faq-a {
             max-height: 300px;
+            padding-bottom: 1.25rem;
         }
 
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
+        .faq-item.active .arrow { transform: rotate(180deg); }
+
+        /* ===== CONTACT ===== */
+        .contact-section {
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
 
-        /* Contact */
-        .contact-wrapper {
+        .contact-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 3rem;
-            max-width: 900px;
-            margin: 0 auto;
+            gap: 4rem;
         }
 
         @media(min-width: 768px) {
-            .contact-wrapper {
-                grid-template-columns: 1fr 1fr;
-            }
+            .contact-grid { grid-template-columns: 1fr 1fr; }
         }
 
-        .contact-info h2 {
+        .contact-left h2 {
+            font-size: clamp(2rem, 4vw, 3.2rem);
             text-align: left;
-            font-size: 2rem;
-        }
-
-        .contact-info p {
-            color: var(--text-muted);
-            margin: 1rem 0 2rem;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        .contact-detail {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .contact-detail i {
-            color: var(--accent-blue-light);
-            font-size: 1.1rem;
-        }
-
-        .form-group {
+            line-height: 1.05;
             margin-bottom: 1.25rem;
         }
 
+        .contact-left p {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-left .small-note {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.2);
+        }
+
+        .form-group { margin-bottom: 1.25rem; }
+
         .form-group label {
             display: block;
-            margin-bottom: 0.4rem;
-            color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 0.4rem;
         }
 
-        .form-control {
+        .form-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 6px;
             padding: 0.85rem 1rem;
-            border-radius: 8px;
-            color: white;
-            font-size: 0.95rem;
+            color: #fff;
+            font-size: 0.9rem;
             font-family: inherit;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: border-color 0.3s;
         }
 
-        .form-control:focus {
+        .form-input:focus {
             outline: none;
-            border-color: rgba(59, 130, 246, 0.4);
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        .form-control::placeholder {
-            color: rgba(255, 255, 255, 0.2);
+        .form-input::placeholder { color: rgba(255,255,255,0.15); }
+
+        select.form-input option { background: #000; }
+
+        textarea.form-input { min-height: 90px; resize: vertical; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.9rem;
+            background: #fff;
+            color: #000;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: inherit;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            border-radius: 6px;
         }
 
-        select.form-control option {
-            background: var(--bg-dark);
-        }
-
-        textarea.form-control {
-            min-height: 100px;
-            resize: vertical;
-        }
+        .submit-btn:hover { opacity: 0.85; }
 
         .form-success {
             display: none;
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 3rem 0;
         }
-
         .form-success.show { display: block; }
-
-        .form-success i {
-            font-size: 3rem;
-            color: #22c55e;
-            margin-bottom: 1rem;
-        }
+        .form-success h3 { margin-bottom: 0.5rem; }
+        .form-success p { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
 
         /* Footer */
         footer {
-            border-top: 1px solid var(--border-light);
+            border-top: 1px solid rgba(255,255,255,0.06);
             padding: 3rem 0;
             text-align: center;
-            color: var(--text-muted);
+        }
+
+        .footer-email {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-email a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
         }
 
         .footer-links {
             display: flex;
             justify-content: center;
             gap: 2rem;
-            margin: 1rem 0 1.5rem;
+            margin-bottom: 1.5rem;
             flex-wrap: wrap;
         }
 
         .footer-links a {
-            color: var(--text-muted);
+            color: rgba(255,255,255,0.25);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             transition: color 0.3s;
         }
 
-        .footer-links a:hover { color: white; }
+        .footer-links a:hover { color: rgba(255,255,255,0.6); }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
+        .footer-copy {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.15);
         }
 
-        .social-links a {
-            color: var(--text-muted);
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover { color: white; }
-
-        /* Cookie banner */
-        .cookie-banner {
-            position: fixed;
-            bottom: 0; left: 0; width: 100%;
-            background: rgba(2, 2, 4, 0.95);
-            border-top: 1px solid var(--border-light);
-            padding: 1rem 1.5rem;
+        /* Cookie */
+        .cookie-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(0,0,0,0.95);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 1rem 2rem;
             z-index: 9999;
             display: none;
             backdrop-filter: blur(20px);
         }
-
-        .cookie-banner.show { display: block; }
-
+        .cookie-bar.show { display: block; }
         .cookie-inner {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
+            max-width: 1100px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; flex-wrap: wrap;
         }
-
-        .cookie-inner p {
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            flex: 1;
-            min-width: 250px;
+        .cookie-inner p { color: rgba(255,255,255,0.4); font-size: 0.78rem; flex: 1; min-width: 250px; }
+        .cookie-inner a { color: #3b82f6; text-decoration: none; }
+        .cookie-btns { display: flex; gap: 0.5rem; }
+        .c-btn {
+            padding: 0.45rem 1rem; border-radius: 4px; font-size: 0.78rem;
+            cursor: pointer; border: none; font-family: inherit; font-weight: 600;
         }
+        .c-accept { background: #fff; color: #000; }
+        .c-reject { background: transparent; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.1); }
 
-        .cookie-inner a { color: var(--accent-blue-light); text-decoration: none; }
-
-        .cookie-buttons { display: flex; gap: 0.5rem; }
-
-        .cookie-btn {
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border: none;
-            font-weight: 600;
-            font-family: inherit;
-        }
-
-        .cookie-accept {
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .cookie-reject {
-            background: transparent;
-            color: var(--text-muted);
-            border: 1px solid var(--border-light);
-        }
-
-        /* Scroll top */
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem; right: 2rem;
-            width: 40px; height: 40px;
-            background: rgba(59, 130, 246, 0.15);
-            border: 1px solid rgba(59, 130, 246, 0.25);
-            border-radius: 8px;
-            color: var(--accent-blue-light);
-            font-size: 1rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .scroll-top.visible { opacity: 1; visibility: visible; }
-        .scroll-top:hover { background: rgba(59, 130, 246, 0.25); }
-
-        /* GSAP reveal classes */
-        .gs-reveal {
-            opacity: 0;
-            transform: translateY(40px);
-        }
+        /* GSAP */
+        .gs { opacity: 0; transform: translateY(30px); }
     </style>
 </head>
 <body>
 
-    <canvas id="particles-canvas"></canvas>
+<canvas id="particles-canvas"></canvas>
 
-    <div class="content-wrapper">
+<div class="page">
 
-        <!-- Mobile menu -->
-        <div class="mobile-menu" id="mobileMenu">
-            <button class="mobile-menu-close" id="mobileClose">&times;</button>
-            <a href="#oferta" onclick="closeMobile()">Oferta</a>
-            <a href="#jak-to-dziala" onclick="closeMobile()">Proces</a>
-            <a href="#cennik" onclick="closeMobile()">Cennik</a>
-            <a href="#faq" onclick="closeMobile()">FAQ</a>
-            <a href="#kontakt" onclick="closeMobile()">Kontakt</a>
-        </div>
-
-        <header id="header">
-            <div class="container nav-container">
-                <a href="#" class="logo">
-                    <div class="logo-icon"><i class="ph-fill ph-lightning"></i></div>
-                    EcomSwiftEvo
-                </a>
-                <ul class="nav-links">
-                    <li><a href="#oferta">Oferta</a></li>
-                    <li><a href="#cennik">Cennik</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#kontakt" class="btn btn-primary" style="padding: 0.5rem 1.2rem; font-size: 0.8rem;">Konsultacja</a></li>
-                </ul>
-                <div class="mobile-toggle" id="mobileToggle">
-                    <span></span><span></span><span></span>
-                </div>
-            </div>
-        </header>
-
-        <!-- HERO -->
-        <section class="hero" id="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <div class="hero-badge">
-                        <i class="ph-fill ph-lightning"></i>
-                        Automatyzacja AI dla E-commerce
-                    </div>
-                    <h1>Twój sklep na<br><span class="gradient-text">autopilocie</span></h1>
-                    <p>Automatyzujemy powtarzalne procesy e-commerce. Więcej sprzedaży, mniej ręcznej roboty — od pierwszego dnia.</p>
-                    <div class="hero-buttons">
-                        <a href="#kontakt" class="btn btn-primary">Bezpłatna konsultacja <i class="ph ph-arrow-right"></i></a>
-                        <a href="#oferta" class="btn btn-secondary">Jak to działa</a>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="hero-stat">
-                            <div class="hero-stat-number" data-count="50" data-suffix="+">0</div>
-                            <div class="hero-stat-label">Wdrożeń</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-number" data-count="99.9" data-suffix="%" data-decimals="1">0</div>
-                            <div class="hero-stat-label">Uptime</div>
-                        </div>
-                        <div class="hero-stat">
-                            <div class="hero-stat-number" data-count="120" data-suffix="h">0</div>
-                            <div class="hero-stat-label">Zaoszczędzonych / mies.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PROBLEM -->
-        <section id="problem">
-            <div class="container">
-                <div class="gs-reveal">
-                    <div class="section-line"></div>
-                    <h2>Czy to brzmi <span class="gradient-text">znajomo?</span></h2>
-                    <p class="subtitle">Problemy, które blokują skalowanie Twojego sklepu online.</p>
-                </div>
-                <div class="problem-grid">
-                    <div class="glass-card problem-card gs-reveal">
-                        <div class="problem-icon"><i class="ph ph-copy"></i></div>
-                        <h3>Ręczne kopiowanie</h3>
-                        <p>Przenoszenie zamówień między sklepem, kurierem a księgowością pożera Twój czas.</p>
-                    </div>
-                    <div class="glass-card problem-card gs-reveal">
-                        <div class="problem-icon"><i class="ph ph-clock-countdown"></i></div>
-                        <h3>Zero czasu na marketing</h3>
-                        <p>Gasisz pożary w operacjach zamiast skupić się na promocji i rozwoju.</p>
-                    </div>
-                    <div class="glass-card problem-card gs-reveal">
-                        <div class="problem-icon"><i class="ph ph-package"></i></div>
-                        <h3>Braki magazynowe</h3>
-                        <p>Klienci zamawiają produkty, których nie masz, bo brak alertów o stanach.</p>
-                    </div>
-                    <div class="glass-card problem-card gs-reveal">
-                        <div class="problem-icon"><i class="ph ph-text-align-left"></i></div>
-                        <h3>Puste opisy produktów</h3>
-                        <p>Setki produktów bez opisów SEO czekają, bo nie masz czasu ich pisać.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SOLUTIONS -->
-        <section id="oferta">
-            <div class="container">
-                <div class="gs-reveal">
-                    <div class="section-line"></div>
-                    <h2>Co <span class="gradient-text">automatyzujemy</span></h2>
-                    <p class="subtitle">Gotowe procesy, które pracują dla Ciebie 24/7 bez przerwy.</p>
-                </div>
-                <div class="solutions-grid">
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-arrows-left-right"></i></div>
-                        <h3>Sync zamówień</h3>
-                        <p>Automatyczny przesył danych do CRM, arkuszy i systemów ERP.</p>
-                    </div>
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-bell-ringing"></i></div>
-                        <h3>Alerty magazynowe</h3>
-                        <p>Powiadomienia SMS/Slack gdy produkt spada poniżej minimum.</p>
-                    </div>
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-envelope-simple"></i></div>
-                        <h3>Auto follow-up</h3>
-                        <p>Maile i SMS z podziękowaniem i prośbą o opinię po zakupie.</p>
-                    </div>
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-star"></i></div>
-                        <h3>Monitoring opinii</h3>
-                        <p>Natychmiastowy alert o negatywnej recenzji — reaguj szybko.</p>
-                    </div>
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-robot"></i></div>
-                        <h3>AI opisy produktów</h3>
-                        <p>Generowanie angażujących opisów SEO sztuczną inteligencją.</p>
-                    </div>
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-share-network"></i></div>
-                        <h3>Auto-posty social</h3>
-                        <p>Nowy produkt w sklepie? Post na IG/FB tworzy się sam.</p>
-                    </div>
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-chart-line-up"></i></div>
-                        <h3>Dzienny raport</h3>
-                        <p>Sprzedaż, marża i kluczowe KPI prosto na Twój telefon.</p>
-                    </div>
-                    <div class="glass-card solution-card gs-reveal">
-                        <div class="solution-icon"><i class="ph ph-tag"></i></div>
-                        <h3>Sync cen</h3>
-                        <p>Automatyczna aktualizacja cen na Allegro, Amazon i marketplace'ach.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- HOW IT WORKS -->
-        <section id="jak-to-dziala">
-            <div class="container">
-                <div class="gs-reveal">
-                    <div class="section-line"></div>
-                    <h2>Jak to <span class="gradient-text">działa</span></h2>
-                    <p class="subtitle">Trzy proste kroki do pełnej automatyzacji.</p>
-                </div>
-                <div class="steps-container">
-                    <div class="glass-card step-card gs-reveal">
-                        <div class="step-number">1</div>
-                        <h3>Wypełniasz formularz</h3>
-                        <p>Mówisz nam na jakiej platformie działasz i co boli Cię najbardziej.</p>
-                    </div>
-                    <div class="glass-card step-card gs-reveal">
-                        <div class="step-number">2</div>
-                        <h3>Konfigurujemy system</h3>
-                        <p>Tworzymy scenariusze automatyzacji no-code/AI pod Twój biznes.</p>
-                    </div>
-                    <div class="glass-card step-card gs-reveal">
-                        <div class="step-number">3</div>
-                        <h3>Działa 24/7</h3>
-                        <p>System przejmuje powtarzalne zadania. Ty liczysz zyski.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRICING -->
-        <section id="cennik">
-            <div class="container">
-                <div class="gs-reveal">
-                    <div class="section-line"></div>
-                    <h2>Prosty <span class="gradient-text">cennik</span></h2>
-                    <p class="subtitle">Wybierz plan dopasowany do skali Twojego e-commerce.</p>
-                </div>
-                <div class="pricing-grid">
-                    <div class="glass-card pricing-card gs-reveal">
-                        <div class="pricing-header">
-                            <h3>Starter</h3>
-                            <div class="price">497 zł<span> / mies.</span></div>
-                            <p class="pricing-desc">Idealny na start</p>
-                        </div>
-                        <ul class="features-list">
-                            <li><i class="ph-fill ph-check-circle"></i> 1 wybrana automatyzacja</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Monitoring 24/7</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Support email</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Konsultacja wstępna</li>
-                        </ul>
-                        <a href="#kontakt" class="btn btn-secondary" style="width:100%;">Wybieram Starter</a>
-                    </div>
-                    <div class="glass-card pricing-card popular gs-reveal">
-                        <div><span class="popular-badge">Najpopularniejszy</span></div>
-                        <div class="pricing-header">
-                            <h3 style="color: var(--accent-blue-light);">Growth</h3>
-                            <div class="price">997 zł<span> / mies.</span></div>
-                            <p class="pricing-desc">Dla rosnących sklepów</p>
-                        </div>
-                        <ul class="features-list">
-                            <li><i class="ph-fill ph-check-circle"></i> Do 3 automatyzacji</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Dashboard monitoringu</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Support priorytetowy</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Integracja AI</li>
-                        </ul>
-                        <a href="#kontakt" class="btn btn-primary" style="width:100%;">Wybieram Growth</a>
-                    </div>
-                    <div class="glass-card pricing-card gs-reveal">
-                        <div class="pricing-header">
-                            <h3>Scale</h3>
-                            <div class="price">1997 zł<span> / mies.</span></div>
-                            <p class="pricing-desc">Dla liderów rynku</p>
-                        </div>
-                        <ul class="features-list">
-                            <li><i class="ph-fill ph-check-circle"></i> Bez limitu automatyzacji</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Dedykowany opiekun</li>
-                            <li><i class="ph-fill ph-check-circle"></i> SLA 4h</li>
-                            <li><i class="ph-fill ph-check-circle"></i> Custom API</li>
-                        </ul>
-                        <a href="#kontakt" class="btn btn-secondary" style="width:100%;">Wybieram Scale</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section id="faq">
-            <div class="container">
-                <div class="gs-reveal">
-                    <div class="section-line"></div>
-                    <h2>Pytania i <span class="gradient-text">odpowiedzi</span></h2>
-                    <p class="subtitle">Rozwiewamy wątpliwości.</p>
-                </div>
-                <div class="faq-container gs-reveal">
-                    <div class="faq-item">
-                        <div class="faq-question">Jakie platformy obsługujecie? <i class="ph ph-caret-down"></i></div>
-                        <div class="faq-answer">Shopify, WooCommerce, PrestaShop, Shoper, Baselinker, systemy ERP, CRM (HubSpot, Pipedrive) oraz aplikacje księgowe.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">Ile trwa wdrożenie? <i class="ph ph-caret-down"></i></div>
-                        <div class="faq-answer">Plan Starter: 48-72 godziny. Growth i Scale: 1-2 tygodnie z pełnymi testami.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">Czy mogę dodać więcej automatyzacji? <i class="ph ph-caret-down"></i></div>
-                        <div class="faq-answer">Tak. Zawsze możesz zaktualizować plan lub dokupić pojedynczy proces poza abonamentem.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">Co jeśli coś się zepsuje? <i class="ph ph-caret-down"></i></div>
-                        <div class="faq-answer">Monitorujemy automatyzacje 24/7. Jeśli coś padnie, dostajemy alert i naprawiamy — często zanim zauważysz błąd.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">Czy potrzebuję wiedzy technicznej? <i class="ph ph-caret-down"></i></div>
-                        <div class="faq-answer">Nie. Działamy w modelu "Done-For-You". Ty mówisz co potrzebujesz, my zajmujemy się całą technologią.</div>
-                    </div>
-                    <div class="faq-item">
-                        <div class="faq-question">Jakie dane potrzebujecie na start? <i class="ph ph-caret-down"></i></div>
-                        <div class="faq-answer">Dostęp do panelu sklepu i info które procesy chcesz zautomatyzować. Resztą zajmujemy się my.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT -->
-        <section id="kontakt">
-            <div class="container">
-                <div class="gs-reveal">
-                    <div class="contact-wrapper">
-                        <div class="contact-info">
-                            <h2>Zróbmy pierwszy <span class="gradient-text">krok</span></h2>
-                            <p>Wypełnij formularz, a skontaktujemy się w ciągu 24 godzin by umówić darmowy audyt Twoich procesów.</p>
-                            <div class="contact-detail">
-                                <i class="ph-fill ph-envelope"></i>
-                                <span>kontakt@ecomswiftevo.pl</span>
-                            </div>
-                        </div>
-                        <div>
-                            <form id="contactForm">
-                                <div class="form-group">
-                                    <label for="name">Imię i nazwisko</label>
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="Jan Kowalski" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control" placeholder="jan@twojsklep.pl" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="phone">Telefon</label>
-                                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="+48 ...">
-                                </div>
-                                <div class="form-group">
-                                    <label for="platform">Platforma</label>
-                                    <select id="platform" name="platform" class="form-control" required>
-                                        <option value="" disabled selected>Wybierz...</option>
-                                        <option value="shopify">Shopify</option>
-                                        <option value="woocommerce">WooCommerce</option>
-                                        <option value="prestashop">PrestaShop</option>
-                                        <option value="shoper">Shoper</option>
-                                        <option value="baselinker">BaseLinker</option>
-                                        <option value="allegro">Allegro</option>
-                                        <option value="inne">Inna</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="problem">Największy problem</label>
-                                    <textarea id="problem" name="problem" class="form-control" placeholder="Co zajmuje Ci najwięcej czasu?" required></textarea>
-                                </div>
-                                <button type="submit" class="btn btn-primary" style="width:100%;" id="submitBtn">Wyślij zapytanie <i class="ph ph-arrow-right"></i></button>
-                            </form>
-                            <div class="form-success" id="formSuccess">
-                                <i class="ph-fill ph-check-circle"></i>
-                                <h3>Dziękujemy!</h3>
-                                <p style="color:var(--text-muted);margin-top:1rem;">Odezwiemy się w ciągu 24 godzin.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FOOTER -->
-        <footer>
-            <div class="container">
-                <a href="#" class="logo" style="justify-content:center;margin-bottom:1rem;font-size:1.1rem;">
-                    <div class="logo-icon" style="width:28px;height:28px;font-size:0.85rem;"><i class="ph-fill ph-lightning"></i></div>
-                    EcomSwiftEvo
-                </a>
-                <div class="footer-links">
-                    <a href="polityka-prywatnosci.html">Polityka prywatności</a>
-                    <a href="#oferta">Oferta</a>
-                    <a href="#cennik">Cennik</a>
-                    <a href="#kontakt">Kontakt</a>
-                </div>
-                <div class="social-links">
-                    <a href="#" aria-label="LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
-                    <a href="#" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
-                </div>
-                <div style="font-size:0.8rem;color:rgba(255,255,255,0.3);">
-                    &copy; 2026 EcomSwiftEvo. Wszelkie prawa zastrzeżone.
-                </div>
-            </div>
-        </footer>
-
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mm">
+        <button class="mobile-close" id="mc">&times;</button>
+        <a href="#co-robimy" onclick="closeM()">Co robimy</a>
+        <a href="#jak-to-dziala" onclick="closeM()">Jak to działa</a>
+        <a href="#cennik" onclick="closeM()">Cennik</a>
+        <a href="#faq" onclick="closeM()">FAQ</a>
+        <a href="#kontakt" onclick="closeM()">Kontakt</a>
     </div>
 
-    <!-- Cookie -->
-    <div class="cookie-banner" id="cookieBanner">
-        <div class="cookie-inner">
-            <p>Korzystamy z plików cookies. <a href="polityka-prywatnosci.html">Więcej</a>.</p>
-            <div class="cookie-buttons">
-                <button class="cookie-btn cookie-reject" onclick="acceptCookies(false)">Odrzuć</button>
-                <button class="cookie-btn cookie-accept" onclick="acceptCookies(true)">OK</button>
+    <header id="hdr">
+        <div class="container nav">
+            <a href="#" class="logo"><span>⚡</span> ECOMSWIFTEVO</a>
+            <ul class="nav-links">
+                <li><a href="#co-robimy">Co robimy</a></li>
+                <li><a href="#jak-to-dziala">Jak to działa</a></li>
+                <li><a href="#cennik">Cennik</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#kontakt" class="nav-cta">Kontakt</a></li>
+            </ul>
+            <div class="mobile-toggle" id="mt"><span></span><span></span><span></span></div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="section-label" style="text-align:center;">System automatyzacji e-commerce</div>
+                <h1>Nowoczesny system automatyzacji dla sklepów online.</h1>
+                <p>8 konkretnych automatyzacji, które zabezpieczają i skalują Twój e-commerce. Bez ręcznej roboty.</p>
+                <a href="#kontakt" class="hero-cta">Porozmawiajmy o Twoim sklepie</a>
+                <div class="hero-sub">
+                    <span>Wdrożenie od 48h</span>
+                    <span>Monitoring 24/7</span>
+                    <span>Bez wiedzy technicznej</span>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- MAIN FEATURES -->
+    <section class="module-section" id="co-robimy">
+        <div class="container">
+            <div class="module-header gs">
+                <div class="section-label">Co automatyzujemy?</div>
+                <h2>8 systemów, które skalują Twój e-commerce</h2>
+                <p>Każdy działa osobno. Razem tworzą kompletny system wzrostu.</p>
+            </div>
+
+            <div class="feature-block gs">
+                <div>
+                    <div class="feature-label">Moduł 1</div>
+                    <h3>Sync zamówień</h3>
+                    <p class="desc">Automatyczny przesył zamówień do CRM, arkuszy i systemów ERP. Zero kopiowania, zero błędów ludzkich.</p>
+                    <ul class="feature-list">
+                        <li>Połączenie ze sklepem, kurierem i księgowością</li>
+                        <li>Automatyczna synchronizacja w czasie rzeczywistym</li>
+                        <li>Działa 24/7 bez Twojego udziału</li>
+                    </ul>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <div class="stat-value">95%</div>
+                        <div class="stat-desc">mniej czasu na obsługę zamówień</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">0</div>
+                        <div class="stat-desc">błędów przy kopiowaniu danych</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-block gs">
+                <div>
+                    <div class="feature-label">Moduł 2</div>
+                    <h3>Alerty magazynowe</h3>
+                    <p class="desc">Powiadomienia SMS i Slack gdy stan produktu spada poniżej minimum. Koniec z utratą sprzedaży przez braki.</p>
+                    <ul class="feature-list">
+                        <li>Konfigurowalne progi alertów per produkt</li>
+                        <li>Natychmiastowe powiadomienia multi-kanałowe</li>
+                        <li>Raporty stanów magazynowych</li>
+                    </ul>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <div class="stat-value">-70%</div>
+                        <div class="stat-desc">mniej braków magazynowych</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">30 sek</div>
+                        <div class="stat-desc">czas reakcji na niski stan</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-block gs">
+                <div>
+                    <div class="feature-label">Moduł 3</div>
+                    <h3>AI opisy produktów</h3>
+                    <p class="desc">Generowanie angażujących opisów SEO za pomocą AI. Setki produktów w godziny zamiast tygodni.</p>
+                    <ul class="feature-list">
+                        <li>Opisy zoptymalizowane pod SEO</li>
+                        <li>Unikalna treść dla każdego produktu</li>
+                        <li>Spójny ton komunikacji marki</li>
+                    </ul>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <div class="stat-value">100x</div>
+                        <div class="stat-desc">szybciej niż ręczne pisanie</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">400-1500 zł</div>
+                        <div class="stat-desc">oszczędności na copywriterze / miesiąc</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-block gs">
+                <div>
+                    <div class="feature-label">Moduł 4-8</div>
+                    <h3>Auto follow-up, monitoring opinii, social media, raporty, sync cen</h3>
+                    <p class="desc">Kompletny zestaw automatyzacji pokrywający cały cykl życia klienta — od zakupu po retencję i marketing.</p>
+                    <ul class="feature-list">
+                        <li>Automatyczne maile/SMS po zakupie</li>
+                        <li>Alerty o negatywnych recenzjach</li>
+                        <li>Auto-posty na IG/FB przy nowym produkcie</li>
+                        <li>Dzienny raport sprzedaży na telefon</li>
+                        <li>Sync cen na Allegro, Amazon, marketplace'ach</li>
+                    </ul>
+                </div>
+                <div class="stat-block">
+                    <div class="stat-item">
+                        <div class="stat-value">120h</div>
+                        <div class="stat-desc">zaoszczędzonych miesięcznie</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-desc">uptime systemów</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process-section" id="jak-to-dziala">
+        <div class="container">
+            <div class="gs">
+                <div class="section-label" style="text-align:center;">Jak to działa?</div>
+                <h2>System wzrostu Twojego sklepu</h2>
+                <p>Każdy moduł można wdrożyć osobno. Ale razem tworzą zamknięty system.</p>
+            </div>
+            <div class="process-grid gs">
+                <div class="process-item">
+                    <div class="process-icon">📋</div>
+                    <h4>Formularz</h4>
+                    <p>Mówisz nam co boli</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">⚙️</div>
+                    <h4>Konfiguracja</h4>
+                    <p>Budujemy automatyzacje</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">🔗</div>
+                    <h4>Integracja</h4>
+                    <p>Łączymy z Twoimi systemami</p>
+                </div>
+                <div class="process-item">
+                    <div class="process-icon">📊</div>
+                    <h4>Monitoring</h4>
+                    <p>Pilnujemy 24/7</p>
+                </div>
+            </div>
+            <p class="process-note gs">Nie wymagamy zmian oprogramowania. Nie ingerujemy w grafik. Nie zabieramy pracy nikomu. Tylko automatyzujemy to, co powtarzalne.</p>
+        </div>
+    </section>
+
+    <!-- INTEGRATIONS -->
+    <section class="integrations">
+        <div class="container">
+            <div class="gs">
+                <div class="section-label">Integracje</div>
+                <h2>Integrujemy się z systemem, którego już używasz</h2>
+                <p>Nie wymagamy zmiany oprogramowania. Nie ingerujemy w grafik. Nie zabieramy pracy nikomu.</p>
+            </div>
+            <div class="integration-tags gs">
+                <div class="tag">Shopify</div>
+                <div class="tag">WooCommerce</div>
+                <div class="tag">PrestaShop</div>
+                <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">Shoper</div>
+                <div class="tag">BaseLinker</div>
+                <div class="tag" style="color:#22c55e;border-color:rgba(34,197,94,0.25);">Allegro</div>
+                <div class="tag">Amazon</div>
+                <div class="tag">HubSpot</div>
+                <div class="tag">Pipedrive</div>
+                <div class="tag">Google Sheets</div>
+                <div class="tag">Slack</div>
+                <div class="tag">SMSAPI</div>
+            </div>
+            <div class="two-col gs">
+                <div>
+                    <h4>Jak wygląda w praktyce?</h4>
+                    <ul>
+                        <li>Twój biznes pracuje jak do teraz. Nic się nie zmienia.</li>
+                        <li>W tle uruchamia się automatyzacja.</li>
+                        <li>Nie musisz instalować żadnych aplikacji czy wtyczek.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Co to oznacza dla Ciebie?</h4>
+                    <ul>
+                        <li>Nic nie wymyślamy. Nie ma przerób.</li>
+                        <li>Nie zmieniamy systemu.</li>
+                        <li>Wszystko działa tam, gdzie już jest. Tylko lepiej.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="cennik">
+        <div class="container">
+            <div class="gs">
+                <div class="section-label" style="text-align:center;">Cennik</div>
+                <h2>Prosty cennik</h2>
+            </div>
+            <div class="pricing-grid gs">
+                <div class="pricing-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="price">497 zł<span> / mies.</span></div>
+                    <p class="plan-desc">Idealny na start. Jedna automatyzacja, pełen monitoring.</p>
+                    <ul>
+                        <li>1 wybrana automatyzacja</li>
+                        <li>Monitoring 24/7</li>
+                        <li>Support email</li>
+                        <li>Konsultacja wstępna</li>
+                    </ul>
+                    <a href="#kontakt" class="plan-btn">Wybieram</a>
+                </div>
+                <div class="pricing-card featured">
+                    <div class="plan-name">Growth</div>
+                    <div class="price">997 zł<span> / mies.</span></div>
+                    <p class="plan-desc">Dla rosnących sklepów. Do 3 automatyzacji + AI.</p>
+                    <ul>
+                        <li>Do 3 automatyzacji</li>
+                        <li>Dashboard monitoringu</li>
+                        <li>Support priorytetowy</li>
+                        <li>Integracja AI</li>
+                    </ul>
+                    <a href="#kontakt" class="plan-btn">Wybieram</a>
+                </div>
+                <div class="pricing-card">
+                    <div class="plan-name">Scale</div>
+                    <div class="price">1997 zł<span> / mies.</span></div>
+                    <p class="plan-desc">Dla liderów rynku. Bez limitu + dedykowany opiekun.</p>
+                    <ul>
+                        <li>Bez limitu automatyzacji</li>
+                        <li>Dedykowany opiekun</li>
+                        <li>SLA 4h</li>
+                        <li>Custom API</li>
+                    </ul>
+                    <a href="#kontakt" class="plan-btn">Wybieram</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="gs">
+                <div class="section-label">Pytania</div>
+                <h2>Najczęstsze pytania</h2>
+            </div>
+            <div class="faq-list gs">
+                <div class="faq-item">
+                    <div class="faq-q">Jakie platformy obsługujecie? <span class="arrow">▼</span></div>
+                    <div class="faq-a">Shopify, WooCommerce, PrestaShop, Shoper, BaseLinker, Allegro, systemy ERP, CRM i aplikacje księgowe.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Ile trwa wdrożenie? <span class="arrow">▼</span></div>
+                    <div class="faq-a">Starter: 48-72h. Growth i Scale: 1-2 tygodnie z pełnymi testami.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Czy mogę dodać więcej automatyzacji? <span class="arrow">▼</span></div>
+                    <div class="faq-a">Tak, zawsze możesz zaktualizować plan lub dokupić pojedynczy proces.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Co jeśli coś się zepsuje? <span class="arrow">▼</span></div>
+                    <div class="faq-a">Monitorujemy 24/7. Dostajemy alert i naprawiamy — często zanim zauważysz problem.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-q">Czy potrzebuję wiedzy technicznej? <span class="arrow">▼</span></div>
+                    <div class="faq-a">Nie. Działamy w modelu Done-For-You. Ty mówisz co potrzebujesz, my robimy resztę.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact-section" id="kontakt">
+        <div class="container">
+            <div class="contact-grid gs">
+                <div class="contact-left">
+                    <h2>Chcesz pogadać?</h2>
+                    <p>Napisz który moduł Cię interesuje. Zobaczymy co ma sens w Twoim sklepie.</p>
+                    <p class="small-note">Bez zobowiązań. Bez presji. Tylko konkretna rozmowa.</p>
+                </div>
+                <div>
+                    <form id="cForm">
+                        <div class="form-group">
+                            <label>Imię i nazwisko</label>
+                            <input type="text" name="name" id="fname" class="form-input" placeholder="Jan Kowalski" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Nazwa sklepu</label>
+                            <input type="text" name="store" id="fstore" class="form-input" placeholder="Twojsklep.pl">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" id="femail" class="form-input" placeholder="kontakt@twojsklep.pl" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Który moduł Cię interesuje?</label>
+                            <select name="module" id="fmodule" class="form-input">
+                                <option value="" disabled selected>Wybierz...</option>
+                                <option>Sync zamówień</option>
+                                <option>Alerty magazynowe</option>
+                                <option>AI opisy produktów</option>
+                                <option>Auto follow-up</option>
+                                <option>Monitoring opinii</option>
+                                <option>Auto-posty social</option>
+                                <option>Dzienny raport</option>
+                                <option>Sync cen</option>
+                                <option>Cały pakiet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Coś jeszcze?</label>
+                            <textarea name="msg" id="fmsg" class="form-input" placeholder="Opinie Google, przypomnienia, reklamy, stoczek... albo napisz co Cię boli"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" id="sbtn">WYŚLIJ</button>
+                    </form>
+                    <div class="form-success" id="fSuccess">
+                        <h3>Dzięki!</h3>
+                        <p>Odezwiemy się w ciągu 24 godzin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-email"><a href="mailto:kontakt@ecomswiftevo.pl">kontakt@ecomswiftevo.pl</a></div>
+            <div class="footer-links">
+                <a href="#co-robimy">Co robimy</a>
+                <a href="#cennik">Cennik</a>
+                <a href="#kontakt">Kontakt</a>
+                <a href="polityka-prywatnosci.html">Prywatność</a>
+            </div>
+            <div class="footer-copy">&copy; 2026 EcomSwiftEvo. Wszelkie prawa zastrzeżone.</div>
+        </div>
+    </footer>
+
+</div>
+
+<!-- Cookie -->
+<div class="cookie-bar" id="cb">
+    <div class="cookie-inner">
+        <p>Korzystamy z plików cookies. <a href="polityka-prywatnosci.html">Więcej</a>.</p>
+        <div class="cookie-btns">
+            <button class="c-btn c-reject" onclick="ck(false)">Odrzuć</button>
+            <button class="c-btn c-accept" onclick="ck(true)">OK</button>
+        </div>
     </div>
+</div>
 
-    <button class="scroll-top" id="scrollTop" aria-label="Do góry">
-        <i class="ph ph-caret-up"></i>
-    </button>
+<script>
+// Three.js particles
+(function(){
+    const c=document.getElementById('particles-canvas');
+    const r=new THREE.WebGLRenderer({canvas:c,alpha:true});
+    r.setSize(innerWidth,innerHeight);
+    r.setPixelRatio(Math.min(devicePixelRatio,2));
+    const s=new THREE.Scene();
+    const cam=new THREE.PerspectiveCamera(75,innerWidth/innerHeight,0.1,1000);
+    cam.position.z=30;
+    const n=600;
+    const g=new THREE.BufferGeometry();
+    const pos=new Float32Array(n*3);
+    for(let i=0;i<n*3;i+=3){pos[i]=(Math.random()-0.5)*60;pos[i+1]=(Math.random()-0.5)*60;pos[i+2]=(Math.random()-0.5)*30;}
+    g.setAttribute('position',new THREE.BufferAttribute(pos,3));
+    const m=new THREE.PointsMaterial({color:0x3b82f6,size:0.06,transparent:true,opacity:0.4,sizeAttenuation:true});
+    const p=new THREE.Points(g,m);
+    s.add(p);
+    let mx=0,my=0;
+    document.addEventListener('mousemove',e=>{mx=(e.clientX/innerWidth-0.5)*2;my=(e.clientY/innerHeight-0.5)*2;});
+    function a(){requestAnimationFrame(a);p.rotation.x+=0.0002;p.rotation.y+=0.0003;p.rotation.x+=(my*0.03-p.rotation.x)*0.008;p.rotation.y+=(mx*0.03-p.rotation.y)*0.008;r.render(s,cam);}
+    a();
+    setTimeout(()=>c.classList.add('visible'),500);
+    addEventListener('resize',()=>{cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();r.setSize(innerWidth,innerHeight);});
+})();
 
-    <script>
-    // ===== THREE.JS PARTICLES =====
-    (function() {
-        const canvas = document.getElementById('particles-canvas');
-        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+// GSAP
+gsap.registerPlugin(ScrollTrigger);
+gsap.to('.hero-inner',{opacity:1,duration:1.5,delay:0.3,ease:'power2.out'});
+gsap.utils.toArray('.gs').forEach(el=>{
+    gsap.to(el,{scrollTrigger:{trigger:el,start:'top 85%'},opacity:1,y:0,duration:0.9,ease:'power2.out'});
+});
 
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.z = 30;
+// Header
+addEventListener('scroll',()=>document.getElementById('hdr').classList.toggle('scrolled',scrollY>50));
 
-        const count = 800;
-        const geometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(count * 3);
+// Mobile
+document.getElementById('mt').addEventListener('click',()=>document.getElementById('mm').classList.add('open'));
+document.getElementById('mc').addEventListener('click',closeM);
+function closeM(){document.getElementById('mm').classList.remove('open');}
 
-        for (let i = 0; i < count * 3; i += 3) {
-            positions[i] = (Math.random() - 0.5) * 60;
-            positions[i + 1] = (Math.random() - 0.5) * 60;
-            positions[i + 2] = (Math.random() - 0.5) * 40;
-        }
-
-        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-        const material = new THREE.PointsMaterial({
-            color: 0x3b82f6,
-            size: 0.08,
-            transparent: true,
-            opacity: 0.6,
-            sizeAttenuation: true
-        });
-
-        const points = new THREE.Points(geometry, material);
-        scene.add(points);
-
-        let mouseX = 0, mouseY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-            mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-        });
-
-        function animate() {
-            requestAnimationFrame(animate);
-            points.rotation.x += 0.0003;
-            points.rotation.y += 0.0005;
-            points.rotation.x += (mouseY * 0.05 - points.rotation.x) * 0.01;
-            points.rotation.y += (mouseX * 0.05 - points.rotation.y) * 0.01;
-            renderer.render(scene, camera);
-        }
-
-        animate();
-        setTimeout(() => canvas.classList.add('visible'), 300);
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    })();
-
-    // ===== GSAP ANIMATIONS =====
-    gsap.registerPlugin(ScrollTrigger);
-
-    // Hero intro
-    gsap.to('.hero-content', {
-        opacity: 1,
-        duration: 1.2,
-        delay: 0.5,
-        ease: 'power3.out'
+// FAQ
+document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{
+        const i=q.parentElement;
+        document.querySelectorAll('.faq-item').forEach(o=>{if(o!==i)o.classList.remove('active');});
+        i.classList.toggle('active');
     });
+});
 
-    // Scroll reveals
-    gsap.utils.toArray('.gs-reveal').forEach((el) => {
-        gsap.to(el, {
-            scrollTrigger: {
-                trigger: el,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-            },
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out'
-        });
-    });
+// Form
+const WH='TWOJ_WEBHOOK_URL';
+document.getElementById('cForm').addEventListener('submit',async function(e){
+    e.preventDefault();
+    const b=document.getElementById('sbtn');
+    b.textContent='Wysyłanie...';b.disabled=true;
+    const d={name:document.getElementById('fname').value,store:document.getElementById('fstore').value,email:document.getElementById('femail').value,module:document.getElementById('fmodule').value,msg:document.getElementById('fmsg').value,source:'ecomswiftevo.pl',ts:new Date().toISOString()};
+    try{
+        if(WH!=='TWOJ_WEBHOOK_URL')await fetch(WH,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),mode:'no-cors'});
+        this.style.display='none';document.getElementById('fSuccess').classList.add('show');
+    }catch(e){b.textContent='WYŚLIJ';b.disabled=false;}
+});
 
-    // Stagger cards
-    document.querySelectorAll('.problem-grid, .solutions-grid, .steps-container, .pricing-grid').forEach(grid => {
-        const cards = grid.querySelectorAll('.gs-reveal');
-        if (cards.length > 1) {
-            gsap.to(cards, {
-                scrollTrigger: {
-                    trigger: grid,
-                    start: 'top 80%'
-                },
-                opacity: 1,
-                y: 0,
-                duration: 0.6,
-                stagger: 0.1,
-                ease: 'power3.out'
-            });
-        }
-    });
-
-    // ===== ANIMATED COUNTERS =====
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                const target = parseFloat(el.dataset.count);
-                const suffix = el.dataset.suffix || '';
-                const decimals = parseInt(el.dataset.decimals) || 0;
-                const duration = 2000;
-                const start = performance.now();
-
-                function tick(now) {
-                    const progress = Math.min((now - start) / duration, 1);
-                    const eased = 1 - Math.pow(1 - progress, 3);
-                    el.textContent = (target * eased).toFixed(decimals) + suffix;
-                    if (progress < 1) requestAnimationFrame(tick);
-                }
-                requestAnimationFrame(tick);
-                counterObserver.unobserve(el);
-            }
-        });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
-
-    // ===== HEADER SCROLL =====
-    window.addEventListener('scroll', () => {
-        document.getElementById('header').classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // ===== MOBILE MENU =====
-    document.getElementById('mobileToggle').addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.add('open');
-    });
-    document.getElementById('mobileClose').addEventListener('click', closeMobile);
-    function closeMobile() {
-        document.getElementById('mobileMenu').classList.remove('open');
-    }
-
-    // ===== FAQ =====
-    document.querySelectorAll('.faq-question').forEach(q => {
-        q.addEventListener('click', () => {
-            const item = q.parentElement;
-            document.querySelectorAll('.faq-item').forEach(o => {
-                if (o !== item) o.classList.remove('active');
-            });
-            item.classList.toggle('active');
-        });
-    });
-
-    // ===== FORM =====
-    const WEBHOOK_URL = 'TWOJ_WEBHOOK_URL';
-
-    document.getElementById('contactForm').addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const btn = document.getElementById('submitBtn');
-        btn.textContent = 'Wysyłanie...';
-        btn.disabled = true;
-
-        const data = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            platform: document.getElementById('platform').value,
-            problem: document.getElementById('problem').value,
-            source: 'ecomswiftevo.pl',
-            timestamp: new Date().toISOString()
-        };
-
-        try {
-            if (WEBHOOK_URL !== 'TWOJ_WEBHOOK_URL') {
-                await fetch(WEBHOOK_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data),
-                    mode: 'no-cors'
-                });
-            }
-            this.style.display = 'none';
-            document.getElementById('formSuccess').classList.add('show');
-        } catch (err) {
-            btn.textContent = 'Wyślij zapytanie';
-            btn.disabled = false;
-        }
-    });
-
-    // ===== COOKIES =====
-    if (!localStorage.getItem('cookies_consent')) {
-        document.getElementById('cookieBanner').classList.add('show');
-    }
-    function acceptCookies(a) {
-        localStorage.setItem('cookies_consent', a ? 'yes' : 'no');
-        document.getElementById('cookieBanner').classList.remove('show');
-    }
-
-    // ===== SCROLL TOP =====
-    const stb = document.getElementById('scrollTop');
-    window.addEventListener('scroll', () => stb.classList.toggle('visible', window.scrollY > 500));
-    stb.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    </script>
+// Cookies
+if(!localStorage.getItem('ck'))document.getElementById('cb').classList.add('show');
+function ck(a){localStorage.setItem('ck',a?'y':'n');document.getElementById('cb').classList.remove('show');}
+</script>
 </body>
 </html>
