@@ -375,6 +375,128 @@
             line-height: 1.5;
         }
 
+        /* ===== PREMIUM BLOCK ===== */
+        .premium-block {
+            background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(59,130,246,0.02));
+            border: 1px solid rgba(59,130,246,0.2);
+            border-radius: 16px;
+            padding: 3.5rem;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .premium-block::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+        }
+
+        .premium-block:hover {
+            border-color: rgba(59,130,246,0.4);
+            transform: translateY(-3px);
+        }
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(59,130,246,0.12);
+            border: 1px solid rgba(59,130,246,0.25);
+            border-radius: 20px;
+            padding: 0.35rem 1rem;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #60a5fa;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .premium-block h3 {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.03em;
+        }
+
+        .premium-block .premium-desc {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+
+        .premium-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            margin-bottom: 2.5rem;
+        }
+
+        @media(min-width: 600px) {
+            .premium-features { grid-template-columns: 1fr 1fr; }
+        }
+
+        .premium-features li {
+            list-style: none;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.85rem;
+            padding-left: 1.5rem;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .premium-features li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.55em;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-blue);
+            box-shadow: 0 0 8px rgba(59,130,246,0.4);
+        }
+
+        .premium-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .premium-stat {
+            text-align: center;
+            padding: 1.25rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            transition: all 0.4s ease;
+        }
+
+        .premium-stat:hover {
+            border-color: rgba(59,130,246,0.3);
+            transform: translateY(-3px);
+        }
+
+        .premium-stat .val {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .premium-stat .label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.25rem;
+        }
+
         /* ===== ICONS ROW (jak to działa) ===== */
         .process-section {
             border-top: 1px solid var(--glass-border);
@@ -1136,6 +1258,43 @@
                     </div>
                 </div>
             </div>
+            <!-- PREMIUM: AI Support Autopilot -->
+            <div class="premium-block gs">
+                <div class="premium-badge">&#9889; Produkt premium</div>
+                <h3>AI Support Autopilot</h3>
+                <p class="premium-desc">Pełna automatyzacja obsługi klienta Twojego sklepu. AI czyta wiadomości, sprawdza dane zamówienia, odpowiada klientom i wykonuje akcje — a trudne sprawy przekierowuje do Ciebie. Działa 24/7. Odpowiada w sekundy.</p>
+
+                <ul class="premium-features">
+                    <li>AI obsługa email, chatu i Messengera</li>
+                    <li>Automatyczne sprawdzanie statusu zamówienia</li>
+                    <li>Klasyfikacja: zwrot, reklamacja, zmiana adresu, pytanie</li>
+                    <li>Wykonywanie akcji: zmiana adresu, inicjacja zwrotu</li>
+                    <li>Spersonalizowane odpowiedzi w tonie Twojej marki</li>
+                    <li>Trudne sprawy → ticket do Ciebie z pełnym kontekstem</li>
+                    <li>Dashboard: ile zautomatyzowano, jakie tematy</li>
+                    <li>Miesięczny raport skuteczności</li>
+                </ul>
+
+                <div class="premium-stats">
+                    <div class="premium-stat">
+                        <div class="val">60–80%</div>
+                        <div class="label">ticketów zautomatyzowanych</div>
+                    </div>
+                    <div class="premium-stat">
+                        <div class="val">&lt;1 min</div>
+                        <div class="label">czas odpowiedzi AI</div>
+                    </div>
+                    <div class="premium-stat">
+                        <div class="val">24/7</div>
+                        <div class="label">dostępność systemu</div>
+                    </div>
+                    <div class="premium-stat">
+                        <div class="val">-50%</div>
+                        <div class="label">kosztów supportu</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
