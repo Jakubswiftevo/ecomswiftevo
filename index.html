@@ -463,6 +463,110 @@
             color: rgba(255,255,255,0.2);
         }
 
+        /* ===== ABOUT / FOUNDER ===== */
+        .about-section {
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media(min-width: 768px) {
+            .about-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+        }
+
+        .about-photo {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            aspect-ratio: 3/4;
+            max-height: 500px;
+        }
+
+        .about-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            filter: grayscale(100%) contrast(1.1);
+            transition: filter 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .about-photo:hover img {
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .about-photo::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            height: 40%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.6));
+            pointer-events: none;
+        }
+
+        .about-name {
+            position: absolute;
+            bottom: 1.25rem;
+            left: 1.25rem;
+            z-index: 2;
+        }
+
+        .about-name h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .about-name p {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .about-content blockquote {
+            font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+        }
+
+        .about-content blockquote::before {
+            content: '"';
+            color: #3b82f6;
+        }
+
+        .about-content blockquote::after {
+            content: '"';
+            color: #3b82f6;
+        }
+
+        .about-text {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .about-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .about-tag {
+            padding: 0.4rem 1rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.4);
+        }
+
         /* ===== FAQ ===== */
         .faq-section {
             border-top: 1px solid rgba(255,255,255,0.06);
@@ -687,48 +791,46 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
-        .intro-loader.hide {
+        .intro-loader.fade-out {
+            animation: loaderFade 0.8s cubic-bezier(0.4, 0, 0, 1) forwards;
+        }
+
+        .loader-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: #fff;
             opacity: 0;
-            visibility: hidden;
+            animation: textReveal 0.6s ease forwards 0.3s;
         }
 
-        .droplet {
-            width: 12px;
-            height: 12px;
-            background: #3b82f6;
-            border-radius: 50% 50% 50% 0;
-            transform: rotate(-45deg);
-            animation: dropFall 1.2s ease-in forwards;
-            position: relative;
-        }
+        .loader-text span { color: #3b82f6; }
 
-        .droplet::after {
-            content: '';
-            position: absolute;
-            bottom: -20px;
-            left: 50%;
-            transform: translateX(-50%) rotate(45deg);
+        .loader-line {
             width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(59,130,246,0.3);
-            animation: ripple 0.5s ease-out 0.8s forwards;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            animation: lineExpand 1s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.6s;
         }
 
-        @keyframes dropFall {
-            0% { opacity: 0; transform: rotate(-45deg) translateY(-80px) scale(0.5); }
-            40% { opacity: 1; }
-            70% { transform: rotate(-45deg) translateY(0) scale(1); }
-            85% { transform: rotate(-45deg) translateY(-8px) scale(1); }
-            100% { transform: rotate(-45deg) translateY(0) scale(0.8); opacity: 0.6; }
+        @keyframes textReveal {
+            0% { opacity: 0; transform: translateY(8px); letter-spacing: 0.3em; }
+            100% { opacity: 1; transform: translateY(0); letter-spacing: 0.15em; }
         }
 
-        @keyframes ripple {
-            0% { width: 0; height: 0; opacity: 0.6; }
-            100% { width: 60px; height: 60px; opacity: 0; }
+        @keyframes lineExpand {
+            0% { width: 0; opacity: 0; }
+            50% { opacity: 1; }
+            100% { width: 120px; opacity: 0.6; }
+        }
+
+        @keyframes loaderFade {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; pointer-events: none; }
         }
 
         /* GSAP */
@@ -739,7 +841,8 @@
 
 <!-- Intro loader -->
 <div class="intro-loader" id="introLoader">
-    <div class="droplet"></div>
+    <div class="loader-text">ECOM<span>SWIFTEVO</span></div>
+    <div class="loader-line"></div>
 </div>
 
 <canvas id="particles-canvas"></canvas>
@@ -968,6 +1071,36 @@
     </section>
 
 
+    <!-- ABOUT -->
+    <section class="about-section" id="o-mnie">
+        <div class="container">
+            <div class="gs">
+                <div class="section-label">Założyciel</div>
+            </div>
+            <div class="about-grid">
+                <div class="about-photo gs">
+                    <img src="jakub.jpg" alt="Jakub Socha — Założyciel SwiftEvo" loading="lazy">
+                    <div class="about-name">
+                        <h4>Jakub Socha</h4>
+                        <p>Founder & CEO</p>
+                    </div>
+                </div>
+                <div class="about-content gs">
+                    <blockquote>Buduję szybko, buduję dobrze, buduję na skalę</blockquote>
+                    <p class="about-text">Założyciel SwiftEvo — agencji automatyzacji AI z siedzibą w Polsce. Łączy głęboką wiedzę techniczną z praktycznym podejściem do biznesu e-commerce.</p>
+                    <p class="about-text">Specjalizuje się we wdrażaniu inteligentnych automatyzacji, które eliminują powtarzalną pracę i pozwalają sklepom internetowym skalować się bez zwiększania kosztów operacyjnych.</p>
+                    <div class="about-tags">
+                        <div class="about-tag">Automatyzacja AI</div>
+                        <div class="about-tag">E-commerce</div>
+                        <div class="about-tag">n8n</div>
+                        <div class="about-tag">Integracje</div>
+                        <div class="about-tag">Polska</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FAQ -->
     <section class="faq-section" id="faq">
         <div class="container">
@@ -1056,7 +1189,7 @@
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <div class="footer-email"><a href="mailto:kontakt@ecomswiftevo.pl">kontakt@ecomswiftevo.pl</a></div>
+            <div class="footer-email"><a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></div>
             <div class="footer-links">
                 <a href="#co-robimy">Co robimy</a>
                 <a href="#kontakt">Kontakt</a>
@@ -1081,8 +1214,8 @@
 
 <script>
 // Intro loader
-setTimeout(()=>{document.getElementById('introLoader').classList.add('hide');},1600);
-setTimeout(()=>{const l=document.getElementById('introLoader');if(l)l.remove();},2200);
+setTimeout(()=>{document.getElementById('introLoader').classList.add('fade-out');},1800);
+setTimeout(()=>{const l=document.getElementById('introLoader');if(l)l.remove();},2600);
 
 // Three.js particles
 (function(){
