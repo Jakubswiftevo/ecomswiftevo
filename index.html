@@ -302,28 +302,6 @@
             color: rgba(255,255,255,0.2);
         }
 
-        .stat-block {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            gap: 1.5rem;
-        }
-
-        .stat-item {}
-
-        .stat-value {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            color: #fff;
-        }
-
-        .stat-desc {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.35);
-            margin-top: 0.15rem;
-        }
-
         /* ===== FEATURE BLOCK ENHANCED ===== */
         .feature-block .sub-label {
             font-size: 0.65rem;
@@ -340,19 +318,41 @@
             line-height: 1.7;
         }
 
-        .stat-item {
-            padding: 1.25rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
+        .stat-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
         }
 
-        .stat-item:last-child { border-bottom: none; }
+        .stat-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(59,130,246,0.25);
+            background: rgba(59,130,246,0.04);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
 
         .stat-value {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             letter-spacing: -0.03em;
             color: #fff;
             line-height: 1.2;
+        }
+
+        .stat-desc {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.25rem;
+            line-height: 1.5;
         }
 
         .stat-value.green { color: #22c55e; }
@@ -670,6 +670,10 @@
         /* ===== CONTACT ===== */
         .contact-section {
             border-top: 1px solid rgba(255,255,255,0.06);
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 60px 60px;
         }
 
         .contact-grid {
@@ -689,16 +693,90 @@
             margin-bottom: 1.25rem;
         }
 
+        .contact-left h2 .gradient-word {
+            background: linear-gradient(135deg, #3b82f6, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
         .contact-left p {
             color: rgba(255,255,255,0.35);
             font-size: 0.9rem;
             line-height: 1.7;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .contact-left .small-note {
             font-size: 0.75rem;
             color: rgba(255,255,255,0.2);
+        }
+
+        .contact-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(34,197,94,0.08);
+            border: 1px solid rgba(34,197,94,0.15);
+            border-radius: 20px;
+            padding: 0.4rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-status .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px rgba(34,197,94,0.6);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .contact-status span {
+            font-size: 0.75rem;
+            color: #22c55e;
+            font-weight: 500;
+        }
+
+        .contact-direct {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .contact-direct .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.25);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-direct a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .contact-direct a:hover { color: #60a5fa; }
+
+        .contact-form-card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: border-color 0.4s;
+        }
+
+        .contact-form-card:hover {
+            border-color: rgba(59,130,246,0.2);
         }
 
         .form-group { margin-bottom: 1.25rem; }
@@ -716,41 +794,47 @@
             width: 100%;
             background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 0.85rem 1rem;
             color: #fff;
             font-size: 0.9rem;
             font-family: inherit;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: rgba(255,255,255,0.2);
+            border-color: rgba(59,130,246,0.4);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.08);
+            background: rgba(59,130,246,0.03);
         }
 
         .form-input::placeholder { color: rgba(255,255,255,0.15); }
 
-        select.form-input option { background: #000; }
+        select.form-input option { background: #0a0a0a; }
 
         textarea.form-input { min-height: 90px; resize: vertical; }
 
-        .submit-btn {
+        .cta-submit-btn {
             width: 100%;
             padding: 0.9rem;
-            background: #fff;
-            color: #000;
+            background: #3b82f6;
+            color: #fff;
             border: none;
             font-size: 0.8rem;
             font-weight: 600;
             font-family: inherit;
             letter-spacing: 0.05em;
             cursor: pointer;
-            transition: opacity 0.3s;
-            border-radius: 6px;
+            transition: all 0.3s;
+            border-radius: 8px;
         }
 
-        .submit-btn:hover { opacity: 0.85; }
+        .cta-submit-btn:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(59,130,246,0.3);
+        }
 
         .form-success {
             display: none;
@@ -1182,44 +1266,52 @@
         <div class="container">
             <div class="contact-grid gs">
                 <div class="contact-left">
-                    <h2>Chcesz pogadać?</h2>
-                    <p>Napisz który moduł Cię interesuje. Zobaczymy co ma sens w Twoim sklepie.</p>
+                    <div class="contact-status">
+                        <div class="dot"></div>
+                        <span>Jesteśmy dostępni</span>
+                    </div>
+                    <h2>Chcesz<br><span class="gradient-word">pogadać?</span></h2>
+                    <p>Napisz co Cię interesuje. Zobaczymy co ma sens w Twoim sklepie.</p>
                     <p class="small-note">Bez zobowiązań. Bez presji. Tylko konkretna rozmowa.</p>
+                    <div class="contact-direct">
+                        <div class="label">Albo bezpośrednio</div>
+                        <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a>
+                    </div>
                 </div>
-                <div>
+                <div class="contact-form-card">
                     <form id="cForm">
                         <div class="form-group">
-                            <label>Imię i nazwisko</label>
+                            <label>Jak masz na imię? <span style="opacity:0.4">(Dane kontaktowe)</span></label>
                             <input type="text" name="name" id="fname" class="form-input" placeholder="Jan Kowalski" required>
                         </div>
                         <div class="form-group">
-                            <label>Nazwa sklepu</label>
-                            <input type="text" name="store" id="fstore" class="form-input" placeholder="Twojsklep.pl">
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
+                            <label>Adres email</label>
                             <input type="email" name="email" id="femail" class="form-input" placeholder="kontakt@twojsklep.pl" required>
                         </div>
                         <div class="form-group">
-                            <label>Który moduł Cię interesuje?</label>
+                            <label>Nazwa sklepu / domena</label>
+                            <input type="text" name="store" id="fstore" class="form-input" placeholder="Twojsklep.pl">
+                        </div>
+                        <div class="form-group">
+                            <label>Co Cię interesuje?</label>
                             <select name="module" id="fmodule" class="form-input">
                                 <option value="" disabled selected>Wybierz...</option>
-                                <option>Sync zamówień</option>
-                                <option>Alerty magazynowe</option>
+                                <option>Odzysk porzuconych koszyków</option>
+                                <option>Automatyzacja obsługi klienta</option>
+                                <option>Raporty i alerty sprzedaży</option>
+                                <option>Przypomnienia o powtórnym zakupie</option>
+                                <option>Zbieranie opinii po zakupie</option>
                                 <option>AI opisy produktów</option>
-                                <option>Auto follow-up</option>
-                                <option>Monitoring opinii</option>
-                                <option>Auto-posty social</option>
-                                <option>Dzienny raport</option>
-                                <option>Sync cen</option>
-                                <option>Cały pakiet</option>
+                                <option>Alerty magazynowe</option>
+                                <option>Cały pakiet automatyzacji</option>
+                                <option>Nie wiem jeszcze — chcę pogadać</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label>Coś jeszcze?</label>
-                            <textarea name="msg" id="fmsg" class="form-input" placeholder="Opinie Google, przypomnienia, reklamy, stoczek... albo napisz co Cię boli"></textarea>
+                            <label>Opisz swój problem / sytuację</label>
+                            <textarea name="msg" id="fmsg" class="form-input" placeholder="np. tracimy dużo koszyków, support zjada 3h dziennie, nie mamy raportów sprzedaży..."></textarea>
                         </div>
-                        <button type="submit" class="submit-btn" id="sbtn">WYŚLIJ</button>
+                        <button type="submit" class="cta-submit-btn" id="sbtn">WYŚLIJ &rarr;</button>
                     </form>
                     <div class="form-success" id="fSuccess">
                         <h3>Dzięki!</h3>
