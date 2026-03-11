@@ -1176,8 +1176,8 @@
                         <li>Odzysk porzuconych koszyków — email i SMS sekwencja</li>
                         <li>Przypomnienia o powtórnym zakupie po 30/60/90 dniach</li>
                         <li>Automatyczne zbieranie opinii po dostawie</li>
-                        <li>AI generowanie opisów produktów i SEO meta</li>
-                        <li>Alerty bestsellerów i trendów sprzedażowych</li>
+                        <li>Powiadomienie o nowym zamówieniu na telefon (Telegram/SMS)</li>
+                        <li>Auto-tagowanie klientów VIP po X zamówieniach</li>
                     </ul>
                     <div class="sub-label">Efekt</div>
                     <p class="effect-text">Odzyskujesz przychód, który dziś leży na stole. Klienci wracają kupować ponownie. Opinie budują zaufanie i konwersję. Wszystko działa automatycznie, bez Twojego udziału.</p>
@@ -1209,7 +1209,7 @@
                         <li>Automatyczne powiadomienia o statusie zamówienia</li>
                         <li>Alerty opóźnień i problemów z dostawą</li>
                         <li>Automatyzacja procesu zwrotów i reklamacji</li>
-                        <li>Automatyczne budowanie FAQ z pytań klientów</li>
+                        <li>Synchronizacja zamówień między platformami (Allegro, Shopify, ERP)</li>
                     </ul>
                     <div class="sub-label">Efekt</div>
                     <p class="effect-text">Support pracuje sam. Klienci dostają odpowiedzi natychmiast. Twój zespół zajmuje się tylko trudnymi sprawami. Mniej chaosu, szybsza reakcja, zadowoleni klienci.</p>
@@ -1241,7 +1241,7 @@
                         <li>Alerty niskiego stanu magazynowego</li>
                         <li>Alerty spadku sprzedaży i błędów checkoutu</li>
                         <li>Monitoring marży i rentowności zamówień</li>
-                        <li>Automatyczne drafty reklam z bestsellerów</li>
+                        <li>Tygodniowy raport sprzedaży na email</li>
                     </ul>
                     <div class="sub-label">Efekt</div>
                     <p class="effect-text">Rano dostajesz raport i wiesz wszystko. System pilnuje stocku, marży i sprzedaży 24/7. Reagujesz na problemy zanim kosztują Cię pieniądze.</p>
@@ -1418,11 +1418,11 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-q">Ile trwa wdrożenie? <span class="arrow">▼</span></div>
-                    <div class="faq-a">Starter: 48-72h. Growth i Scale: 1-2 tygodnie z pełnymi testami.</div>
+                    <div class="faq-a">Proste automatyzacje: 48-72h. Złożone systemy (np. AI Support Autopilot): 1-2 tygodnie z pełnymi testami.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-q">Czy mogę dodać więcej automatyzacji? <span class="arrow">▼</span></div>
-                    <div class="faq-a">Tak, zawsze możesz zaktualizować plan lub dokupić pojedynczy proces.</div>
+                    <div class="faq-a">Tak, w każdej chwili możesz dokupić kolejne automatyzacje lub rozbudować istniejące.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-q">Co jeśli coś się zepsuje? <span class="arrow">▼</span></div>
@@ -1472,7 +1472,7 @@
                                 <option>Raporty i alerty sprzedaży</option>
                                 <option>Przypomnienia o powtórnym zakupie</option>
                                 <option>Zbieranie opinii po zakupie</option>
-                                <option>AI opisy produktów</option>
+                                <option>Powiadomienia o zamówieniach</option>
                                 <option>Alerty magazynowe</option>
                                 <option>Cały pakiet automatyzacji</option>
                                 <option>Nie wiem jeszcze — chcę pogadać</option>
@@ -1699,14 +1699,14 @@ document.querySelectorAll('.faq-q').forEach(q=>{
 });
 
 // Form
-const WH='TWOJ_WEBHOOK_URL';
+const WH='/api/form';
 document.getElementById('cForm').addEventListener('submit',async function(e){
     e.preventDefault();
     const b=document.getElementById('sbtn');
     b.textContent='Wysyłanie...';b.disabled=true;
     const d={name:document.getElementById('fname').value,store:document.getElementById('fstore').value,email:document.getElementById('femail').value,module:document.getElementById('fmodule').value,msg:document.getElementById('fmsg').value,source:'ecomswiftevo.pl',ts:new Date().toISOString()};
     try{
-        if(WH!=='TWOJ_WEBHOOK_URL')await fetch(WH,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d),mode:'no-cors'});
+        await fetch(WH,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
         this.style.display='none';document.getElementById('fSuccess').classList.add('show');
     }catch(e){b.textContent='WYŚLIJ';b.disabled=false;}
 });
