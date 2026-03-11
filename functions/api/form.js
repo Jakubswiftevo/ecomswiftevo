@@ -37,7 +37,7 @@ export async function onRequestPost(context) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "EcomSwiftEvo <onboarding@resend.dev>",
+        from: "EcomSwiftEvo <kontakt@swiftevo.eu>",
         to: "kontakt@swiftevo.eu",
         subject: `Nowy lead: ${name} — ${mod}`,
         html: html,
