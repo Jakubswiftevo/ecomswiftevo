@@ -504,6 +504,39 @@
 
         .form-success .back-link:hover { text-decoration: underline; }
 
+        /* Validation errors */
+        .field-error input,
+        .field-error select,
+        .field-error textarea {
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220,38,38,0.1);
+        }
+
+        .field-error-msg {
+            font-size: 0.75rem;
+            color: #dc2626;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .field-error .field-error-msg { display: block; }
+
+        .module-section-error {
+            border-color: #dc2626 !important;
+        }
+
+        .module-section-error-msg {
+            font-size: 0.8rem;
+            color: #dc2626;
+            background: #fef2f2;
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .module-section-error .module-section-error-msg { display: block; }
+
         /* Responsive */
         @media (max-width: 800px) {
             .form-hero, .progress-bar, .info-banner, .form-container, .form-success {
@@ -534,7 +567,7 @@
         <p><strong>Co się stanie po wysłaniu?</strong> Otrzymasz potwierdzenie na email. W ciągu 48h przygotujemy ofertę z zakresem, wyceną i terminem wdrożenia. Bez zobowiązań.</p>
     </div>
 
-    <form class="form-container" id="clientForm">
+    <form class="form-container" id="clientForm" novalidate>
 
         <!-- 1. DANE SKLEPU -->
         <div class="form-section" data-section="1">
@@ -739,6 +772,8 @@
                     </ul>
                 </div>
             </label>
+
+            <div class="module-section-error-msg" id="moduleError">Zaznacz przynajmniej jeden moduł, który Cię interesuje.</div>
         </div>
 
         <!-- 4. PROBLEM I PRIORYTET -->
@@ -938,6 +973,8 @@
         const cb = card.querySelector('input[type="checkbox"]');
         cb.addEventListener('change', () => {
             card.classList.toggle('selected', cb.checked);
+            // Clear module error when user selects one
+            document.querySelector('[data-section="3"]').classList.remove('module-section-error');
             updateProgress();
         });
     });
@@ -946,38 +983,94 @@
     function updateProgress() {
         const total = document.querySelectorAll('[required]').length;
         let filled = 0;
+        const counted = new Set();
         document.querySelectorAll('[required]').forEach(el => {
             if (el.type === 'checkbox') {
                 if (el.checked) filled++;
             } else if (el.type === 'radio') {
-                const name = el.name;
-                if (document.querySelector(`input[name="${name}"]:checked`)) filled++;
+                if (!counted.has(el.name)) {
+                    counted.add(el.name);
+                    if (document.querySelector(`input[name="${el.name}"]:checked`)) filled++;
+                }
             } else if (el.value) {
                 filled++;
             }
         });
-        // Count module selection separately
         const hasModule = document.querySelectorAll('input[name="modules"]:checked').length > 0;
         const pct = Math.min(100, Math.round(((filled + (hasModule ? 1 : 0)) / (total + 1)) * 100));
         document.getElementById('progressFill').style.width = pct + '%';
     }
 
+    // Clear field errors on input
     document.querySelectorAll('input, select, textarea').forEach(el => {
-        el.addEventListener('change', updateProgress);
-        el.addEventListener('input', updateProgress);
+        el.addEventListener('change', () => {
+            el.closest('.field-error')?.classList.remove('field-error');
+            updateProgress();
+        });
+        el.addEventListener('input', () => {
+            el.closest('.field-error')?.classList.remove('field-error');
+            updateProgress();
+        });
     });
+
+    // Custom validation
+    function validateForm() {
+        let firstError = null;
+
+        // Clear all previous errors
+        document.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+        document.querySelector('[data-section="3"]').classList.remove('module-section-error');
+
+        // Check required fields
+        document.querySelectorAll('#clientForm [required]').forEach(el => {
+            if (el.type === 'radio') {
+                const group = document.querySelectorAll(`input[name="${el.name}"]`);
+                const checked = document.querySelector(`input[name="${el.name}"]:checked`);
+                if (!checked) {
+                    const wrapper = el.closest('.field-row') || el.closest('.radio-group');
+                    if (wrapper && !wrapper.classList.contains('field-error')) {
+                        wrapper.classList.add('field-error');
+                        if (!firstError) firstError = wrapper;
+                    }
+                }
+            } else if (el.type === 'checkbox') {
+                if (!el.checked) {
+                    const wrapper = el.closest('.rodo-check');
+                    if (wrapper) {
+                        wrapper.classList.add('field-error');
+                        if (!firstError) firstError = wrapper;
+                    }
+                }
+            } else if (!el.value.trim()) {
+                const wrapper = el.closest('div');
+                if (wrapper) {
+                    wrapper.classList.add('field-error');
+                    if (!firstError) firstError = wrapper;
+                }
+            }
+        });
+
+        // Check modules
+        const modules = document.querySelectorAll('input[name="modules"]:checked');
+        if (modules.length === 0) {
+            const section = document.querySelector('[data-section="3"]');
+            section.classList.add('module-section-error');
+            if (!firstError) firstError = section;
+        }
+
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return false;
+        }
+
+        return true;
+    }
 
     // Form submit
     document.getElementById('clientForm').addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Validate at least 1 module selected
-        const modules = document.querySelectorAll('input[name="modules"]:checked');
-        if (modules.length === 0) {
-            alert('Zaznacz przynajmniej jeden moduł, który Cię interesuje.');
-            document.getElementById('mod1').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            return;
-        }
+        if (!validateForm()) return;
 
         const btn = document.getElementById('submitBtn');
         btn.textContent = 'Wysyłanie...';
@@ -994,7 +1087,6 @@
             }
         });
 
-        // Add metadata
         data.source = 'brief-wdrozeniowy';
         data.ts = new Date().toISOString();
         data.url = window.location.href;
@@ -1019,7 +1111,6 @@
         }
     });
 
-    // Init progress
     updateProgress();
     </script>
 </body>
