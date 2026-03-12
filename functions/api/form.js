@@ -7,14 +7,117 @@ export async function onRequestPost(context) {
 
   try {
     const body = await context.request.json();
+    const source = body.source || "ecomswiftevo.pl";
 
-    const name = body.name || "Nieznany";
-    const email = body.email || "-";
-    const store = body.store || "-";
-    const mod = body.module || "-";
-    const msg = body.msg || "-";
+    let subject, html;
 
-    const html = `
+    if (source === "brief-wdrozeniowy") {
+      // Brief wdrożeniowy
+      const name = body.contact_name || "Nieznany";
+      const email = body.contact_email || "-";
+      const phone = body.contact_phone || "-";
+      const role = body.contact_role || "-";
+      const channel = body.contact_channel || "-";
+      const storeName = body.store_name || "-";
+      const storeUrl = body.store_url || "-";
+      const platform = body.platform || "-";
+      const industry = body.industry || "-";
+      const orders = body.orders_monthly || "-";
+      const products = body.products_count || "-";
+      const teamSize = body.team_size || "-";
+      const marketplaces = body.marketplaces || "-";
+      const modules = Array.isArray(body.modules) ? body.modules.join(", ") : (body.modules || "-");
+      const problem = body.biggest_problem || "-";
+      const timeWasted = body.time_wasted || "-";
+      const timeline = body.timeline || "-";
+      const currentSolution = body.current_solution || "-";
+      const emailTool = body.email_tool || "-";
+      const crmTool = body.crm_tool || "-";
+      const notifChannel = Array.isArray(body.notification_channel) ? body.notification_channel.join(", ") : (body.notification_channel || "-");
+      const shippingTool = body.shipping_tool || "-";
+      const otherTools = body.other_tools || "-";
+      const budgetSetup = body.budget_setup || "-";
+      const budgetMonthly = body.budget_monthly || "-";
+      const notes = body.notes || "-";
+
+      subject = `Brief wdrożeniowy: ${storeName} (${name})`;
+
+      html = `
+<div style="font-family:Arial,sans-serif;max-width:650px;margin:0 auto;">
+  <h2 style="color:#1e293b;border-bottom:3px solid #3b82f6;padding-bottom:12px;">Brief wdrożeniowy — ${storeName}</h2>
+
+  <h3 style="color:#3b82f6;margin:24px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px;">Sklep</h3>
+  <table style="width:100%;border-collapse:collapse;">
+    <tr><td style="padding:8px;color:#64748b;width:180px;">Nazwa</td><td style="padding:8px;color:#1e293b;font-weight:600;">${storeName}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">URL</td><td style="padding:8px;"><a href="${storeUrl}">${storeUrl}</a></td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Platforma</td><td style="padding:8px;color:#1e293b;font-weight:600;">${platform}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Branża</td><td style="padding:8px;">${industry}</td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Zamówienia/msc</td><td style="padding:8px;font-weight:600;">${orders}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Produkty (SKU)</td><td style="padding:8px;">${products}</td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Zespół</td><td style="padding:8px;">${teamSize}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Marketplace'y</td><td style="padding:8px;">${marketplaces}</td></tr>
+  </table>
+
+  <h3 style="color:#3b82f6;margin:24px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px;">Kontakt</h3>
+  <table style="width:100%;border-collapse:collapse;">
+    <tr><td style="padding:8px;color:#64748b;width:180px;">Imię i nazwisko</td><td style="padding:8px;color:#1e293b;font-weight:600;">${name}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Stanowisko</td><td style="padding:8px;">${role}</td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Email</td><td style="padding:8px;"><a href="mailto:${email}">${email}</a></td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Telefon</td><td style="padding:8px;font-weight:600;">${phone}</td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Preferowany kanał</td><td style="padding:8px;">${channel}</td></tr>
+  </table>
+
+  <h3 style="color:#3b82f6;margin:24px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px;">Wybrane moduły</h3>
+  <div style="background:#eff6ff;padding:15px;border-radius:8px;border:1px solid #bfdbfe;">
+    <p style="color:#1e40af;margin:0;font-weight:600;font-size:15px;">${modules}</p>
+  </div>
+
+  <h3 style="color:#3b82f6;margin:24px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px;">Sytuacja klienta</h3>
+  <div style="background:#f1f5f9;padding:15px;border-radius:8px;margin-bottom:12px;">
+    <p style="color:#64748b;margin:0 0 5px;font-size:11px;text-transform:uppercase;">Największy problem</p>
+    <p style="color:#1e293b;margin:0;line-height:1.6;">${problem}</p>
+  </div>
+  <table style="width:100%;border-collapse:collapse;">
+    <tr><td style="padding:8px;color:#64748b;width:180px;">Czas tracony dziennie</td><td style="padding:8px;font-weight:600;">${timeWasted}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Kiedy chce startować</td><td style="padding:8px;font-weight:600;">${timeline}</td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Obecne rozwiązanie</td><td style="padding:8px;">${currentSolution}</td></tr>
+  </table>
+
+  <h3 style="color:#3b82f6;margin:24px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px;">Narzędzia</h3>
+  <table style="width:100%;border-collapse:collapse;">
+    <tr><td style="padding:8px;color:#64748b;width:180px;">Email marketing</td><td style="padding:8px;">${emailTool}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">CRM / Arkusze</td><td style="padding:8px;">${crmTool}</td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Powiadomienia</td><td style="padding:8px;">${notifChannel}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Kurier</td><td style="padding:8px;">${shippingTool}</td></tr>
+    <tr><td style="padding:8px;color:#64748b;">Inne</td><td style="padding:8px;">${otherTools}</td></tr>
+  </table>
+
+  <h3 style="color:#3b82f6;margin:24px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px;">Budżet</h3>
+  <table style="width:100%;border-collapse:collapse;">
+    <tr><td style="padding:8px;color:#64748b;width:180px;">Wdrożenie (jednorazowo)</td><td style="padding:8px;font-weight:600;font-size:15px;">${budgetSetup}</td></tr>
+    <tr style="background:#f8fafc;"><td style="padding:8px;color:#64748b;">Abonament miesięczny</td><td style="padding:8px;font-weight:600;font-size:15px;">${budgetMonthly}</td></tr>
+  </table>
+
+  ${notes !== "-" ? `
+  <h3 style="color:#3b82f6;margin:24px 0 12px;font-size:14px;text-transform:uppercase;letter-spacing:1px;">Uwagi</h3>
+  <div style="background:#f1f5f9;padding:15px;border-radius:8px;">
+    <p style="color:#1e293b;margin:0;line-height:1.6;">${notes}</p>
+  </div>` : ""}
+
+  <p style="color:#94a3b8;font-size:12px;margin-top:24px;padding-top:12px;border-top:1px solid #e2e8f0;">Brief wdrożeniowy — ecomswiftevo.pl/formularz-klienta — ${body.ts || new Date().toISOString()}</p>
+</div>`;
+
+    } else {
+      // Główny formularz kontaktowy (strona główna)
+      const name = body.name || "Nieznany";
+      const email = body.email || "-";
+      const store = body.store || "-";
+      const mod = body.module || "-";
+      const msg = body.msg || "-";
+
+      subject = `Nowy lead: ${name} — ${mod}`;
+
+      html = `
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
   <h2 style="color:#1e293b;border-bottom:2px solid #3b82f6;padding-bottom:10px;">Nowy lead ze strony EcomSwiftEvo</h2>
   <table style="width:100%;border-collapse:collapse;margin:20px 0;">
@@ -29,6 +132,7 @@ export async function onRequestPost(context) {
   </div>
   <p style="color:#94a3b8;font-size:12px;">Wysłano z formularza ecomswiftevo.pl</p>
 </div>`;
+    }
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -39,9 +143,9 @@ export async function onRequestPost(context) {
       body: JSON.stringify({
         from: "EcomSwiftEvo <kontakt@swiftevo.eu>",
         to: "kontakt@swiftevo.eu",
-        subject: `Nowy lead: ${name} — ${mod}`,
+        subject: subject,
         html: html,
-        reply_to: email,
+        reply_to: body.contact_email || body.email || undefined,
       }),
     });
 
