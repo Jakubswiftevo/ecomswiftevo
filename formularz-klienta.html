@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formularz konfiguracyjny | EcomSwiftEvo</title>
+    <title>Brief wdrożeniowy | EcomSwiftEvo</title>
+    <meta name="description" content="Wypełnij brief wdrożeniowy — przygotujemy indywidualną ofertę automatyzacji AI dla Twojego sklepu.">
+    <meta name="robots" content="noindex, nofollow">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,6 +42,13 @@
             font-weight: 600;
         }
 
+        .form-hero .brand a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        .form-hero .brand a:hover { text-decoration: underline; }
+
         .form-hero h1 {
             font-size: 1.8rem;
             font-weight: 700;
@@ -54,8 +63,22 @@
             line-height: 1.7;
         }
 
-        .form-hero p strong {
-            color: #fff;
+        .form-hero p strong { color: #fff; }
+
+        /* Progress bar */
+        .progress-bar {
+            max-width: 760px;
+            margin: 0 auto;
+            background: #e2e8f0;
+            height: 4px;
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3b82f6;
+            transition: width 0.4s ease;
+            width: 0%;
         }
 
         /* Info banner */
@@ -64,8 +87,7 @@
             margin: 0 auto;
             background: #eff6ff;
             border: 1px solid #bfdbfe;
-            border-radius: 0 0 12px 12px;
-            padding: 1.5rem 2rem;
+            padding: 1.25rem 2rem;
             margin-bottom: 2rem;
         }
 
@@ -75,14 +97,8 @@
             line-height: 1.7;
         }
 
-        .info-banner strong {
-            color: #1e40af;
-        }
-
-        .info-banner a {
-            color: #2563eb;
-            text-decoration: underline;
-        }
+        .info-banner strong { color: #1e40af; }
+        .info-banner a { color: #2563eb; text-decoration: underline; }
 
         /* Form container */
         .form-container {
@@ -101,9 +117,7 @@
             transition: border-color 0.3s;
         }
 
-        .form-section:hover {
-            border-color: #cbd5e1;
-        }
+        .form-section:hover { border-color: #cbd5e1; }
 
         .section-header {
             display: flex;
@@ -136,6 +150,7 @@
         .section-icon.green { background: #f0fdf4; }
         .section-icon.purple { background: #faf5ff; }
         .section-icon.red { background: #fef2f2; }
+        .section-icon.amber { background: #fffbeb; }
         .section-icon.gray { background: #f8fafc; }
 
         .section-title {
@@ -151,6 +166,21 @@
             margin-top: 0.2rem;
         }
 
+        .section-number {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #94a3b8;
+            background: #f1f5f9;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+
         .badge {
             font-size: 0.65rem;
             font-weight: 600;
@@ -161,15 +191,8 @@
             margin-top: 4px;
         }
 
-        .badge.required {
-            background: #fef2f2;
-            color: #dc2626;
-        }
-
-        .badge.optional {
-            background: #f8fafc;
-            color: #94a3b8;
-        }
+        .badge.required { background: #fef2f2; color: #dc2626; }
+        .badge.optional { background: #f8fafc; color: #94a3b8; }
 
         /* Form fields */
         .field-row {
@@ -193,15 +216,8 @@
             margin-bottom: 0.4rem;
         }
 
-        label .req {
-            color: #dc2626;
-        }
-
-        label .opt {
-            color: #94a3b8;
-            font-weight: 400;
-            font-size: 0.75rem;
-        }
+        label .req { color: #dc2626; }
+        label .opt { color: #94a3b8; font-weight: 400; font-size: 0.75rem; }
 
         input[type="text"],
         input[type="email"],
@@ -227,14 +243,8 @@
             box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
         }
 
-        input::placeholder, textarea::placeholder {
-            color: #94a3b8;
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
+        input::placeholder, textarea::placeholder { color: #94a3b8; }
+        textarea { resize: vertical; min-height: 100px; }
 
         select {
             appearance: none;
@@ -271,81 +281,89 @@
             color: #475569;
         }
 
-        .radio-option:hover {
-            border-color: #3b82f6;
-            background: #eff6ff;
-        }
+        .radio-option:hover { border-color: #3b82f6; background: #eff6ff; }
 
-        .radio-option input[type="radio"] {
+        .radio-option input[type="radio"],
+        .radio-option input[type="checkbox"] {
             accent-color: #3b82f6;
             width: 14px;
             height: 14px;
         }
 
-        /* Checkbox modules */
-        .module-check {
+        /* Module cards */
+        .module-card {
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
-            padding: 1rem 1.25rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
             margin-bottom: 0.75rem;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.25s;
+            position: relative;
         }
 
-        .module-check:last-child { margin-bottom: 0; }
+        .module-card:last-child { margin-bottom: 0; }
 
-        .module-check:hover {
-            border-color: #3b82f6;
+        .module-card:hover {
+            border-color: #93c5fd;
             background: #f8faff;
         }
 
-        .module-check input[type="checkbox"] {
+        .module-card.selected {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+
+        .module-card input[type="checkbox"] {
             accent-color: #3b82f6;
-            width: 16px;
-            height: 16px;
+            width: 18px;
+            height: 18px;
             margin-top: 2px;
             flex-shrink: 0;
         }
 
-        .module-check-text {
-            flex: 1;
-        }
+        .module-card-content { flex: 1; }
 
-        .module-check-title {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: #0f172a;
-        }
-
-        .module-check-title .emoji {
-            margin-right: 0.35rem;
-        }
-
-        .module-check-desc {
-            font-size: 0.78rem;
-            color: #94a3b8;
-            margin-top: 0.15rem;
-        }
-
-        .module-group-label {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+        .module-card-title {
+            font-size: 0.95rem;
             font-weight: 600;
-            margin-bottom: 0.75rem;
-            margin-top: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #f1f5f9;
+            color: #0f172a;
+            margin-bottom: 0.3rem;
         }
 
-        .module-group-label:first-child { margin-top: 0; }
+        .module-card-desc {
+            font-size: 0.82rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
 
-        .module-group-label.green { color: #16a34a; }
-        .module-group-label.blue { color: #2563eb; }
-        .module-group-label.amber { color: #d97706; }
+        .module-card-features {
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        .module-card.selected .module-card-features {
+            display: block;
+        }
+
+        .module-card-features li {
+            list-style: none;
+            font-size: 0.78rem;
+            color: #475569;
+            padding: 0.2rem 0;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .module-card-features li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: 700;
+        }
 
         /* RODO checkboxes */
         .rodo-check {
@@ -371,9 +389,7 @@
             flex-shrink: 0;
         }
 
-        .rodo-check .req {
-            color: #dc2626;
-        }
+        .rodo-check .req { color: #dc2626; }
 
         /* Submit */
         .submit-section {
@@ -412,7 +428,6 @@
             font-family: 'Inter', sans-serif;
             cursor: pointer;
             transition: all 0.3s;
-            letter-spacing: 0.01em;
         }
 
         .submit-btn:hover {
@@ -421,22 +436,77 @@
             box-shadow: 0 4px 20px rgba(37,99,235,0.35);
         }
 
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
         .submit-footer {
             font-size: 0.78rem;
             color: #94a3b8;
             margin-top: 1.25rem;
         }
 
-        .submit-footer a {
-            color: #2563eb;
-            text-decoration: none;
+        .submit-footer a { color: #2563eb; text-decoration: none; }
+        .submit-footer a:hover { text-decoration: underline; }
+
+        /* Success state */
+        .form-success {
+            display: none;
+            max-width: 760px;
+            margin: 2rem auto;
+            background: #fff;
+            border: 2px solid #22c55e;
+            border-radius: 16px;
+            padding: 3.5rem 2.5rem;
+            text-align: center;
         }
 
-        .submit-footer a:hover { text-decoration: underline; }
+        .form-success.show { display: block; }
+
+        .form-success .check-icon {
+            width: 64px;
+            height: 64px;
+            background: #f0fdf4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+        }
+
+        .form-success h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+
+        .form-success p {
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-success .back-link {
+            display: inline-block;
+            margin-top: 2rem;
+            color: #2563eb;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .form-success .back-link:hover { text-decoration: underline; }
 
         /* Responsive */
         @media (max-width: 800px) {
-            .form-hero, .info-banner, .form-container {
+            .form-hero, .progress-bar, .info-banner, .form-container, .form-success {
                 margin-left: 1rem;
                 margin-right: 1rem;
             }
@@ -450,27 +520,29 @@
 
     <!-- HEADER -->
     <div class="form-hero">
-        <div class="brand">EcomSwiftEvo</div>
-        <h1>Formularz konfiguracyjny</h1>
-        <p>Uzupełnij poniższe dane, żebyśmy mogli przygotować i uruchomić Twój system automatyzacji.<br>
-        Zajmuje to około <strong>10 minut</strong>. Potrzebujemy tych informacji raz — po tym wszystko działa automatycznie.</p>
+        <div class="brand"><a href="/">EcomSwiftEvo</a></div>
+        <h1>Brief wdrożeniowy</h1>
+        <p>Wypełnij formularz, a przygotujemy <strong>indywidualną ofertę automatyzacji</strong> dopasowaną do Twojego sklepu.<br>
+        Zajmuje to <strong>5-8 minut</strong>. Im więcej szczegółów podasz, tym lepiej dopasujemy rozwiązanie.</p>
     </div>
+
+    <!-- PROGRESS -->
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
     <!-- INFO BANNER -->
     <div class="info-banner">
-        <p><strong>Jak to działa:</strong> Po wypełnieniu formularza otrzymasz potwierdzenie na email. Nasz zespół skonfiguruje system w ciągu 48h i skontaktuje się z Tobą z potwierdzeniem uruchomienia.</p>
-        <p style="margin-top: 0.5rem;"><strong>Masz pytania?</strong> Napisz na <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></p>
+        <p><strong>Co się stanie po wysłaniu?</strong> Otrzymasz potwierdzenie na email. W ciągu 48h przygotujemy ofertę z zakresem, wyceną i terminem wdrożenia. Bez zobowiązań.</p>
     </div>
 
     <form class="form-container" id="clientForm">
 
         <!-- 1. DANE SKLEPU -->
-        <div class="form-section">
+        <div class="form-section" data-section="1">
             <div class="section-header">
                 <div class="section-header-left">
-                    <div class="section-icon blue">&#128722;</div>
+                    <div class="section-number">1</div>
                     <div>
-                        <div class="section-title">Dane sklepu</div>
+                        <div class="section-title">Twój sklep</div>
                         <div class="section-subtitle">Podstawowe informacje o Twoim e-commerce</div>
                     </div>
                 </div>
@@ -483,13 +555,6 @@
                     <input type="text" name="store_name" placeholder="np. ModaOnline.pl" required>
                 </div>
                 <div>
-                    <label>NIP <span class="opt">(opcjonalnie)</span></label>
-                    <input type="text" name="nip" placeholder="np. 5833541389">
-                </div>
-            </div>
-
-            <div class="field-row">
-                <div>
                     <label>Adres sklepu (URL) <span class="req">*</span></label>
                     <input type="url" name="store_url" placeholder="https://twojsklep.pl" required>
                 </div>
@@ -498,14 +563,19 @@
             <div class="field-row two">
                 <div>
                     <label>Platforma e-commerce <span class="req">*</span></label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="platform" value="shopify" required> Shopify</label>
-                        <label class="radio-option"><input type="radio" name="platform" value="woocommerce"> WooCommerce</label>
-                        <label class="radio-option"><input type="radio" name="platform" value="prestashop"> PrestaShop</label>
-                        <label class="radio-option"><input type="radio" name="platform" value="shoper"> Shoper</label>
-                        <label class="radio-option"><input type="radio" name="platform" value="baselinker"> BaseLinker</label>
-                        <label class="radio-option"><input type="radio" name="platform" value="inna"> Inna</label>
-                    </div>
+                    <select name="platform" required>
+                        <option value="">Wybierz...</option>
+                        <option value="shopify">Shopify</option>
+                        <option value="woocommerce">WooCommerce</option>
+                        <option value="shoper">Shoper</option>
+                        <option value="prestashop">PrestaShop</option>
+                        <option value="baselinker">BaseLinker</option>
+                        <option value="inna">Inna</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Branża <span class="req">*</span></label>
+                    <input type="text" name="industry" placeholder="np. moda, suplementy, elektronika, kosmetyki" required>
                 </div>
             </div>
 
@@ -514,10 +584,10 @@
                     <label>Liczba zamówień miesięcznie <span class="req">*</span></label>
                     <select name="orders_monthly" required>
                         <option value="">Wybierz...</option>
-                        <option value="1-50">1–50</option>
-                        <option value="51-200">51–200</option>
-                        <option value="201-500">201–500</option>
-                        <option value="501-1000">501–1000</option>
+                        <option value="1-50">1-50</option>
+                        <option value="51-200">51-200</option>
+                        <option value="201-500">201-500</option>
+                        <option value="501-1000">501-1000</option>
                         <option value="1000+">1000+</option>
                     </select>
                 </div>
@@ -525,10 +595,10 @@
                     <label>Liczba produktów (SKU) <span class="opt">(opcjonalnie)</span></label>
                     <select name="products_count">
                         <option value="">Wybierz...</option>
-                        <option value="1-50">1–50</option>
-                        <option value="51-200">51–200</option>
-                        <option value="201-1000">201–1000</option>
-                        <option value="1000-5000">1000–5000</option>
+                        <option value="1-50">1-50</option>
+                        <option value="51-200">51-200</option>
+                        <option value="201-1000">201-1000</option>
+                        <option value="1000-5000">1000-5000</option>
                         <option value="5000+">5000+</option>
                     </select>
                 </div>
@@ -536,25 +606,30 @@
 
             <div class="field-row two">
                 <div>
-                    <label>Branża <span class="req">*</span></label>
-                    <input type="text" name="industry" placeholder="np. moda, suplementy, elektronika, kosmetyki" required>
+                    <label>Ile osób obsługuje sklep? <span class="req">*</span></label>
+                    <select name="team_size" required>
+                        <option value="">Wybierz...</option>
+                        <option value="1">Tylko ja</option>
+                        <option value="2-3">2-3 osoby</option>
+                        <option value="4-10">4-10 osób</option>
+                        <option value="10+">10+</option>
+                    </select>
                 </div>
                 <div>
                     <label>Marketplace'y <span class="opt">(opcjonalnie)</span></label>
                     <input type="text" name="marketplaces" placeholder="np. Allegro, Amazon, Empik">
-                    <div class="field-hint">Jeśli sprzedajesz na marketplace'ach, wymień które.</div>
                 </div>
             </div>
         </div>
 
         <!-- 2. KONTAKT -->
-        <div class="form-section">
+        <div class="form-section" data-section="2">
             <div class="section-header">
                 <div class="section-header-left">
-                    <div class="section-icon green">&#128100;</div>
+                    <div class="section-number">2</div>
                     <div>
                         <div class="section-title">Osoba kontaktowa</div>
-                        <div class="section-subtitle">Z kim mamy się kontaktować przy konfiguracji</div>
+                        <div class="section-subtitle">Z kim mamy rozmawiać o wdrożeniu</div>
                     </div>
                 </div>
                 <span class="badge required">Wymagane</span>
@@ -573,16 +648,16 @@
 
             <div class="field-row two">
                 <div>
-                    <label>Telefon <span class="req">*</span></label>
-                    <input type="tel" name="contact_phone" placeholder="+48 123 456 789" required>
-                </div>
-                <div>
                     <label>Email <span class="req">*</span></label>
                     <input type="email" name="contact_email" placeholder="anna@twojsklep.pl" required>
                 </div>
+                <div>
+                    <label>Telefon <span class="req">*</span></label>
+                    <input type="tel" name="contact_phone" placeholder="+48 123 456 789" required>
+                </div>
             </div>
 
-            <div class="field-row two">
+            <div class="field-row">
                 <div>
                     <label>Preferowany kanał kontaktu <span class="req">*</span></label>
                     <div class="radio-group">
@@ -595,154 +670,136 @@
             </div>
         </div>
 
-        <!-- 3. WYBOR AUTOMATYZACJI -->
-        <div class="form-section">
+        <!-- 3. WYBOR MODULOW -->
+        <div class="form-section" data-section="3">
             <div class="section-header">
                 <div class="section-header-left">
-                    <div class="section-icon purple">&#9889;</div>
+                    <div class="section-number">3</div>
                     <div>
-                        <div class="section-title">Wybór automatyzacji</div>
-                        <div class="section-subtitle">Zaznacz automatyzacje, które Cię interesują — dopasujemy zakres wdrożenia</div>
+                        <div class="section-title">Jakie moduły Cię interesują?</div>
+                        <div class="section-subtitle">Zaznacz jeden lub więcej — dopasujemy ofertę do Twojego wyboru</div>
                     </div>
                 </div>
                 <span class="badge required">Wymagane</span>
             </div>
 
-            <!-- Group 1: Sprzedaż -->
-            <div class="module-group-label green">Odzyskaj utraconą sprzedaż</div>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="cart_recovery">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128176;</span> Odzysk porzuconych koszyków</div>
-                    <div class="module-check-desc">Automatyczne email/SMS sekwencje po porzuceniu koszyka — odzyskaj 5–15% sprzedaży</div>
+            <label class="module-card" id="mod1">
+                <input type="checkbox" name="modules" value="ai_obsluga_klienta">
+                <div class="module-card-content">
+                    <div class="module-card-title">AI Obsługa Klienta</div>
+                    <div class="module-card-desc">AI czyta wiadomości klientów, klasyfikuje je, odpowiada na powtarzalne pytania. Trudne sprawy przekazuje do Ciebie z kontekstem.</div>
+                    <ul class="module-card-features">
+                        <li>Klasyfikacja: zwrot, reklamacja, pytanie, zmiana adresu</li>
+                        <li>Automatyczne odpowiedzi na powtarzalne pytania</li>
+                        <li>Baza wiedzy sklepu (regulamin, FAQ, produkty)</li>
+                        <li>Odpowiedzi w tonie Twojej marki</li>
+                        <li>Trudne sprawy > ticket z kontekstem</li>
+                    </ul>
                 </div>
             </label>
 
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="reorder_reminders">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128260;</span> Przypomnienia o powtórnym zakupie</div>
-                    <div class="module-check-desc">System przypomina klientom o produkcie po 30/60/90 dniach — idealne dla konsumpcyjnych produktów</div>
+            <label class="module-card" id="mod2">
+                <input type="checkbox" name="modules" value="ai_content_seo">
+                <div class="module-card-content">
+                    <div class="module-card-title">AI Content & Opisy Produktów</div>
+                    <div class="module-card-desc">AI generuje unikalne opisy produktów, meta tagi SEO i posty na social media — z danych które już masz.</div>
+                    <ul class="module-card-features">
+                        <li>Automatyczne opisy z CSV/XML/danych dostawcy</li>
+                        <li>Meta tagi SEO dla każdego produktu</li>
+                        <li>Posty social media z nowych produktów</li>
+                        <li>Tłumaczenia na inne języki</li>
+                    </ul>
                 </div>
             </label>
 
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="reviews">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#11088;</span> Automatyczne zbieranie opinii</div>
-                    <div class="module-check-desc">Po dostawie: prośba o opinię, pozytywne → publikacja, negatywne → ticket do supportu</div>
+            <label class="module-card" id="mod3">
+                <input type="checkbox" name="modules" value="odzysk_sprzedazy">
+                <div class="module-card-content">
+                    <div class="module-card-title">Odzysk Sprzedaży & Retencja</div>
+                    <div class="module-card-desc">Automatyczne sekwencje na porzucone koszyki, przypomnienia o zakupie, zbieranie opinii i segmentacja klientów.</div>
+                    <ul class="module-card-features">
+                        <li>Sekwencja email/SMS na porzucone koszyki</li>
+                        <li>Przypomnienia o powtórnym zakupie (30/60/90 dni)</li>
+                        <li>Automatyczne zbieranie opinii po dostawie</li>
+                        <li>Segmentacja: VIP, jednorazowi, uśpieni</li>
+                    </ul>
                 </div>
             </label>
 
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="order_notifications">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128244;</span> Powiadomienie o zamówieniu na telefon</div>
-                    <div class="module-check-desc">Nowe zamówienie? Dostajesz info na Telegram/SMS w sekundy — bądź zawsze na bieżąco</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="vip_tagging">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#127775;</span> Auto-tagowanie klientów VIP</div>
-                    <div class="module-check-desc">System automatycznie oznacza klientów VIP po X zamówieniach — segmentuj i nagradzaj lojalnych</div>
-                </div>
-            </label>
-
-            <!-- Group 2: Support -->
-            <div class="module-group-label blue">Zautomatyzuj obsługę klienta</div>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="ai_support">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#129302;</span> AI klasyfikacja i odpowiedzi na maile</div>
-                    <div class="module-check-desc">AI rozpoznaje temat wiadomości i generuje odpowiedź — zautomatyzuj 60–80% ticketów</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="order_status">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128230;</span> Powiadomienia o statusie zamówienia</div>
-                    <div class="module-check-desc">Klient dostaje automatyczne info o statusie, wysyłce i dostawie — mniej pytań na support</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="delay_alerts">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#9888;&#65039;</span> Alerty opóźnień i problemów z dostawą</div>
-                    <div class="module-check-desc">Automatyczne powiadomienia gdy przesyłka się opóźnia — zanim klient napisze do supportu</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="returns">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128259;</span> Automatyzacja zwrotów i reklamacji</div>
-                    <div class="module-check-desc">Automatyczne przyjęcie zgłoszenia, statusy, etykiety zwrotne — mniej chaosu w zwrotach</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="order_sync">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128260;</span> Synchronizacja zamówień między platformami</div>
-                    <div class="module-check-desc">Allegro, Shopify, ERP — zamówienia zsynchronizowane automatycznie, koniec z ręcznym przepisywaniem</div>
-                </div>
-            </label>
-
-            <!-- Group 3: Kontrola -->
-            <div class="module-group-label amber">Kontroluj swój sklep</div>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="daily_report">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128202;</span> Codzienny raport AI ze sprzedaży</div>
-                    <div class="module-check-desc">Rano dostajesz analizę: sprzedaż, trendy, spadki, co promować — na Telegram, Slack lub email</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="stock_alerts">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128230;</span> Alerty niskiego stanu magazynowego</div>
-                    <div class="module-check-desc">Powiadomienie gdy produkt spada poniżej minimum — koniec z utratą sprzedaży przez braki</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="sales_alerts">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128200;</span> Alerty spadku sprzedaży i błędów</div>
-                    <div class="module-check-desc">System wykrywa spadki sprzedaży, błędy checkoutu, problemy z płatnościami — reaguj szybko</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="margin_monitoring">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128178;</span> Monitoring marży i rentowności</div>
-                    <div class="module-check-desc">Alerty gdy zamówienie ma podejrzanie niską marżę — pilnuj rentowności każdej transakcji</div>
-                </div>
-            </label>
-
-            <label class="module-check">
-                <input type="checkbox" name="modules" value="weekly_report">
-                <div class="module-check-text">
-                    <div class="module-check-title"><span class="emoji">&#128232;</span> Tygodniowy raport sprzedaży na email</div>
-                    <div class="module-check-desc">Co tydzień dostajesz podsumowanie: sprzedaż, top produkty, porównanie z poprzednim tygodniem</div>
+            <label class="module-card" id="mod4">
+                <input type="checkbox" name="modules" value="monitoring_raporty">
+                <div class="module-card-content">
+                    <div class="module-card-title">Monitoring & Raporty AI</div>
+                    <div class="module-card-desc">Codzienny raport AI ze sprzedaży, alerty magazynowe, monitoring marży — wiesz co się dzieje zanim stracisz pieniądze.</div>
+                    <ul class="module-card-features">
+                        <li>Codzienny raport AI (sprzedaż, trendy, co promować)</li>
+                        <li>Alerty: niski stock, spadek sprzedaży, błędy checkout</li>
+                        <li>Monitoring marży i rentowności</li>
+                        <li>Tygodniowy raport na email</li>
+                    </ul>
                 </div>
             </label>
         </div>
 
-        <!-- 4. NARZĘDZIA -->
-        <div class="form-section">
+        <!-- 4. PROBLEM I PRIORYTET -->
+        <div class="form-section" data-section="4">
             <div class="section-header">
                 <div class="section-header-left">
-                    <div class="section-icon gray">&#128295;</div>
+                    <div class="section-number">4</div>
+                    <div>
+                        <div class="section-title">Twoja sytuacja</div>
+                        <div class="section-subtitle">Pomóż nam zrozumieć co Cię boli najbardziej</div>
+                    </div>
+                </div>
+                <span class="badge required">Wymagane</span>
+            </div>
+
+            <div class="field-row">
+                <div>
+                    <label>Co jest Twoim największym problemem operacyjnym? <span class="req">*</span></label>
+                    <textarea name="biggest_problem" placeholder="np. Support zjada mi 3h dziennie, ciągle te same pytania. Albo: nie mam pojęcia co się dzieje w sklepie, brakuje mi raportów. Albo: porzucone koszyki, klienci nie wracają..." required></textarea>
+                    <div class="field-hint">Napisz swoimi słowami — nie musi być profesjonalnie. Im szczerzej, tym lepiej dopasujemy rozwiązanie.</div>
+                </div>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Ile czasu dziennie tracisz na powtarzalną pracę? <span class="req">*</span></label>
+                    <select name="time_wasted" required>
+                        <option value="">Wybierz...</option>
+                        <option value="<1h">Mniej niż 1h</option>
+                        <option value="1-2h">1-2 godziny</option>
+                        <option value="2-4h">2-4 godziny</option>
+                        <option value="4h+">Ponad 4 godziny</option>
+                        <option value="nie-wiem">Nie wiem, nie mierzę</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Kiedy chcesz wystartować? <span class="req">*</span></label>
+                    <select name="timeline" required>
+                        <option value="">Wybierz...</option>
+                        <option value="asap">Jak najszybciej</option>
+                        <option value="2-tygodnie">W ciągu 2 tygodni</option>
+                        <option value="miesiac">W ciągu miesiąca</option>
+                        <option value="rozgladam-sie">Na razie się rozglądam</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div>
+                    <label>Czy ktoś już obsługuje te procesy? <span class="opt">(opcjonalnie)</span></label>
+                    <input type="text" name="current_solution" placeholder="np. robimy ręcznie, mamy VA, używamy Freshdesk/Zendesk, nie robimy tego wcale">
+                    <div class="field-hint">Chcemy wiedzieć co zastępujemy — czy budujemy coś od zera, czy ulepszamy istniejący proces.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. NARZĘDZIA -->
+        <div class="form-section" data-section="5">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-number">5</div>
                     <div>
                         <div class="section-title">Narzędzia i integracje</div>
                         <div class="section-subtitle">Z czego korzystasz — żebyśmy mogli się zintegrować</div>
@@ -753,42 +810,93 @@
 
             <div class="field-row two">
                 <div>
-                    <label>System email marketingu</label>
-                    <input type="text" name="email_tool" placeholder="np. Mailchimp, GetResponse, brak">
+                    <label>Email marketing</label>
+                    <input type="text" name="email_tool" placeholder="np. Mailerlite, Mailchimp, GetResponse, brak">
                 </div>
                 <div>
                     <label>CRM / Arkusze</label>
-                    <input type="text" name="crm_tool" placeholder="np. HubSpot, Pipedrive, Google Sheets">
+                    <input type="text" name="crm_tool" placeholder="np. Google Sheets, HubSpot, Pipedrive">
                 </div>
             </div>
 
             <div class="field-row two">
                 <div>
-                    <label>Komunikator zespołowy</label>
-                    <input type="text" name="team_chat" placeholder="np. Slack, Telegram, Teams">
+                    <label>Gdzie chcesz dostawać powiadomienia?</label>
+                    <div class="radio-group">
+                        <label class="radio-option"><input type="checkbox" name="notification_channel" value="email"> Email</label>
+                        <label class="radio-option"><input type="checkbox" name="notification_channel" value="telegram"> Telegram</label>
+                        <label class="radio-option"><input type="checkbox" name="notification_channel" value="slack"> Slack</label>
+                        <label class="radio-option"><input type="checkbox" name="notification_channel" value="sms"> SMS</label>
+                    </div>
                 </div>
                 <div>
-                    <label>System kurierski / fulfillment</label>
-                    <input type="text" name="shipping_tool" placeholder="np. InPost, DPD, BaseLinker">
+                    <label>System kurierski</label>
+                    <input type="text" name="shipping_tool" placeholder="np. InPost, DPD, BaseLinker, Apaczka">
                 </div>
             </div>
 
             <div class="field-row">
                 <div>
-                    <label>Inne narzędzia, z którymi chcesz integrację</label>
-                    <input type="text" name="other_tools" placeholder="np. Allegro, Fakturownia, Notion, ClickUp">
+                    <label>Coś jeszcze czego używasz i chcesz zintegrować?</label>
+                    <input type="text" name="other_tools" placeholder="np. Fakturownia, Notion, ClickUp, ERP">
                 </div>
             </div>
         </div>
 
-        <!-- 5. ZGODY RODO -->
-        <div class="form-section">
+        <!-- 6. BUDŻET I OCZEKIWANIA -->
+        <div class="form-section" data-section="6">
             <div class="section-header">
                 <div class="section-header-left">
-                    <div class="section-icon red">&#128274;</div>
+                    <div class="section-number">6</div>
                     <div>
-                        <div class="section-title">Zgody RODO</div>
-                        <div class="section-subtitle">Wymagane przed uruchomieniem systemu</div>
+                        <div class="section-title">Budżet i oczekiwania</div>
+                        <div class="section-subtitle">Żebyśmy mogli dopasować zakres do Twoich możliwości</div>
+                    </div>
+                </div>
+                <span class="badge optional">Opcjonalne</span>
+            </div>
+
+            <div class="field-row two">
+                <div>
+                    <label>Budżet na wdrożenie (jednorazowo)</label>
+                    <select name="budget_setup">
+                        <option value="">Wybierz...</option>
+                        <option value="do-5k">Do 5 000 zł</option>
+                        <option value="5-10k">5 000 - 10 000 zł</option>
+                        <option value="10-20k">10 000 - 20 000 zł</option>
+                        <option value="20k+">Powyżej 20 000 zł</option>
+                        <option value="nie-wiem">Nie mam jeszcze budżetu</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Budżet na abonament miesięczny</label>
+                    <select name="budget_monthly">
+                        <option value="">Wybierz...</option>
+                        <option value="do-1k">Do 1 000 zł/msc</option>
+                        <option value="1-2k">1 000 - 2 000 zł/msc</option>
+                        <option value="2-5k">2 000 - 5 000 zł/msc</option>
+                        <option value="5k+">Powyżej 5 000 zł/msc</option>
+                        <option value="nie-wiem">Nie mam jeszcze budżetu</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div>
+                    <label>Dodatkowe uwagi</label>
+                    <textarea name="notes" placeholder="Cokolwiek co chcesz nam powiedzieć — pytania, obawy, specjalne wymagania..." style="min-height: 80px;"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. ZGODY RODO -->
+        <div class="form-section" data-section="7">
+            <div class="section-header">
+                <div class="section-header-left">
+                    <div class="section-number">7</div>
+                    <div>
+                        <div class="section-title">Zgody</div>
+                        <div class="section-subtitle">Formalności — szybko i bezboleśnie</div>
                     </div>
                 </div>
                 <span class="badge required">Wymagane</span>
@@ -796,84 +904,123 @@
 
             <label class="rodo-check">
                 <input type="checkbox" name="rodo_processing" required>
-                <span>Wyrażam zgodę na przetwarzanie moich danych osobowych przez EcomSwiftEvo (SwiftEvo) w celu konfiguracji i świadczenia usług automatyzacji. <span class="req">*</span></span>
+                <span>Wyrażam zgodę na przetwarzanie moich danych osobowych przez EcomSwiftEvo (SwiftEvo) w celu przygotowania oferty i świadczenia usług automatyzacji. <span class="req">*</span></span>
             </label>
 
             <label class="rodo-check">
-                <input type="checkbox" name="rodo_servers" required>
-                <span>Przyjmuję do wiadomości, że dane przetwarzane są na serwerach w UE zgodnie z RODO. <span class="req">*</span></span>
+                <input type="checkbox" name="rodo_contact" required>
+                <span>Zgadzam się na kontakt w sprawie oferty na podany email i telefon. <span class="req">*</span></span>
             </label>
-
-            <label class="rodo-check">
-                <input type="checkbox" name="rodo_contact">
-                <span>Zgadzam się na kontakt w sprawie statusu wdrożenia na podany numer telefonu i email.</span>
-            </label>
-        </div>
-
-        <!-- 6. DODATKOWE -->
-        <div class="form-section">
-            <div class="section-header">
-                <div class="section-header-left">
-                    <div class="section-icon gray">&#128172;</div>
-                    <div>
-                        <div class="section-title">Dodatkowe informacje</div>
-                        <div class="section-subtitle">Co jeszcze powinniśmy wiedzieć</div>
-                    </div>
-                </div>
-                <span class="badge optional">Opcjonalne</span>
-            </div>
-
-            <div class="field-row">
-                <div>
-                    <label>Jakie są Twoje największe problemy operacyjne w sklepie?</label>
-                    <textarea name="problems" placeholder="np. dużo porzuconych koszyków, support zjada 3h dziennie, nie mamy raportów sprzedaży, klienci pytają ciągle o status..."></textarea>
-                </div>
-            </div>
-
-            <div class="field-row">
-                <div>
-                    <label>Kiedy chciałbyś uruchomić system?</label>
-                    <input type="text" name="timeline" placeholder="np. jak najszybciej / od przyszłego tygodnia / od 1 kwietnia">
-                </div>
-            </div>
         </div>
 
         <!-- SUBMIT -->
         <div class="submit-section">
-            <h3>Gotowe? Wyślij formularz</h3>
-            <p>Po wysłaniu otrzymasz potwierdzenie na email. Skonfigurujemy system w ciągu 48 godzin roboczych i odezwiemy się z datą uruchomienia.</p>
-            <button type="submit" class="submit-btn">Wyślij formularz &rarr;</button>
+            <h3>Gotowe?</h3>
+            <p>Po wysłaniu przygotujemy indywidualną ofertę z zakresem, wyceną i terminem wdrożenia. Odpowiemy w ciągu 48 godzin.</p>
+            <button type="submit" class="submit-btn" id="submitBtn">Wyślij brief &rarr;</button>
             <div class="submit-footer">
                 Pytania? Napisz na <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a>
             </div>
         </div>
     </form>
 
-    <script>
-        document.getElementById('clientForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+    <!-- SUCCESS -->
+    <div class="form-success" id="formSuccess">
+        <div class="check-icon">&#10003;</div>
+        <h2>Brief wysłany!</h2>
+        <p>Przygotujemy indywidualną ofertę i odezwiemy się w ciągu 48 godzin na podany adres email. Sprawdź też folder spam.</p>
+        <a href="/" class="back-link">&larr; Wróć na stronę główną</a>
+    </div>
 
-            const formData = new FormData(this);
-            const data = {};
-            formData.forEach((value, key) => {
-                if (data[key]) {
-                    if (Array.isArray(data[key])) data[key].push(value);
-                    else data[key] = [data[key], value];
-                } else {
-                    data[key] = value;
-                }
+    <script>
+    // Module card toggle
+    document.querySelectorAll('.module-card').forEach(card => {
+        const cb = card.querySelector('input[type="checkbox"]');
+        cb.addEventListener('change', () => {
+            card.classList.toggle('selected', cb.checked);
+            updateProgress();
+        });
+    });
+
+    // Progress bar
+    function updateProgress() {
+        const total = document.querySelectorAll('[required]').length;
+        let filled = 0;
+        document.querySelectorAll('[required]').forEach(el => {
+            if (el.type === 'checkbox') {
+                if (el.checked) filled++;
+            } else if (el.type === 'radio') {
+                const name = el.name;
+                if (document.querySelector(`input[name="${name}"]:checked`)) filled++;
+            } else if (el.value) {
+                filled++;
+            }
+        });
+        // Count module selection separately
+        const hasModule = document.querySelectorAll('input[name="modules"]:checked').length > 0;
+        const pct = Math.min(100, Math.round(((filled + (hasModule ? 1 : 0)) / (total + 1)) * 100));
+        document.getElementById('progressFill').style.width = pct + '%';
+    }
+
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        el.addEventListener('change', updateProgress);
+        el.addEventListener('input', updateProgress);
+    });
+
+    // Form submit
+    document.getElementById('clientForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Validate at least 1 module selected
+        const modules = document.querySelectorAll('input[name="modules"]:checked');
+        if (modules.length === 0) {
+            alert('Zaznacz przynajmniej jeden moduł, który Cię interesuje.');
+            document.getElementById('mod1').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
+        }
+
+        const btn = document.getElementById('submitBtn');
+        btn.textContent = 'Wysyłanie...';
+        btn.disabled = true;
+
+        const formData = new FormData(this);
+        const data = {};
+        formData.forEach((value, key) => {
+            if (data[key]) {
+                if (Array.isArray(data[key])) data[key].push(value);
+                else data[key] = [data[key], value];
+            } else {
+                data[key] = value;
+            }
+        });
+
+        // Add metadata
+        data.source = 'brief-wdrozeniowy';
+        data.ts = new Date().toISOString();
+        data.url = window.location.href;
+
+        try {
+            await fetch('/api/form', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
             });
 
-            // TODO: Replace with actual webhook URL
-            // fetch('TWOJ_WEBHOOK_URL', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(data)
-            // });
+            this.style.display = 'none';
+            document.querySelector('.form-hero').style.display = 'none';
+            document.querySelector('.progress-bar').style.display = 'none';
+            document.querySelector('.info-banner').style.display = 'none';
+            document.getElementById('formSuccess').classList.add('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch(err) {
+            btn.textContent = 'Wyślij brief \u2192';
+            btn.disabled = false;
+            alert('Wystąpił błąd. Spróbuj ponownie lub napisz na kontakt@swiftevo.eu');
+        }
+    });
 
-            alert('Formularz wysłany! Skontaktujemy się w ciągu 48h.');
-            console.log('Form data:', data);
-        });
+    // Init progress
+    updateProgress();
     </script>
 </body>
 </html>
