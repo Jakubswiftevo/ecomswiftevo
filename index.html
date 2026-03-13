@@ -762,6 +762,51 @@
             color: rgba(255,255,255,0.4);
         }
 
+        /* About principles */
+        .about-principles {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+        }
+
+        .about-principle {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .about-principle-icon {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            color: var(--accent-blue);
+            margin-top: 2px;
+        }
+
+        .about-principle-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .about-principle strong {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 0.2rem;
+        }
+
+        .about-principle span {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.35);
+            line-height: 1.6;
+        }
+
         /* ===== FAQ ===== */
         .faq-section {
             border-top: 1px solid var(--glass-border);
@@ -1474,25 +1519,55 @@
     <section class="about-section" id="o-mnie">
         <div class="container">
             <div class="gs">
-                <div class="section-label">Założyciel</div>
+                <div class="section-label">Kto za tym stoi</div>
             </div>
             <div class="about-grid">
                 <div class="about-photo gs">
                     <img src="jakub.jpg" alt="Jakub Socha — Założyciel SwiftEvo" loading="lazy">
                     <div class="about-name">
                         <h4>Jakub Socha</h4>
-                        <p>Founder & CEO</p>
+                        <p>Założyciel SwiftEvo</p>
                     </div>
                 </div>
                 <div class="about-content gs">
-                    <blockquote>Automatyzuję to, co zabiera Ci czas — żebyś mógł robić to, co przynosi pieniądze</blockquote>
-                    <p class="about-text">Buduję automatyzacje AI dla sklepów internetowych. Zamiast sprzedawać kolejną platformę z abonamentem, tworzę rozwiązania szyte na miarę — które pracują na Twoim stacku i zostają z Tobą.</p>
-                    <p class="about-text">Pracuję z narzędziami open-source (n8n, AI API) i integruję je z platformami e-commerce. Każdy moduł jest testowany, monitorowany i utrzymywany — nie zostawiam Cię z dokumentacją i „powodzenia".</p>
+                    <blockquote>Nie sprzedaję Ci narzędzia. Buduję system, który pracuje za Ciebie.</blockquote>
+                    <p class="about-text">Prowadzę SwiftEvo — agencję automatyzacji AI dla e-commerce. Pracuję bezpośrednio z właścicielami sklepów internetowych. Bez pośredników, bez handlowców, bez bullshitu.</p>
+                    <p class="about-text">Każdą automatyzację buduję osobiście, testuję i monitoruję. Używam narzędzi open-source — n8n, OpenAI, Claude — więc nie płacisz za licencje platform, które Ci nie potrzebne. Dostajesz rozwiązanie szyte pod Twój sklep, nie szablon.</p>
+
+                    <div class="about-principles">
+                        <div class="about-principle">
+                            <div class="about-principle-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div>
+                                <strong>Pełna odpowiedzialność</strong>
+                                <span>Buduję, testuję, monitoruję, naprawiam. Nie zostawiam Cię z dokumentacją.</span>
+                            </div>
+                        </div>
+                        <div class="about-principle">
+                            <div class="about-principle-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            </div>
+                            <div>
+                                <strong>Szczerość</strong>
+                                <span>Jeśli automatyzacja nie ma sensu w Twoim przypadku — powiem Ci to wprost.</span>
+                            </div>
+                        </div>
+                        <div class="about-principle">
+                            <div class="about-principle-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            </div>
+                            <div>
+                                <strong>Mierzalne efekty</strong>
+                                <span>Każdy moduł ma konkretne KPI. Wiesz ile oszczędzasz, nie zgadujesz.</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="about-tags">
                         <div class="about-tag">n8n & Automatyzacja</div>
                         <div class="about-tag">OpenAI / Claude AI</div>
                         <div class="about-tag">E-commerce PL</div>
-                        <div class="about-tag">Shopify / WooCommerce / Shoper</div>
                         <div class="about-tag">Done-For-You</div>
                     </div>
                 </div>
