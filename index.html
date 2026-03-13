@@ -1020,9 +1020,76 @@
 
         .footer-links a:hover { color: rgba(255,255,255,0.6); }
 
+        .footer-company {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 0.5rem;
+        }
+
         .footer-copy {
             font-size: 0.75rem;
             color: rgba(255,255,255,0.15);
+        }
+
+        /* Mid-page CTA */
+        .mid-cta {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            background: var(--glass-bg);
+        }
+
+        .mid-cta p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stat source */
+        .stat-source {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.2);
+            font-style: italic;
+        }
+
+        /* Integration categories */
+        .integration-category {
+            margin-bottom: 2rem;
+        }
+
+        .integration-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .integration-group-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 0.75rem;
+        }
+
+        .integration-tags-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .integration-note {
+            margin-bottom: 2.5rem;
+        }
+
+        .integration-note p {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.85rem;
+            line-height: 1.7;
+            max-width: 700px;
+            padding: 1.25rem 1.5rem;
+            border-left: 2px solid rgba(59,130,246,0.3);
+            background: rgba(59,130,246,0.03);
+            border-radius: 0 8px 8px 0;
         }
 
         /* Cookie */
@@ -1185,11 +1252,11 @@
                 <div class="stat-block">
                     <div class="stat-item">
                         <div class="stat-value">60–80%</div>
-                        <div class="stat-desc">zapytań zautomatyzowanych — bez udziału człowieka</div>
+                        <div class="stat-desc">typowych zapytań nadaje się do automatyzacji <span class="stat-source">(dane branżowe, Zendesk 2024)</span></div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">&lt;1 min</div>
-                        <div class="stat-desc">czas odpowiedzi AI zamiast godzin czekania</div>
+                        <div class="stat-desc">czas odpowiedzi AI vs. średnio 4h w e-commerce</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">24/7</div>
@@ -1212,22 +1279,28 @@
                         <li>Spójny tone of voice w całym katalogu</li>
                     </ul>
                     <div class="sub-label">Efekt</div>
-                    <p class="effect-text">Setki opisów produktów w minuty zamiast dni. Lepsze SEO, więcej ruchu organicznego. Oszczędzasz na copywriterze 2-5 tys. zł miesięcznie.</p>
+                    <p class="effect-text">Setki opisów produktów w minuty zamiast dni. Lepsze SEO, więcej ruchu organicznego. Bez zatrudniania copywritera.</p>
                 </div>
                 <div class="stat-block">
                     <div class="stat-item">
-                        <div class="stat-value">90%</div>
-                        <div class="stat-desc">szybciej niż ręczne pisanie opisów produktów</div>
+                        <div class="stat-value">10x</div>
+                        <div class="stat-desc">szybciej niż pisanie ręczne — minuty zamiast godzin na produkt</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">100%</div>
-                        <div class="stat-desc">unikalny content — zero duplikatów, lepsze SEO</div>
+                        <div class="stat-desc">unikalny content — zero duplikatów od dostawcy, lepsze SEO</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">0 zł</div>
-                        <div class="stat-desc">za copywritera — AI robi to za ułamek kosztów</div>
+                        <div class="stat-value">1 klik</div>
+                        <div class="stat-desc">wrzucasz dane → dostajesz gotowe opisy, meta tagi, posty</div>
                     </div>
                 </div>
+            </div>
+
+            <!-- MID-PAGE CTA -->
+            <div class="mid-cta gs">
+                <p>Chcesz zobaczyć jak to wygląda w praktyce?</p>
+                <a href="#kontakt" class="hero-cta">Umów darmową rozmowę</a>
             </div>
 
             <!-- BLOCK 3: Odzysk Sprzedaży -->
@@ -1235,29 +1308,29 @@
                 <div>
                     <div class="feature-label">Moduł 3</div>
                     <h3>Odzysk Sprzedaży & Retencja</h3>
-                    <p class="desc">Każdy sklep traci 60–80% koszyków. Klienci kupują raz i nie wracają. Opinie nie zbierają się same. Rozwiązujemy to automatycznie — bez Twojego udziału.</p>
+                    <p class="desc">Każdy sklep traci 60–80% koszyków <span class="stat-source">(Baymard Institute)</span>. Klienci kupują raz i nie wracają. Opinie nie zbierają się same. Rozwiązujemy to automatycznie — bez Twojego udziału.</p>
                     <ul class="feature-list">
-                        <li>Sekwencja email/SMS przy porzuconym koszyku</li>
+                        <li>Sekwencja email/SMS przy porzuconym koszyku — dopasowana do Twojego sklepu</li>
                         <li>Przypomnienia o powtórnym zakupie po 30/60/90 dniach</li>
                         <li>Automatyczne zbieranie opinii po dostawie</li>
                         <li>Segmentacja klientów — VIP, jednorazowi, uśpieni</li>
                         <li>Reaktywacja nieaktywnych klientów</li>
                     </ul>
-                    <div class="sub-label">Efekt</div>
-                    <p class="effect-text">Odzyskujesz przychód który dziś leży na stole. Klienci wracają kupować ponownie. Opinie budują zaufanie i konwersję.</p>
+                    <div class="sub-label">Dlaczego nie gotowa appka?</div>
+                    <p class="effect-text">Edrone, SALESmanago czy Omnibus robią podobne rzeczy — ale kosztują 500-2000 zł/msc, zamykają Cię w swoim ekosystemie i dają szablony, nie strategię. Tu dostajesz custom automatyzację, która działa z narzędziami które już masz — bez abonamentu za kolejną platformę.</p>
                 </div>
                 <div class="stat-block">
                     <div class="stat-item">
-                        <div class="stat-value">60–80%</div>
-                        <div class="stat-desc">koszyków jest porzucanych — odzyskujemy część automatycznie</div>
+                        <div class="stat-value">70%</div>
+                        <div class="stat-desc">koszyków jest porzucanych w e-commerce <span class="stat-source">(Baymard Institute, 2024)</span></div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-value">5–15%</div>
-                        <div class="stat-desc">wzrost przychodów z odzyskanych koszyków</div>
+                        <div class="stat-desc">typowy wzrost przychodów po wdrożeniu sekwencji odzyskowych</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">10–25%</div>
-                        <div class="stat-desc">więcej powracających klientów</div>
+                        <div class="stat-value">0 zł</div>
+                        <div class="stat-desc">za dodatkową platformę — wszystko na Twoim stacku</div>
                     </div>
                 </div>
             </div>
@@ -1273,10 +1346,10 @@
                         <li>Alerty niskiego stanu magazynowego</li>
                         <li>Alerty spadku sprzedaży i błędów checkoutu</li>
                         <li>Monitoring marży i rentowności zamówień</li>
-                        <li>Tygodniowy raport podsumowujący na email</li>
+                        <li>Tygodniowy raport podsumowujący na email lub Telegram</li>
                     </ul>
-                    <div class="sub-label">Efekt</div>
-                    <p class="effect-text">Rano dostajesz raport i wiesz wszystko. System pilnuje stocku, marży i sprzedaży 24/7. Reagujesz na problemy zanim kosztują Cię pieniądze.</p>
+                    <div class="sub-label">Dlaczego nie Google Analytics?</div>
+                    <p class="effect-text">GA mówi co się stało. Nasze raporty mówią co z tym zrobić. AI analizuje dane z Twojego sklepu, porównuje z trendami i generuje konkretne rekomendacje — które produkty promować, gdzie tracisz marżę, co dołożyć do oferty. I wysyła Ci to rano na Telegram, zanim otworzysz laptopa.</p>
                 </div>
                 <div class="stat-block">
                     <div class="stat-item">
@@ -1284,14 +1357,20 @@
                         <div class="stat-desc">monitoring sklepu — alerty w czasie rzeczywistym</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">30 sek</div>
-                        <div class="stat-desc">od wykrycia problemu do powiadomienia</div>
+                        <div class="stat-value">1 min</div>
+                        <div class="stat-desc">poranny raport zamiast 30 min w panelu sklepu</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-value">-70%</div>
-                        <div class="stat-desc">mniej braków magazynowych dzięki alertom</div>
+                        <div class="stat-value">AI</div>
+                        <div class="stat-desc">nie tylko dane — rekomendacje co zrobić dalej</div>
                     </div>
                 </div>
+            </div>
+
+            <!-- CTA after all modules -->
+            <div class="mid-cta gs" style="margin-top: 3rem;">
+                <p>Nie wiesz który moduł wybrać? Porozmawiajmy — doradzimy za darmo.</p>
+                <a href="#kontakt" class="hero-cta">Bezpłatna konsultacja &rarr;</a>
             </div>
 
         </div>
@@ -1334,34 +1413,56 @@
                 <h2>Integrujemy się z systemem, którego już używasz</h2>
                 <p>Nie wymagamy zmiany oprogramowania. Nie ingerujemy w grafik. Nie zabieramy pracy nikomu.</p>
             </div>
-            <div class="integration-tags gs">
-                <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">Shopify</div>
-                <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">WooCommerce</div>
-                <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">Shoper</div>
-                <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">PrestaShop</div>
-                <div class="tag" style="color:#22c55e;border-color:rgba(34,197,94,0.25);">BaseLinker</div>
-                <div class="tag">OpenAI</div>
-                <div class="tag">Google Sheets</div>
-                <div class="tag">Slack</div>
-                <div class="tag">Telegram</div>
-                <div class="tag">Mailerlite</div>
-                <div class="tag">SMSAPI</div>
+            <div class="integration-category gs">
+                <div class="integration-group">
+                    <div class="integration-group-label">Platformy e-commerce</div>
+                    <div class="integration-tags-row">
+                        <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">Shopify</div>
+                        <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">WooCommerce</div>
+                        <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">Shoper</div>
+                        <div class="tag" style="color:#3b82f6;border-color:rgba(59,130,246,0.25);">PrestaShop</div>
+                        <div class="tag" style="color:#22c55e;border-color:rgba(34,197,94,0.25);">BaseLinker</div>
+                    </div>
+                </div>
+                <div class="integration-group">
+                    <div class="integration-group-label">Komunikacja & Marketing</div>
+                    <div class="integration-tags-row">
+                        <div class="tag">Mailerlite</div>
+                        <div class="tag">SMSAPI</div>
+                        <div class="tag">Telegram</div>
+                        <div class="tag">Slack</div>
+                        <div class="tag">Gmail / Outlook</div>
+                    </div>
+                </div>
+                <div class="integration-group">
+                    <div class="integration-group-label">AI & Dane</div>
+                    <div class="integration-tags-row">
+                        <div class="tag">OpenAI / Claude</div>
+                        <div class="tag">Google Sheets</div>
+                        <div class="tag">Airtable</div>
+                        <div class="tag">Notion</div>
+                        <div class="tag">Webhooks</div>
+                    </div>
+                </div>
+            </div>
+            <div class="integration-note gs">
+                <p>Łączymy się przez API, webhooks i gotowe konektory. Nie instalujemy wtyczek w Twoim sklepie. Twój system zostaje bez zmian — automatyzacja działa obok, nie wewnątrz.</p>
             </div>
             <div class="two-col gs">
                 <div>
                     <h4>Jak wygląda w praktyce?</h4>
                     <ul>
                         <li>Twój biznes pracuje jak do teraz. Nic się nie zmienia.</li>
-                        <li>W tle uruchamia się automatyzacja.</li>
+                        <li>W tle uruchamia się automatyzacja przez API.</li>
                         <li>Nie musisz instalować żadnych aplikacji czy wtyczek.</li>
                     </ul>
                 </div>
                 <div>
-                    <h4>Co to oznacza dla Ciebie?</h4>
+                    <h4>Nie widzisz swojego narzędzia?</h4>
                     <ul>
-                        <li>Nic nie wymyślamy. Nie ma przerób.</li>
-                        <li>Nie zmieniamy systemu.</li>
-                        <li>Wszystko działa tam, gdzie już jest. Tylko lepiej.</li>
+                        <li>Integrujemy się z 400+ aplikacjami.</li>
+                        <li>Jeśli ma API — da się podłączyć.</li>
+                        <li>Napisz do nas — sprawdzimy za darmo.</li>
                     </ul>
                 </div>
             </div>
@@ -1385,14 +1486,14 @@
                 </div>
                 <div class="about-content gs">
                     <blockquote>Automatyzuję to, co zabiera Ci czas — żebyś mógł robić to, co przynosi pieniądze</blockquote>
-                    <p class="about-text">Założyciel SwiftEvo — agencji automatyzacji AI z siedzibą w Polsce. Łączy głęboką wiedzę techniczną z praktycznym podejściem do biznesu e-commerce.</p>
-                    <p class="about-text">Specjalizuje się we wdrażaniu inteligentnych automatyzacji, które eliminują powtarzalną pracę i pozwalają sklepom internetowym skalować się bez zwiększania kosztów operacyjnych.</p>
+                    <p class="about-text">Buduję automatyzacje AI dla sklepów internetowych. Zamiast sprzedawać kolejną platformę z abonamentem, tworzę rozwiązania szyte na miarę — które pracują na Twoim stacku i zostają z Tobą.</p>
+                    <p class="about-text">Pracuję z narzędziami open-source (n8n, AI API) i integruję je z platformami e-commerce. Każdy moduł jest testowany, monitorowany i utrzymywany — nie zostawiam Cię z dokumentacją i „powodzenia".</p>
                     <div class="about-tags">
-                        <div class="about-tag">Automatyzacja AI</div>
-                        <div class="about-tag">E-commerce</div>
-                        <div class="about-tag">n8n</div>
-                        <div class="about-tag">Integracje</div>
-                        <div class="about-tag">Polska</div>
+                        <div class="about-tag">n8n & Automatyzacja</div>
+                        <div class="about-tag">OpenAI / Claude AI</div>
+                        <div class="about-tag">E-commerce PL</div>
+                        <div class="about-tag">Shopify / WooCommerce / Shoper</div>
+                        <div class="about-tag">Done-For-You</div>
                     </div>
                 </div>
             </div>
@@ -1478,7 +1579,7 @@
                             <label>Opisz swój problem / sytuację</label>
                             <textarea name="msg" id="fmsg" class="form-input" placeholder="np. tracimy dużo koszyków, support zjada 3h dziennie, nie mamy raportów sprzedaży..."></textarea>
                         </div>
-                        <button type="submit" class="cta-submit-btn" id="sbtn">WYŚLIJ</button>
+                        <button type="submit" class="cta-submit-btn" id="sbtn">UMÓW ROZMOWĘ</button>
                     </form>
                     <div class="form-success" id="fSuccess">
                         <h3>Dzięki!</h3>
@@ -1501,6 +1602,7 @@
                 <a href="#kontakt">Kontakt</a>
                 <a href="polityka-prywatnosci.html">Prywatność</a>
             </div>
+            <div class="footer-company">PHU NOVA Jakub Socha &middot; NIP: 6721974735</div>
             <div class="footer-copy">&copy; 2026 EcomSwiftEvo. Wszelkie prawa zastrzeżone.</div>
         </div>
     </footer>
