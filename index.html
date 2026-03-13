@@ -15,6 +15,25 @@
     <meta property="og:locale" content="pl_PL">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>">
 
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+        gtag('js',new Date());gtag('config','G-XXXXXXXXXX');
+    </script>
+
+    <!-- Meta Pixel -->
+    <script>
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init','XXXXXXXXXXXXXXXXX');
+        fbq('track','PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.net/tr?id=XXXXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></noscript>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
@@ -1076,6 +1095,292 @@
             color: rgba(255,255,255,0.15);
         }
 
+        /* ===== CALCULATOR ===== */
+        .calc-section {
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .calc-section h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .calc-section > .container > p {
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 3rem;
+            font-size: 0.95rem;
+        }
+
+        .calc-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            transition: border-color 0.4s;
+        }
+
+        .calc-card:hover {
+            border-color: rgba(59,130,246,0.2);
+        }
+
+        .calc-input-group {
+            margin-bottom: 2rem;
+        }
+
+        .calc-input-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        .calc-input-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .calc-input {
+            flex: 1;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 0.9rem 1.2rem;
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: #fff;
+            outline: none;
+            transition: border-color 0.3s;
+            -moz-appearance: textfield;
+        }
+
+        .calc-input::-webkit-outer-spin-button,
+        .calc-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .calc-input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .calc-suffix {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.3);
+            white-space: nowrap;
+        }
+
+        .calc-results {
+            display: none;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .calc-results.visible {
+            display: block;
+            animation: calcFadeIn 0.5s ease;
+        }
+
+        @keyframes calcFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .calc-result-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        @media(min-width: 500px) {
+            .calc-result-grid { grid-template-columns: 1fr 1fr 1fr; }
+        }
+
+        .calc-result-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+        }
+
+        .calc-result-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .calc-result-value.red {
+            background: linear-gradient(135deg, #ef4444, #f87171);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .calc-result-value.green {
+            background: linear-gradient(135deg, #22c55e, #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .calc-result-label {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 0.3rem;
+        }
+
+        .calc-cta {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .calc-cta p {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== DEMO PREVIEW ===== */
+        .demo-section {
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .demo-section h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            margin-bottom: 0.75rem;
+        }
+
+        .demo-section > .container > p {
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 3rem;
+            font-size: 0.95rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media(min-width: 768px) {
+            .demo-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        }
+
+        .demo-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .demo-card:hover {
+            border-color: rgba(59,130,246,0.3);
+            transform: translateY(-3px);
+        }
+
+        .demo-card-header {
+            padding: 0.75rem 1.25rem;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .demo-card-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .demo-card-header span {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .demo-card-body {
+            padding: 1.5rem;
+        }
+
+        /* Telegram mockup */
+        .tg-msg {
+            margin-bottom: 1rem;
+        }
+
+        .tg-msg:last-child {
+            margin-bottom: 0;
+        }
+
+        .tg-sender {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 0.3rem;
+        }
+
+        .tg-text {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.6;
+            background: rgba(59,130,246,0.06);
+            border-radius: 0 8px 8px 8px;
+            padding: 0.75rem 1rem;
+        }
+
+        .tg-text strong {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .tg-time {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.2);
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+
+        /* Email report mockup */
+        .email-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.78rem;
+        }
+
+        .email-line:last-child { border-bottom: none; }
+
+        .email-label {
+            color: rgba(255,255,255,0.4);
+        }
+
+        .email-val {
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .email-val.up { color: #4ade80; }
+        .email-val.down { color: #f87171; }
+
+        .demo-caption {
+            padding: 1rem 1.25rem;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.3);
+        }
+
         /* Mid-page CTA */
         .mid-cta {
             text-align: center;
@@ -1380,6 +1685,49 @@
                 </div>
             </div>
 
+            <!-- CALCULATOR -->
+            <div class="calc-card gs" id="kalkulator">
+                <div class="section-label" style="text-align:center;">Kalkulator</div>
+                <h3 style="text-align:center;font-size:1.3rem;margin-bottom:0.5rem;">Ile tracisz na porzuconych koszykach?</h3>
+                <p style="text-align:center;color:rgba(255,255,255,0.35);font-size:0.85rem;margin-bottom:2rem;">Wpisz miesięczny obrót — pokażemy ile pieniędzy leży na stole.</p>
+
+                <div class="calc-input-group">
+                    <label>Twój miesięczny obrót sklepu</label>
+                    <div class="calc-input-row">
+                        <input type="number" class="calc-input" id="calcRevenue" placeholder="np. 50000" min="0">
+                        <span class="calc-suffix">zł / msc</span>
+                    </div>
+                </div>
+                <div class="calc-input-group">
+                    <label>Ile % koszyków jest porzucanych? (średnia e-commerce: 70%)</label>
+                    <div class="calc-input-row">
+                        <input type="number" class="calc-input" id="calcRate" placeholder="70" min="0" max="100" value="70">
+                        <span class="calc-suffix">%</span>
+                    </div>
+                </div>
+
+                <div class="calc-results" id="calcResults">
+                    <div class="calc-result-grid">
+                        <div class="calc-result-item">
+                            <div class="calc-result-value red" id="calcLost">—</div>
+                            <div class="calc-result-label">tracisz miesięcznie</div>
+                        </div>
+                        <div class="calc-result-item">
+                            <div class="calc-result-value green" id="calcRecovered">—</div>
+                            <div class="calc-result-label">możesz odzyskać (10–15%)</div>
+                        </div>
+                        <div class="calc-result-item">
+                            <div class="calc-result-value" id="calcYearly">—</div>
+                            <div class="calc-result-label">odzyskane rocznie</div>
+                        </div>
+                    </div>
+                    <div class="calc-cta">
+                        <p>To pieniądze, które dziś gubisz. Automatyzacja odzysku kosztuje ułamek tej kwoty.</p>
+                        <a href="#kontakt" class="hero-cta">Porozmawiajmy o Twoim sklepie</a>
+                    </div>
+                </div>
+            </div>
+
             <!-- BLOCK 4: Monitoring & Raporty -->
             <div class="feature-block gs">
                 <div>
@@ -1418,6 +1766,79 @@
                 <a href="#kontakt" class="hero-cta">Bezpłatna konsultacja &rarr;</a>
             </div>
 
+        </div>
+    </section>
+
+    <!-- DEMO PREVIEW -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <div class="gs" style="text-align:center;">
+                <div class="section-label">Jak to wygląda w praktyce?</div>
+                <h2>To nie teoria. To działa tak.</h2>
+                <p>Prawdziwe powiadomienia i raporty, które dostajesz codziennie.</p>
+            </div>
+            <div class="demo-grid gs">
+                <!-- Telegram alert mockup -->
+                <div class="demo-card">
+                    <div class="demo-card-header">
+                        <div class="demo-card-dot" style="background:#2AABEE;"></div>
+                        <span>Telegram — Alert</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <div class="tg-msg">
+                            <div class="tg-sender">SwiftEvo Monitor</div>
+                            <div class="tg-text">
+                                <strong>Porzucony koszyk — 847 zł</strong><br>
+                                Klient: a***@gmail.com<br>
+                                Produkty: Serum witaminowe x2, Krem nawilżający<br>
+                                Status: Sekwencja odzyskowa uruchomiona (email #1 za 30 min)
+                            </div>
+                            <div class="tg-time">08:32</div>
+                        </div>
+                        <div class="tg-msg">
+                            <div class="tg-sender">SwiftEvo Monitor</div>
+                            <div class="tg-text">
+                                <strong>Koszyk odzyskany!</strong><br>
+                                Klient wrócił i dokończył zakup po emailu #1.<br>
+                                Wartość: <strong>847 zł</strong>
+                            </div>
+                            <div class="tg-time">09:14</div>
+                        </div>
+                    </div>
+                    <div class="demo-caption">Automatyczne powiadomienia na Telegram — widzisz co się dzieje w czasie rzeczywistym</div>
+                </div>
+
+                <!-- Morning report mockup -->
+                <div class="demo-card">
+                    <div class="demo-card-header">
+                        <div class="demo-card-dot" style="background:#4ade80;"></div>
+                        <span>Poranny raport AI</span>
+                    </div>
+                    <div class="demo-card-body">
+                        <div class="email-line">
+                            <span class="email-label">Sprzedaż wczoraj</span>
+                            <span class="email-val up">12 480 zł (+18%)</span>
+                        </div>
+                        <div class="email-line">
+                            <span class="email-label">Zamówienia</span>
+                            <span class="email-val">34</span>
+                        </div>
+                        <div class="email-line">
+                            <span class="email-label">Porzucone koszyki</span>
+                            <span class="email-val down">12 (3 odzyskane)</span>
+                        </div>
+                        <div class="email-line">
+                            <span class="email-label">Niski stan magazynowy</span>
+                            <span class="email-val down">Serum witaminowe (2 szt.)</span>
+                        </div>
+                        <div class="email-line">
+                            <span class="email-label">AI rekomendacja</span>
+                            <span class="email-val" style="color:#60a5fa;">Promuj krem nawilżający — trend +40% tydzień</span>
+                        </div>
+                    </div>
+                    <div class="demo-caption">Codzienny raport o 8:00 — konkretne dane i rekomendacje zamiast surowych liczb</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1887,6 +2308,56 @@ document.getElementById('cForm').addEventListener('submit',async function(e){
 // Cookies
 if(!localStorage.getItem('ck'))document.getElementById('cb').classList.add('show');
 function ck(a){localStorage.setItem('ck',a?'y':'n');document.getElementById('cb').classList.remove('show');}
+
+// Calculator
+(function(){
+    const revInput=document.getElementById('calcRevenue');
+    const rateInput=document.getElementById('calcRate');
+    const results=document.getElementById('calcResults');
+    function fmt(n){return new Intl.NumberFormat('pl-PL',{maximumFractionDigits:0}).format(n)+' zł';}
+    function calc(){
+        const rev=parseFloat(revInput.value);
+        const rate=parseFloat(rateInput.value)||70;
+        if(!rev||rev<=0){results.classList.remove('visible');return;}
+        // Actual revenue = what they sell now. Total potential = revenue / (1 - abandon rate)
+        // Lost = potential - revenue = revenue * rate / (100 - rate)
+        const lost=rev*(rate/(100-rate));
+        const recoveredLow=lost*0.10;
+        const recoveredHigh=lost*0.15;
+        const recovered=(recoveredLow+recoveredHigh)/2;
+        document.getElementById('calcLost').textContent=fmt(Math.round(lost));
+        document.getElementById('calcRecovered').textContent=fmt(Math.round(recoveredLow))+' – '+fmt(Math.round(recoveredHigh));
+        document.getElementById('calcYearly').textContent=fmt(Math.round(recovered*12));
+        results.classList.add('visible');
+    }
+    revInput.addEventListener('input',calc);
+    rateInput.addEventListener('input',calc);
+})();
+
+// Stat counter animations
+(function(){
+    const statValues=document.querySelectorAll('.stat-value');
+    statValues.forEach(el=>{
+        const text=el.textContent.trim();
+        // Match patterns like "70%", "60–80%", "5–15%", "24/7", "10x", "<1 min", "1 min", "30 sek", "0 zł", "1 klik", "AI", "100%"
+        const numMatch=text.match(/^(\d+)(%|x)?$/);
+        if(numMatch){
+            const target=parseInt(numMatch[1]);
+            const suffix=numMatch[2]||'';
+            el.textContent='0'+suffix;
+            ScrollTrigger.create({
+                trigger:el,
+                start:'top 85%',
+                once:true,
+                onEnter:()=>{
+                    gsap.to({v:0},{v:target,duration:1.5,ease:'power2.out',
+                        onUpdate:function(){el.textContent=Math.round(this.targets()[0].v)+suffix;}
+                    });
+                }
+            });
+        }
+    });
+})();
 </script>
 </body>
 </html>
