@@ -51,6 +51,10 @@ export async function onRequestPost(context) {
     <div style="text-align:center;margin:20px 0;">
       <a href="https://calendly.com/jakubsocha-ai/bezplatna-konsultacja-ai-automatyzacji" style="display:inline-block;padding:12px 28px;background:#ffffff;color:#3b82f6;text-decoration:none;border-radius:8px;font-weight:600;font-size:14px;border:2px solid #3b82f6;">Zarezerwuj termin</a>
     </div>
+    <p style="color:#64748b;font-size:14px;line-height:1.7;margin:16px 0 0;text-align:center;">lub opisz swój sklep i potrzeby — przygotujemy spersonalizowaną propozycję:</p>
+    <div style="text-align:center;margin:16px 0;">
+      <a href="https://ecomswiftevo.pl/formularz-klienta" style="display:inline-block;padding:12px 28px;background:#ffffff;color:#1e293b;text-decoration:none;border-radius:8px;font-weight:600;font-size:14px;border:2px solid #e2e8f0;">Wypełnij brief wdrożeniowy</a>
+    </div>
   </div>
   <div style="padding:20px 30px;background:#f1f5f9;border-radius:0 0 8px 8px;">
     <p style="color:#94a3b8;font-size:12px;margin:0;text-align:center;">SwiftEvo — AI Automation Agency · <a href="https://ecomswiftevo.pl" style="color:#64748b;">ecomswiftevo.pl</a></p>
