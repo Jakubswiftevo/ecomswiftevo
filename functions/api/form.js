@@ -67,15 +67,29 @@ export async function onRequestPost(context) {
         });
       }
 
-      // 2. Wyślij do n8n (Notion + Telegram)
+      // 2. Zapisz lead do Notion
       try {
-        await fetch("https://n8n.swiftevo.pl/webhook/lead-tracker", {
+        await fetch("https://api.notion.com/v1/pages", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, store, source: "poradnik" }),
+          headers: {
+            "Authorization": `Bearer ${context.env.NOTION_API_KEY}`,
+            "Notion-Version": "2022-06-28",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            parent: { database_id: "325bab3ad1a280a89ed5e5d5fb4e7409" },
+            properties: {
+              "Imię": { title: [{ text: { content: name || "Nieznany" } }] },
+              "Email": { email: email },
+              "Sklep": { rich_text: [{ text: { content: store || "" } }] },
+              "Źródło": { select: { name: "poradnik" } },
+              "Status": { select: { name: "Nowy" } },
+              "Data": { date: { start: new Date().toISOString().split("T")[0] } },
+            },
+          }),
         });
       } catch (e) {
-        // n8n webhook failure nie blokuje odpowiedzi
+        // Notion failure nie blokuje odpowiedzi
       }
 
       // 3. Powiadomienie email dla Ciebie o nowym leadzie
