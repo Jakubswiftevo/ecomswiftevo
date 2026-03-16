@@ -67,7 +67,18 @@ export async function onRequestPost(context) {
         });
       }
 
-      // 2. Powiadomienie dla Ciebie o nowym leadzie
+      // 2. Wyślij do n8n (Notion + Telegram)
+      try {
+        await fetch("https://n8n.swiftevo.pl/webhook/lead-tracker", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, store, source: "poradnik" }),
+        });
+      } catch (e) {
+        // n8n webhook failure nie blokuje odpowiedzi
+      }
+
+      // 3. Powiadomienie email dla Ciebie o nowym leadzie
       subject = `Nowy lead (poradnik): ${email}`;
       html = `
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
