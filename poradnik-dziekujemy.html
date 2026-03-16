@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poradnik wysłany! | SwiftEvo</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020204;
+            --text-color: #ffffff;
+            --accent-blue: #3b82f6;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        ::selection { background: rgba(59, 130, 246, 0.3); color: white; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.05;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            max-width: 560px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .check-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(34, 197, 94, 0.1);
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            font-size: 2rem;
+        }
+
+        h1 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 12px;
+        }
+        .subtitle {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 36px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 16px 36px;
+            background: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-bottom: 16px;
+        }
+        .download-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 0 30px rgba(59,130,246,0.25);
+        }
+
+        .email-note {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 48px;
+        }
+
+        .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--glass-border);
+            margin: 0 auto 40px;
+        }
+
+        .next-steps h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 24px;
+        }
+
+        .steps {
+            display: grid;
+            gap: 16px;
+            text-align: left;
+        }
+        .step {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+        .step:hover {
+            border-color: rgba(59,130,246,0.2);
+            transform: translateY(-2px);
+        }
+        .step-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .step h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .step p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+        }
+        .footer p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.25);
+        }
+        .footer a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+        }
+        .footer a:hover { color: var(--accent-blue); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="check-icon">&#10003;</div>
+    <h1>Poradnik jest w drodze!</h1>
+    <p class="subtitle">Sprawdź swoją skrzynkę email — PDF powinien dotrzeć w ciągu minuty.<br>Sprawdź też folder spam, gdyby się tam ukrył.</p>
+
+    <a href="/assets/5-automatyzacji-ai-ecommerce.pdf" download class="download-btn">Pobierz PDF teraz</a>
+    <p class="email-note">Lub poczekaj na maila z linkiem do pobrania.</p>
+
+    <div class="divider"></div>
+
+    <div class="next-steps">
+        <h2>Co dalej?</h2>
+        <div class="steps">
+            <a href="https://calendly.com/jakubsocha-ai/bezplatna-konsultacja-ai-automatyzacji" target="_blank" class="step">
+                <span class="step-icon">&#128197;</span>
+                <div>
+                    <h3>Umów bezpłatną konsultację</h3>
+                    <p>30 minut. Przeanalizujemy Twój sklep i pokażemy które automatyzacje dadzą Ci największy zwrot.</p>
+                </div>
+            </a>
+            <a href="/formularz-klienta" class="step">
+                <span class="step-icon">&#128203;</span>
+                <div>
+                    <h3>Wypełnij brief wdrożeniowy</h3>
+                    <p>Opisz swój sklep i potrzeby — przygotujemy spersonalizowaną propozycję automatyzacji.</p>
+                </div>
+            </a>
+            <a href="https://ecomswiftevo.pl" class="step">
+                <span class="step-icon">&#127968;</span>
+                <div>
+                    <h3>Zobacz pełną ofertę</h3>
+                    <p>Poznaj wszystkie 4 moduły AI automatyzacji dla e-commerce.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><a href="https://ecomswiftevo.pl">ecomswiftevo.pl</a> · <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></p>
+        <p style="margin-top:6px;">&copy; 2026 SwiftEvo. AI planuje. Automatyzacja wykonuje.</p>
+    </div>
+</div>
+
+</body>
+</html>

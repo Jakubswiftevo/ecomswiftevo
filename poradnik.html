@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Darmowy poradnik: 5 Automatyzacji AI dla E-commerce | SwiftEvo</title>
+    <meta name="description" content="Pobierz darmowy PDF: 5 automatyzacji AI, które oszczedzaja sklepom online 20 godzin tygodniowo. Praktyczny przewodnik dla wlascicieli e-commerce.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ecomswiftevo.pl/poradnik">
+    <meta property="og:title" content="5 Automatyzacji AI Ktore Oszczedzaja Sklepom 20h Tygodniowo">
+    <meta property="og:description" content="Darmowy PDF dla wlascicieli e-commerce. Poznaj 5 automatyzacji AI, ktore mozesz wdrozyc w swoim sklepie.">
+    <link rel="canonical" href="https://ecomswiftevo.pl/poradnik">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='9' cy='21' r='1'/><circle cx='20' cy='21' r='1'/><path d='M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6'/></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #020204;
+            --text-color: #ffffff;
+            --accent-blue: #3b82f6;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        ::selection { background: rgba(59, 130, 246, 0.3); color: white; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0.05;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(2, 2, 4, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .logo span { color: var(--accent-blue); }
+        .header-cta {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .header-cta:hover { color: var(--accent-blue); }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 80px;
+        }
+        .hero-inner {
+            max-width: 960px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-content {}
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            line-height: 1.12;
+            letter-spacing: -0.04em;
+            margin-bottom: 20px;
+        }
+        .hero h1 .highlight {
+            color: var(--accent-blue);
+        }
+        .hero p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.7;
+            margin-bottom: 28px;
+        }
+        .benefits {
+            list-style: none;
+            margin-bottom: 8px;
+        }
+        .benefits li {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+        .benefits li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            opacity: 0.2;
+        }
+        .benefits li::after {
+            content: '\2713';
+            position: absolute;
+            left: 3px;
+            top: 8px;
+            font-size: 0.7rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+        }
+
+        /* Form card */
+        .form-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 40px;
+            backdrop-filter: blur(12px);
+        }
+        .form-card h2 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            margin-bottom: 6px;
+        }
+        .form-card .subtitle {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 28px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 6px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 13px 16px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: var(--accent-blue);
+        }
+        .form-group input::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+        .submit-btn:hover {
+            background: #2563eb;
+            box-shadow: 0 0 30px rgba(59,130,246,0.25);
+        }
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .form-note {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.35);
+            margin-top: 12px;
+            text-align: center;
+        }
+        .form-note a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: underline;
+        }
+        .form-error {
+            color: #ef4444;
+            font-size: 0.8rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* What's inside */
+        .preview-section {
+            padding: 80px 24px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+        .preview-section h2 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .preview-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 28px;
+            transition: all 0.3s;
+        }
+        .preview-card:hover {
+            border-color: rgba(59,130,246,0.2);
+            transform: translateY(-3px);
+        }
+        .preview-card .card-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 10px;
+        }
+        .preview-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+        .preview-card p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.6;
+        }
+        .preview-card .save-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 10px;
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.2);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Trust */
+        .trust-section {
+            padding: 60px 24px;
+            text-align: center;
+        }
+        .trust-text {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.35);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .trust-logos {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .trust-logos span {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.25);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 24px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+        .footer p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
+        }
+        .footer a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+        }
+        .footer a:hover { color: var(--accent-blue); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header { padding: 14px 20px; }
+            .hero { padding: 100px 20px 60px; }
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .form-card { padding: 28px; }
+            .preview-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <a href="https://ecomswiftevo.pl" class="logo">Ecom<span>SwiftEvo</span></a>
+    <a href="https://ecomswiftevo.pl" class="header-cta">Wróć na stronę główną</a>
+</header>
+
+<!-- Hero + Form -->
+<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-content">
+            <div class="section-label">Darmowy poradnik PDF</div>
+            <h1>5 Automatyzacji AI które oszczędzają sklepom <span class="highlight">20 godzin tygodniowo</span></h1>
+            <p>Praktyczny przewodnik dla właścicieli e-commerce. Poznaj konkretne automatyzacje AI, które możesz wdrożyć w swoim sklepie — z realnymi liczbami i rezultatami.</p>
+            <ul class="benefits">
+                <li>AI Obsługa Klienta — oszczędność ~6h/tydzień</li>
+                <li>AI Opisy Produktów i Content — ~5h/tydzień</li>
+                <li>Odzysk Porzuconych Koszyków — ~3h/tydzień</li>
+                <li>Codzienny Raport AI na Slack/Telegram</li>
+                <li>Segmentacja Klientów i Retencja</li>
+            </ul>
+        </div>
+        <div class="form-card" id="form-card">
+            <h2>Pobierz darmowy PDF</h2>
+            <p class="subtitle">Zostaw email — wyślemy poradnik w ciągu minuty.</p>
+            <form id="lead-form" novalidate>
+                <div class="form-group">
+                    <label for="name">Imię</label>
+                    <input type="text" id="name" name="name" placeholder="Np. Jan" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="jan@twojsklep.pl" required>
+                </div>
+                <div class="form-group">
+                    <label for="store">Nazwa sklepu (opcjonalnie)</label>
+                    <input type="text" id="store" name="store" placeholder="Np. MójSklep.pl">
+                </div>
+                <button type="submit" class="submit-btn" id="submit-btn">Wyślij mi poradnik</button>
+                <div class="form-error" id="form-error"></div>
+                <p class="form-note">Zero spamu. Tylko wartość. <a href="/polityka-prywatnosci">Polityka prywatności</a></p>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- What's inside -->
+<section class="preview-section">
+    <div class="section-label" style="text-align:center;">Co znajdziesz w środku</div>
+    <h2>5 automatyzacji z konkretnymi wynikami</h2>
+    <div class="preview-grid">
+        <div class="preview-card">
+            <div class="card-number">Automatyzacja 1</div>
+            <h3>AI Obsługa Klienta</h3>
+            <p>80% zapytań rozwiązanych automatycznie. Czas odpowiedzi: 2 minuty zamiast 4 godzin.</p>
+            <span class="save-badge">~6h / tydzień</span>
+        </div>
+        <div class="preview-card">
+            <div class="card-number">Automatyzacja 2</div>
+            <h3>AI Opisy Produktów</h3>
+            <p>200 opisów w 30 minut. SEO-friendly, w tone of voice Twojej marki.</p>
+            <span class="save-badge">~5h / tydzień</span>
+        </div>
+        <div class="preview-card">
+            <div class="card-number">Automatyzacja 3</div>
+            <h3>Odzysk Koszyków</h3>
+            <p>Automatyczna sekwencja email + SMS. Odzysk 10-15% porzuconych koszyków.</p>
+            <span class="save-badge">~3h / tydzień</span>
+        </div>
+        <div class="preview-card">
+            <div class="card-number">Automatyzacja 4</div>
+            <h3>Raport AI na Slack</h3>
+            <p>Jeden raport o 8:00 zamiast 5 paneli. Alerty gdy coś jest nie tak.</p>
+            <span class="save-badge">~3h / tydzień</span>
+        </div>
+        <div class="preview-card">
+            <div class="card-number">Automatyzacja 5</div>
+            <h3>Segmentacja Klientów</h3>
+            <p>2x wyższy open rate. 3x więcej przychodu z powracających klientów.</p>
+            <span class="save-badge">~3h / tydzień</span>
+        </div>
+    </div>
+</section>
+
+<!-- Trust -->
+<section class="trust-section">
+    <p class="trust-text">Przewodnik przygotowany przez SwiftEvo — AI Automation Agency. Wspieramy sklepy na:</p>
+    <div class="trust-logos">
+        <span>Shopify</span>
+        <span>WooCommerce</span>
+        <span>Shoper</span>
+        <span>PrestaShop</span>
+        <span>BaseLinker</span>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <p><a href="https://ecomswiftevo.pl">ecomswiftevo.pl</a> · <a href="mailto:kontakt@swiftevo.eu">kontakt@swiftevo.eu</a></p>
+    <p style="margin-top:8px;">&copy; 2026 SwiftEvo. AI planuje. Automatyzacja wykonuje.</p>
+</footer>
+
+<script>
+const form = document.getElementById('lead-form');
+const btn = document.getElementById('submit-btn');
+const errorEl = document.getElementById('form-error');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.style.display = 'none';
+
+    const email = form.email.value.trim();
+    const name = form.name.value.trim();
+    const store = form.store.value.trim();
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+        errorEl.textContent = 'Podaj prawidłowy adres email.';
+        errorEl.style.display = 'block';
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Wysyłam...';
+
+    try {
+        const res = await fetch('/api/form', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                source: 'lead-magnet',
+                name: name,
+                email: email,
+                store: store,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (data.status === 'ok') {
+            window.location.href = '/poradnik-dziekujemy?email=' + encodeURIComponent(email);
+        } else {
+            throw new Error(data.detail || 'Wystąpił błąd');
+        }
+    } catch (err) {
+        errorEl.textContent = 'Coś poszło nie tak. Spróbuj ponownie.';
+        errorEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Wyślij mi poradnik';
+    }
+});
+</script>
+
+</body>
+</html>
