@@ -108,7 +108,18 @@ export async function onRequestPost(context) {
         // Telegram failure nie blokuje odpowiedzi
       }
 
-      // 4. Powiadomienie email dla Ciebie o nowym leadzie
+      // 4. Trigger follow-up email sequence (n8n webhook)
+      try {
+        await fetch("https://n8n.swiftevo.pl/webhook/lead-followup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, store }),
+        });
+      } catch (e) {
+        // n8n failure nie blokuje odpowiedzi
+      }
+
+      // 5. Powiadomienie email dla Ciebie o nowym leadzie
       subject = `Nowy lead (poradnik): ${email}`;
       html = `
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
