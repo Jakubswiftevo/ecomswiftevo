@@ -96,7 +96,19 @@ export async function onRequestPost(context) {
         // Notion failure nie blokuje odpowiedzi
       }
 
-      // 3. Powiadomienie email dla Ciebie o nowym leadzie
+      // 3. Telegram alert
+      try {
+        const tgText = `🟢 *Nowy lead — poradnik PDF*\n👤 ${name || "-"}\n📧 ${email}\n🏪 ${store || "-"}\n🕐 ${new Date().toISOString().slice(0, 16).replace("T", " ")}`;
+        await fetch(`https://api.telegram.org/bot${context.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: context.env.TELEGRAM_CHAT_ID, text: tgText, parse_mode: "Markdown" }),
+        });
+      } catch (e) {
+        // Telegram failure nie blokuje odpowiedzi
+      }
+
+      // 4. Powiadomienie email dla Ciebie o nowym leadzie
       subject = `Nowy lead (poradnik): ${email}`;
       html = `
 <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;">
@@ -230,6 +242,28 @@ export async function onRequestPost(context) {
   </div>
   <p style="color:#94a3b8;font-size:12px;">Wysłano z formularza ecomswiftevo.pl</p>
 </div>`;
+    }
+
+    // Telegram alert dla brief i kontakt (lead-magnet ma własny wyżej)
+    if (source === "brief-wdrozeniowy") {
+      try {
+        const storeName = body.store_name || "-";
+        const tgText = `📋 *Nowy brief wdrożeniowy*\n🏪 ${storeName}\n👤 ${body.contact_name || "-"}\n📧 ${body.contact_email || "-"}\n📱 ${body.contact_phone || "-"}\n🕐 ${new Date().toISOString().slice(0, 16).replace("T", " ")}`;
+        await fetch(`https://api.telegram.org/bot${context.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: context.env.TELEGRAM_CHAT_ID, text: tgText, parse_mode: "Markdown" }),
+        });
+      } catch (e) {}
+    } else if (source === "ecomswiftevo.pl") {
+      try {
+        const tgText = `📩 *Nowy kontakt ze strony*\n👤 ${body.name || "-"}\n📧 ${body.email || "-"}\n🏪 ${body.store || "-"}\n📦 ${body.module || "-"}\n🕐 ${new Date().toISOString().slice(0, 16).replace("T", " ")}`;
+        await fetch(`https://api.telegram.org/bot${context.env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chat_id: context.env.TELEGRAM_CHAT_ID, text: tgText, parse_mode: "Markdown" }),
+        });
+      } catch (e) {}
     }
 
     const resendResponse = await fetch("https://api.resend.com/emails", {
